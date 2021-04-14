@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:smartcommerce/translations/translations_keys.dart';
 
 class Constants {
   static const String baseUrl = 'https://market.smartcommerce.me/ar/api/';
@@ -15,7 +16,11 @@ class Constants {
     'authorization': basicAuth,
   };
 
-  static showMessageDialog(context, text) {
+/*-----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------  Show Error Dialog  ----------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+
+  static showErrorDialog(context, text) {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -40,5 +45,17 @@ class Constants {
     'assets/market_slide_2.png',
     'assets/market_slide_3.png',
     'assets/market_slide_4.png',
+  ];
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------  Onboarding Titles  ----------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+
+  static const onboardingTitles = [
+    TranslationsKeys.onboardingText1,
+    TranslationsKeys.onboardingText2,
+    TranslationsKeys.onboardingText3,
+    TranslationsKeys.onboardingText4,
+    TranslationsKeys.onboardingText5,
   ];
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smartcommerce/translations/translations_keys.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
 import 'package:get/get.dart';
@@ -13,14 +12,6 @@ class OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPage> {
   int currentIndex = 0;
   PageController pageController = PageController(initialPage: 0);
-
-  static const titles = [
-    TranslationsKeys.onboardingText1,
-    TranslationsKeys.onboardingText2,
-    TranslationsKeys.onboardingText3,
-    TranslationsKeys.onboardingText4,
-    TranslationsKeys.onboardingText5,
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +37,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Text(
-                      titles[index].tr,
+                      Constants.onboardingTitles[index].tr,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize:
