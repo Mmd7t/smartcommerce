@@ -6,7 +6,7 @@ import 'controllers/home_controller.dart';
 import 'translations/translations.dart';
 
 main() {
-  // Get.put(HomeController());
+  Get.put(HomeController());
   runApp(MyApp());
 }
 
