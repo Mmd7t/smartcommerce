@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'categories/categories_page.dart';
+import 'home/home.dart';
+import 'profile.dart';
+
 class MainPage extends StatefulWidget {
   static const String routeName = 'mainPage';
 
@@ -10,11 +14,11 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentPage = 0;
   final List<Widget> pages = [
-    Container(color: Colors.red),
-    Container(color: Colors.blue),
-    Container(color: Colors.amber),
-    Container(color: Colors.teal),
-    Container(color: Colors.pink),
+    Home(),
+    ProfilePage(),
+    CategoriesPage(),
+    Container(),
+    Container(),
   ];
 
   @override

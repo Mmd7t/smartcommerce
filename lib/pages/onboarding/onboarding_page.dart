@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
 import 'package:get/get.dart';
@@ -73,7 +74,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
                         pageController.nextPage(
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeInOut);
-                      } else {}
+                      } else {
+                        Get.toNamed(MainPage.routeName);
+                      }
                     },
                   ),
                   Indicators(length: 5, cindex: currentIndex),

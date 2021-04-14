@@ -3,9 +3,13 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
 import 'package:smartcommerce/utils/app_routes.dart';
 
+import 'controllers/home_controller.dart';
 import 'translations/translations.dart';
 
-main() => runApp(MyApp());
+main() {
+  Get.put(HomeController());
+  return runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -14,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Smart Commerce',
       theme: ThemeData(primarySwatch: Colors.blue),
       debugShowCheckedModeBanner: false,
-      routes: appRoutes(context),
+      getPages: AppPages.list,
       initialRoute: OnboardingPage.routeName,
       translations: Messages(),
       locale: const Locale('ar', 'EG'),
