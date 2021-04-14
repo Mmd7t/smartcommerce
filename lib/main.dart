@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
 import 'package:smartcommerce/utils/app_routes.dart';
 
-import 'pages/main_page.dart';
+import 'translations/translations.dart';
 
 main() => runApp(MyApp());
 
@@ -12,8 +13,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Smart Commerce',
       theme: ThemeData(primarySwatch: Colors.blue),
+      debugShowCheckedModeBanner: false,
       routes: appRoutes(context),
-      initialRoute: MainPage.routeName,
+      initialRoute: OnboardingPage.routeName,
+      translations: Messages(),
+      locale: const Locale('ar', 'EG'),
     );
   }
 }
