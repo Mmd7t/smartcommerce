@@ -1,13 +1,11 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:smartcommerce/models/brands_model.dart';
 import 'package:smartcommerce/models/categories_model.dart';
 import 'package:smartcommerce/models/sliders_model.dart' hide Options;
 import 'package:smartcommerce/models/two_banners_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class HomeController extends GetxController {
   Dio dio = Dio();
@@ -26,32 +24,30 @@ class HomeController extends GetxController {
     getTwoBanners();
   }
 
-  Future<List<CategoriesModel>> getCategories() async {
-    try {
-      dio.interceptors.add(PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        responseHeader: false,
-        compact: false,
-      ));
+  Future<RxList<CategoriesModel>> getCategories() async {
+    dio.interceptors.add(PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseBody: true,
+      responseHeader: false,
+      compact: false,
+    ));
 
-      Response response = await dio.get(
-          '${Constants.baseUrl}features/categories',
-          options: Options(headers: Constants.headers));
+    Response response = await dio.get('${Constants.baseUrl}features/categories',
+        options: Options(headers: Constants.headers));
 
-      if (response.statusCode == 200 && response.data != null) {
-        categoriesList = (json.decode(response.data.toString()))
-            .map((model) => CategoriesModel.fromJson(model))
-            .toList();
+    if (response.statusCode == 200 && response.data != null) {
+      List data = response.data;
+      List<CategoriesModel> newList = [];
+      data.forEach((element) {
+        newList.add(CategoriesModel.fromJson(element));
+      });
 
-        return categoriesList;
-      } else {
-        print('errorrrrrrrrrrrrrrrrrrrrrrrr occured');
-        throw Exception();
-      }
-    } catch (e) {
-      throw e;
+      categoriesList.addAll(newList);
+      return categoriesList;
+    } else {
+      print('errorrrrrrrrrrrrrrrrrrrrrrrr occured');
+      throw Exception();
     }
   }
 
