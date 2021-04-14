@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:smartcommerce/pages/home/best_sellers.dart';
-import 'package:smartcommerce/pages/home/categories_list.dart';
-import 'package:smartcommerce/pages/home/sliders.dart';
+import 'package:smartcommerce/pages/home/components/best_sellers.dart';
+import 'package:smartcommerce/pages/home/components/categories_list.dart';
+import 'package:smartcommerce/pages/home/components/sliders.dart';
 
-import 'brands.dart';
-import 'two_banners.dart';
+import 'components/brands.dart';
+import 'components/two_banners.dart';
 
 class Home extends StatelessWidget {
   static const String routeName = 'home';

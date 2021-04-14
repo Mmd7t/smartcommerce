@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:smartcommerce/pages/registration/login_form.dart';
-import 'package:smartcommerce/pages/registration/signup_form.dart';
-import 'package:smartcommerce/pages/registration/social_btn.dart';
+import 'package:smartcommerce/pages/registration/components/login_form.dart';
+import 'package:smartcommerce/pages/registration/components/signup_form.dart';
+import 'package:smartcommerce/pages/registration/components/social_btn.dart';
 
 enum RegistrationType { login, signup }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smartcommerce/models/user_model.dart';
-import 'package:smartcommerce/pages/registration/forget_password.dart';
-import 'package:smartcommerce/pages/registration/sign_btn.dart';
+import 'package:smartcommerce/pages/registration/components/forget_password.dart';
+import 'package:smartcommerce/pages/registration/components/sign_btn.dart';
 import 'package:smartcommerce/widgets/global_textfield.dart';
 
 class LoginForm extends StatefulWidget {

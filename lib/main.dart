@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
 import 'package:smartcommerce/utils/app_routes.dart';
-
 import 'controllers/home_controller.dart';
 import 'translations/translations.dart';
 
 main() {
-  Get.put(HomeController());
-  return runApp(MyApp());
+  // Get.put(HomeController());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

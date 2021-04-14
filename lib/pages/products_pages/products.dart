@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 
-import 'categories.dart';
-import 'products_data.dart';
-import 'section2.dart';
+import 'product_components/categories.dart';
+import 'product_components/products_data.dart';
+import 'product_components/section2.dart';
 
 class Products extends StatelessWidget {
   static const String routeName = 'Products';

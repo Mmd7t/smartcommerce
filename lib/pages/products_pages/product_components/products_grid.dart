@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'product_details/product_details_page.dart';
+import '../product_details/product_details_page.dart';
 
 class ProductsGrid extends StatelessWidget {
   static const double radius = 10;

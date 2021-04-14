@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartcommerce/pages/products_pages/products_grid.dart';
+import 'package:smartcommerce/pages/products_pages/product_components/products_grid.dart';
 
 class ProductsData extends StatelessWidget {
   static const double radius = 10;

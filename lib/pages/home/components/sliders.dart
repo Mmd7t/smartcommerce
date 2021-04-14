@@ -23,7 +23,7 @@ class _SlidersState extends State<Sliders> {
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 decoration: BoxDecoration(
                   color: Colors.red,
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(10),
                   // image: DecorationImage(
                   //   alignment: Alignment.topCenter,
                   //   image:

@@ -17,9 +17,8 @@ class Indicators extends StatelessWidget {
           width: (index == cindex) ? 15 : 8,
           height: (index == cindex) ? 5 : 8,
           decoration: BoxDecoration(
-            color: (index == cindex)
-                ? Theme.of(context).accentColor
-                : Colors.transparent,
+            color:
+                (index == cindex) ? Theme.of(context).accentColor : Colors.red,
             borderRadius: BorderRadius.circular(100),
             border: (index == cindex)
                 ? Border.fromBorderSide(BorderSide.none)
