@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
+import 'package:smartcommerce/widgets/global_image.dart';
 
 class HomeCategoriesList extends StatelessWidget {
   final homeController = Get.find<HomeController>();
@@ -30,7 +31,7 @@ class HomeCategoriesList extends StatelessWidget {
                       CircleAvatar(
                         maxRadius: size.width * 0.13,
                         backgroundColor: Theme.of(context).primaryColor,
-                        backgroundImage: CachedNetworkImageProvider(
+                        backgroundImage: GlobalImage.globalImageProvider(
                             homeController.categoriesList[index].logo),
                       ),
                       const SizedBox(height: 5),

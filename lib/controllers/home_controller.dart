@@ -20,126 +20,37 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // getCategories();
-    getCats();
-    // getBrands();
-    // getSliders();
-    // getTwoBanners();
+    getCategories();
+    getSliders();
+    getBrands();
+    getTwoBanners();
   }
 
-  getCats() async {
-    categoriesList = await client.getHomeCategoriesList(Constants.basicAuth);
+  getCategories() async {
+    List<CategoriesModel> listOfCats =
+        await client.getHomeCategoriesList(Constants.basicAuth);
+    categoriesList.addAll(listOfCats);
     return categoriesList;
   }
 
-  // Future<RxList<CategoriesModel>> getCategories() async {
-  //   dio.interceptors.add(PrettyDioLogger(
-  //     requestHeader: true,
-  //     requestBody: true,
-  //     responseBody: true,
-  //     responseHeader: false,
-  //     compact: false,
-  //   ));
+  getSliders() async {
+    List<SlidersModel> listOfSliders =
+        await client.getSlidersList(Constants.basicAuth);
+    slidersList.addAll(listOfSliders);
+    return slidersList;
+  }
 
-  //   Response response = await dio.get('${Constants.baseUrl}features/categories',
-  //       options: Options(headers: Constants.headers));
+  getBrands() async {
+    List<BrandsModel> listOfBrands =
+        await client.getBrandsList(Constants.basicAuth);
+    brandsList.addAll(listOfBrands);
+    return brandsList;
+  }
 
-  //   if (response.statusCode == 200 && response.data != null) {
-  //     List data = response.data;
-  //     List<CategoriesModel> newList = [];
-  //     data.forEach((element) {
-  //       newList.add(CategoriesModel.fromJson(element));
-  //     });
-
-  //     categoriesList.addAll(newList);
-  //     return categoriesList;
-  //   } else {
-  //     print('errorrrrrrrrrrrrrrrrrrrrrrrr occured');
-  //     throw Exception();
-  //   }
-  // }
-// =======
-//   Future<RxList<CategoriesModel>> getCategories() async {
-//     dio.interceptors.add(PrettyDioLogger(
-//       requestHeader: true,
-//       requestBody: true,
-//       responseBody: true,
-//       responseHeader: false,
-//       compact: false,
-//     ));
-
-//     Response response = await dio.get('${Constants.baseUrl}features/categories',
-//         options: Options(headers: Constants.headers));
-
-//     if (response.statusCode == 200 && response.data != null) {
-//       List data = response.data;
-//       List<CategoriesModel> newList = [];
-//       data.forEach((element) {
-//         newList.add(CategoriesModel.fromJson(element));
-//       });
-
-//       categoriesList.addAll(newList);
-//       return categoriesList;
-//     } else {
-//       print('errorrrrrrrrrrrrrrrrrrrrrrrr occured');
-//       throw Exception();
-//     }
-//   }
-// >>>>>>> 0fd57e89a03a3b8535e123e402e89205d7729425
-
-  // Future<TwoBannersModel> getTwoBanners() async {
-  //   try {
-  //     dio.interceptors.add(PrettyDioLogger(
-  //       requestHeader: true,
-  //       requestBody: true,
-  //       responseBody: true,
-  //       responseHeader: false,
-  //       compact: false,
-  //     ));
-  //     Response response = await dio.get('${Constants.baseUrl}twobanners',
-  //         options: Options(headers: Constants.headers));
-
-  //     if (response.statusCode == 200 && response.data != null) {
-  //       print(response.statusCode);
-  //       return twoBannersModelFromJson(response.data.toString());
-  //     } else {
-  //       print('error occured');
-  //       throw Exception();
-  //     }
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
-
-  // Future<RxList<BrandsModel>> getBrands() async {
-  //   try {
-  //     Response response = await dio.get('${Constants.baseUrl}brands',
-  //         options: Options(headers: Constants.headers));
-
-  //     if (response.statusCode == 200 && response.data != null) {
-  //       return brandsModelFromJson(response.data);
-  //     } else {
-  //       print('error occured');
-  //       throw Exception();
-  //     }
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
-
-  // Future<RxList<SlidersModel>> getSliders() async {
-  //   try {
-  //     Response response = await dio.get('${Constants.baseUrl}sliders',
-  //         options: Options(headers: Constants.headers));
-
-  //     if (response.statusCode == 200 && response.data != null) {
-  //       return slidersModelFromJson(response.data);
-  //     } else {
-  //       print('error occured');
-  //       throw Exception();
-  //     }
-  //   } catch (e) {
-  //     throw e;
-  //   }
-  // }
+  getTwoBanners() async {
+    TwoBannersModel twoBanners =
+        await client.getTwoBanners(Constants.basicAuth);
+    twoBannersModel = twoBanners.obs;
+    return twoBannersModel;
+  }
 }
