@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartcommerce/widgets/drawer.dart';
+import 'package:smartcommerce/widgets/global_appbar.dart';
 
 import 'categories/categories_page.dart';
 import 'home/home.dart';
@@ -24,8 +26,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      drawer: Drawer(),
+      appBar: GlobalAppBar(),
+      drawer: MyDrawer(),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentPage,

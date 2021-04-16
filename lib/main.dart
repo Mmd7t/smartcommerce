@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
 import 'package:smartcommerce/utils/app_routes.dart';
+import 'package:smartcommerce/utils/theme.dart';
 import 'controllers/home_controller.dart';
 import 'translations/translations.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Smart Commerce',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: AppTheme.theme,
       debugShowCheckedModeBanner: false,
       getPages: AppPages.list,
       initialRoute: OnboardingPage.routeName,

@@ -24,8 +24,10 @@ class MyDrawer extends StatelessWidget {
                 currentAccountPicture: CircleAvatar(
                   backgroundColor: Theme.of(context).accentColor,
                 ),
-                accountName: Text('', style: TextStyle(color: Colors.black)),
-                accountEmail: Text('', style: TextStyle(color: Colors.black)),
+                accountName: const Text('gg',
+                    style: const TextStyle(color: Colors.black)),
+                accountEmail: const Text('gg',
+                    style: const TextStyle(color: Colors.black)),
               ),
             ),
             ListTile(

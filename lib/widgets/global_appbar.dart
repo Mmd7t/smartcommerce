@@ -9,17 +9,15 @@ class GlobalAppBar extends PreferredSize {
     return AppBar(
       actions: [
         IconButton(
-          icon: Icon(Icons.shopping_cart_outlined),
+          icon: const Icon(Icons.shopping_cart_outlined),
           onPressed: () {},
         ),
       ],
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(
-          bottom: Radius.circular(20),
-        ),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
       ),
       centerTitle: true,
-      title: Text('Smart Commerce'),
+      title: const Text('Smart Commerce'),
     );
   }
 }
