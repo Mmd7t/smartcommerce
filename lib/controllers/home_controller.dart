@@ -2,20 +2,20 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:smartcommerce/models/brands_model.dart';
 import 'package:smartcommerce/models/categories_model.dart';
+import 'package:smartcommerce/models/flashsale_products_model.dart';
 import 'package:smartcommerce/models/sliders_model.dart' hide Options;
 import 'package:smartcommerce/models/two_banners_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 
 class HomeController extends GetxController {
-  Dio dio = Dio();
-
+  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
   RxList<CategoriesModel> categoriesList = <CategoriesModel>[].obs;
   RxList<SlidersModel> slidersList = <SlidersModel>[].obs;
   RxList<BrandsModel> brandsList = <BrandsModel>[].obs;
   Rx<TwoBannersModel> twoBannersModel = TwoBannersModel().obs;
-
-  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
+  Rx<FlashsaleProductsModel> flashsaleProductsModel =
+      FlashsaleProductsModel().obs;
 
   @override
   void onInit() {
@@ -24,6 +24,7 @@ class HomeController extends GetxController {
     getSliders();
     getBrands();
     getTwoBanners();
+    getFlashsaleProducts();
   }
 
   getCategories() async {
@@ -52,5 +53,12 @@ class HomeController extends GetxController {
         await client.getTwoBanners(Constants.basicAuth);
     twoBannersModel = twoBanners.obs;
     return twoBannersModel;
+  }
+
+  getFlashsaleProducts() async {
+    FlashsaleProductsModel flashsaleProducts =
+        await client.getFlashsaleProducts(Constants.basicAuth);
+    flashsaleProductsModel = flashsaleProducts.obs;
+    return flashsaleProductsModel;
   }
 }

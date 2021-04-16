@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smartcommerce/pages/home/components/best_sellers.dart';
+import 'package:smartcommerce/pages/home/components/best_sales.dart';
 import 'package:smartcommerce/pages/home/components/categories_list.dart';
 import 'package:smartcommerce/pages/home/components/sliders.dart';
 

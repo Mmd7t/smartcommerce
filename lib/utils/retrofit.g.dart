@@ -133,4 +133,23 @@ class _RestClient implements RestClient {
     final value = TwoBannersModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<FlashsaleProductsModel> getFlashsaleProducts(token) async {
+    ArgumentError.checkNotNull(token, 'token');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'flashsale/products/',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': token},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = FlashsaleProductsModel.fromJson(_result.data);
+    return value;
+  }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smartcommerce/pages/main_page.dart';
 
 class MyDrawer extends StatelessWidget {
   @override

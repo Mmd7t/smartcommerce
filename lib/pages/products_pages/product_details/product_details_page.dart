@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:smartcommerce/widgets/global_appbar.dart';
-
 import 'description_part.dart';
 import 'header_part.dart';
 import 'reviews_part.dart';

@@ -1,20 +1,5 @@
-// To parse this JSON data, do
-//
-//     final twoBannersModel = twoBannersModelFromJson(jsonString);
-
-import 'dart:convert';
-
-TwoBannersModel twoBannersModelFromJson(String str) =>
-    TwoBannersModel.fromJson(json.decode(str));
-
-String twoBannersModelToJson(TwoBannersModel data) =>
-    json.encode(data.toJson());
-
 class TwoBannersModel {
-  TwoBannersModel({
-    this.banner1,
-    this.banner2,
-  });
+  TwoBannersModel({this.banner1, this.banner2});
 
   Banner banner1;
   Banner banner2;
@@ -32,18 +17,14 @@ class TwoBannersModel {
 }
 
 class Banner {
-  Banner({
-    this.image,
-    this.callToActionUrl,
-    this.openInNewWindow,
-  });
+  Banner({this.image, this.callToActionUrl, this.openInNewWindow});
 
   Image image;
   dynamic callToActionUrl;
   bool openInNewWindow;
 
   factory Banner.fromJson(Map<String, dynamic> json) => Banner(
-        image: Image.fromJson(json["image"]),
+        image: (json["image"] != null) ? Image.fromJson(json["image"]) : null,
         callToActionUrl: json["call_to_action_url"],
         openInNewWindow: json["open_in_new_window"],
       );
@@ -56,11 +37,7 @@ class Banner {
 }
 
 class Image {
-  Image({
-    this.id,
-    this.filename,
-    this.path,
-  });
+  Image({this.id, this.filename, this.path});
 
   int id;
   String filename;

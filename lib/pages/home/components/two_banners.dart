@@ -12,40 +12,44 @@ class TwoBanners extends StatelessWidget {
       child: Obx(
         () => Row(
           children: [
-            Expanded(
-              child: Container(
-                height: 100,
-                margin: const EdgeInsets.all(3),
-                child: GlobalImage.globalImage(
-                    homeController.twoBannersModel.value.banner1.image.path),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  image: DecorationImage(
-                    image: GlobalImage.globalImageProvider(homeController
-                        .twoBannersModel.value.banner1.image.path),
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                  ),
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: 100,
-                margin: const EdgeInsets.all(3),
-                child: GlobalImage.globalImage(
-                    homeController.twoBannersModel.value.banner2.image.path),
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  image: DecorationImage(
-                    image: GlobalImage.globalImageProvider(homeController
-                        .twoBannersModel.value.banner2.image.path),
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                  ),
-                ),
-              ),
-            ),
+            (homeController.twoBannersModel.value.banner1.image != null)
+                ? Expanded(
+                    child: Container(
+                      height: 100,
+                      margin: const EdgeInsets.all(3),
+                      child: GlobalImage.globalImage(homeController
+                          .twoBannersModel.value.banner1.image.path),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        image: DecorationImage(
+                          image: GlobalImage.globalImageProvider(homeController
+                              .twoBannersModel.value.banner1.image.path),
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
+            (homeController.twoBannersModel.value.banner2.image != null)
+                ? Expanded(
+                    child: Container(
+                      height: 100,
+                      margin: const EdgeInsets.all(3),
+                      child: GlobalImage.globalImage(homeController
+                          .twoBannersModel.value.banner2.image.path),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        image: DecorationImage(
+                          image: GlobalImage.globalImageProvider(homeController
+                              .twoBannersModel.value.banner2.image.path),
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                        ),
+                      ),
+                    ),
+                  )
+                : const SizedBox(),
           ],
         ),
       ),
