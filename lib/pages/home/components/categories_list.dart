@@ -16,7 +16,7 @@ class HomeCategoriesList extends StatelessWidget {
         alignment: Alignment.center,
         child: Obx(
           () => ListView.builder(
-            itemCount: homeController.categoriesList.length,
+            itemCount: homeController.categoriesParentList.length,
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
@@ -31,11 +31,12 @@ class HomeCategoriesList extends StatelessWidget {
                         maxRadius: size.width * 0.13,
                         backgroundColor: Theme.of(context).primaryColor,
                         backgroundImage: GlobalImage.globalImageProvider(
-                            homeController.categoriesList[index].logo),
+                            homeController
+                                .categoriesParentList[index].logo.path),
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        '${homeController.categoriesList[index].name}',
+                        '${homeController.categoriesParentList[index].name}',
                         style: TextStyle(color: Colors.red),
                         maxLines: 3,
                         softWrap: true,

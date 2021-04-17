@@ -5,11 +5,10 @@ import 'package:smartcommerce/widgets/global_image.dart';
 
 class HomeBestSales extends StatelessWidget {
   final homeController = Get.find<HomeController>();
+  static const radius = 10.0;
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+    return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(15.0),
@@ -26,38 +25,36 @@ class HomeBestSales extends StatelessWidget {
         Obx(
           () => Column(
             children: List.generate(
-              homeController.flashsaleProductsModel.value.flashProducts.length,
+              homeController.featuredCategoriesList.length,
               (index) => AspectRatio(
                 aspectRatio: 16 / 8,
                 child: Card(
                   margin:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(radius),
                   ),
                   child: AnimatedContainer(
                     padding: const EdgeInsets.all(4),
                     duration: const Duration(milliseconds: 500),
                     width: MediaQuery.of(context).size.width * 0.9,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: BorderRadius.circular(radius),
                       border: Border.all(color: Colors.amber[700], width: 1.5),
                     ),
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 500),
                       width: MediaQuery.of(context).size.width * 0.43,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(radius - 2),
                         border: Border.all(
                           color: Colors.amber[700],
                           width: 1.5,
                         ),
                         image: DecorationImage(
+                          fit: BoxFit.cover,
                           image: GlobalImage.globalImageProvider(homeController
-                              .flashsaleProductsModel
-                              .value
-                              .flashProducts[index]
-                              .baseImage),
+                              .featuredCategoriesList[index].logo),
                         ),
                       ),
                     ),

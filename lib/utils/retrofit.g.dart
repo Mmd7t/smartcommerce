@@ -77,7 +77,8 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<CategoriesParentModel>> getProductMainCategoryData() async {
+  Future<List<CategoriesParentModel>> getProductMainCategoryData(token) async {
+    ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
@@ -85,7 +86,7 @@ class _RestClient implements RestClient {
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{r'Authorization': token},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);

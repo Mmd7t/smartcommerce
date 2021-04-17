@@ -37,7 +37,8 @@ abstract class RestClient {
   /*--------------------------------------------------------------------------*/
 
   @GET("categories/parents")
-  Future<List<CategoriesParentModel>> getProductMainCategoryData();
+  Future<List<CategoriesParentModel>> getProductMainCategoryData(
+      @Header("Authorization") String token);
 
   /*--------------------------------------------------------------------------*/
   /*--------------------------  Home Sliders List  ---------------------------*/
