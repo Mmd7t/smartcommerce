@@ -34,7 +34,7 @@ class _MainPageState extends State<MainPage> {
         onTap: (value) {
           if (value != 4) {
             setState(() {
-              currentPage++;
+              currentPage = value;
             });
           } else {
             _roundedBorderBottomSheet(context);

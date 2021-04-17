@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:smartcommerce/models/brands_model.dart';
 import 'package:smartcommerce/models/categories_model.dart';
+import 'package:smartcommerce/models/categories_parent_model.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
 import 'package:smartcommerce/models/sliders_model.dart';
 import 'package:smartcommerce/models/two_banners_model.dart';
@@ -30,6 +31,13 @@ abstract class RestClient {
   @GET("features/categories/")
   Future<List<CategoriesModel>> getHomeCategoriesList(
       @Header("Authorization") String token);
+
+  /*--------------------------------------------------------------------------*/
+  /*--------------------  Home Categories Parent List  -----------------------*/
+  /*--------------------------------------------------------------------------*/
+
+  @GET("categories/parents")
+  Future<List<CategoriesParentModel>> getProductMainCategoryData();
 
   /*--------------------------------------------------------------------------*/
   /*--------------------------  Home Sliders List  ---------------------------*/
