@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
@@ -13,6 +14,13 @@ class OnboardingPage extends StatefulWidget {
 class _OnboardingPageState extends State<OnboardingPage> {
   int currentIndex = 0;
   PageController pageController = PageController(initialPage: 0);
+
+  @override
+  void initState() {
+    super.initState();
+    Get.put(AuthController(), permanent: true);
+    Get.put(AuthController(), permanent: true);
+  }
 
   @override
   Widget build(BuildContext context) {

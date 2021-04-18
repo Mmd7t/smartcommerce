@@ -13,7 +13,7 @@ class RegisterModel {
     this.privacyPolicy,
   });
 
-  factory RegisterModel.fromMap(Map<String, dynamic> json) {
+  factory RegisterModel.fromJson(Map<String, dynamic> json) {
     return RegisterModel(
       firstName: json['first_name'],
       lastName: json['last_name'],
@@ -23,7 +23,7 @@ class RegisterModel {
     );
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       'first_name': firstName,
       'last_name': lastName,
@@ -38,10 +38,7 @@ class LoginModel {
   String email;
   String password;
 
-  LoginModel({
-    this.email,
-    this.password,
-  });
+  LoginModel({this.email, this.password});
 
   factory LoginModel.fromJson(Map<String, dynamic> json) {
     return LoginModel(
@@ -50,16 +47,14 @@ class LoginModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'password': password,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+        'email': email,
+        'password': password,
+      };
 }
 
-class ResponseModel {
-  ResponseModel({
+class AuthResponseModel {
+  AuthResponseModel({
     this.message,
     this.apiToken,
   });
@@ -67,7 +62,8 @@ class ResponseModel {
   String message;
   String apiToken;
 
-  factory ResponseModel.fromJson(Map<String, dynamic> json) => ResponseModel(
+  factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>
+      AuthResponseModel(
         message: json["message"],
         apiToken: json["api_token"],
       );

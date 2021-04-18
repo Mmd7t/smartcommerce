@@ -14,7 +14,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int currentPage = 0;
   final List<Widget> pages = [
     Home(),
     ProfilePage(),
@@ -23,19 +22,36 @@ class _MainPageState extends State<MainPage> {
     Container(),
   ];
 
+  int pageIndex = 0;
+  PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController(initialPage: 0);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GlobalAppBar(),
       drawer: MyDrawer(),
-      body: pages[currentPage],
+      body: PageView(
+        controller: pageController,
+        onPageChanged: (int index) {
+          setState(() {
+            pageIndex = index;
+            print(index);
+          });
+        },
+        physics: NeverScrollableScrollPhysics(),
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentPage,
+        currentIndex: pageIndex,
         onTap: (value) {
           if (value != 4) {
-            setState(() {
-              currentPage = value;
-            });
+            pageController.jumpToPage(value);
           } else {
             _roundedBorderBottomSheet(context);
           }

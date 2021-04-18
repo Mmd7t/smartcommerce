@@ -17,43 +17,63 @@ class _RestClient implements RestClient {
   String baseUrl;
 
   @override
-  Future<HttpResponse<dynamic>> postLogin(data) async {
+  Future<AuthResponseModel> postLogin(data, token) async {
     ArgumentError.checkNotNull(data, 'data');
+    ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(data ?? <String, dynamic>{});
-    final _result = await _dio.request('login/',
+    final _result = await _dio.request<Map<String, dynamic>>('login',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{r'Authorization': token},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
+    final value = AuthResponseModel.fromJson(_result.data);
+    return value;
   }
 
   @override
-  Future<HttpResponse<dynamic>> postRegister(data) async {
+  Future<AuthResponseModel> postRegister(data, token) async {
     ArgumentError.checkNotNull(data, 'data');
+    ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(data ?? <String, dynamic>{});
-    final _result = await _dio.request('register/',
+    final _result = await _dio.request<Map<String, dynamic>>('register',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
-            headers: <String, dynamic>{},
+            headers: <String, dynamic>{r'Authorization': token},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = _result.data;
-    final httpResponse = HttpResponse(value, _result);
-    return httpResponse;
+    final value = AuthResponseModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<UserProfileModel> getUserProfile(data, token) async {
+    ArgumentError.checkNotNull(data, 'data');
+    ArgumentError.checkNotNull(token, 'token');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(data ?? <String, dynamic>{});
+    final _result = await _dio.request<Map<String, dynamic>>('profile',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{r'Authorization': token},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserProfileModel.fromJson(_result.data);
+    return value;
   }
 
   @override

@@ -14,7 +14,7 @@ class CategoriesSectorOne extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Obx(
           () => CarouselSlider.builder(
-            itemCount: homeController.featuredCategoriesList.length,
+            itemCount: homeController.categoriesParentList.length,
             itemBuilder: (context, index, realIndex) {
               return Container(
                 margin: const EdgeInsets.symmetric(vertical: 6),
@@ -30,14 +30,14 @@ class CategoriesSectorOne extends StatelessWidget {
                               fit: BoxFit.cover,
                               image: GlobalImage.globalImageProvider(
                                   homeController
-                                      .featuredCategoriesList[index].logo),
+                                      .categoriesParentList[index].logo.path),
                             ),
                           ),
                         ),
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        '${homeController.featuredCategoriesList[index].name}',
+                        '${homeController.categoriesParentList[index].name}',
                         textAlign: TextAlign.center,
                       ),
                     ],

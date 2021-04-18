@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartcommerce/models/user_model.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/pages/registration/components/sign_btn.dart';
 import 'package:smartcommerce/widgets/global_textfield.dart';
 
@@ -11,6 +13,7 @@ class SignupForm extends StatefulWidget {
 class _SignupFormState extends State<SignupForm> {
   final formKey = GlobalKey<FormState>();
   RegisterModel userModel = RegisterModel();
+  final authController = Get.find<AuthController>();
   String email, fName, lName, pass;
   @override
   Widget build(BuildContext context) {
@@ -19,6 +22,9 @@ class _SignupFormState extends State<SignupForm> {
         key: formKey,
         child: Column(
           children: [
+/*------------------------------------------------------------------------------------*/
+/*-----------------------------------  First Name  -----------------------------------*/
+/*------------------------------------------------------------------------------------*/
             GlobalTextField(
               hint: 'الاسم الأول',
               prefixIcon: Icons.person_outline,
@@ -36,6 +42,9 @@ class _SignupFormState extends State<SignupForm> {
               },
             ),
             const SizedBox(height: 5),
+/*------------------------------------------------------------------------------------*/
+/*-----------------------------------  Last Name  ------------------------------------*/
+/*------------------------------------------------------------------------------------*/
             GlobalTextField(
               hint: 'اسم العائلة',
               prefixIcon: Icons.person_outline,
@@ -53,6 +62,9 @@ class _SignupFormState extends State<SignupForm> {
               },
             ),
             const SizedBox(height: 5),
+/*------------------------------------------------------------------------------------*/
+/*-------------------------------------  Email  --------------------------------------*/
+/*------------------------------------------------------------------------------------*/
             GlobalTextField(
               hint: 'الايميل',
               prefixIcon: Icons.email_outlined,
@@ -72,6 +84,9 @@ class _SignupFormState extends State<SignupForm> {
               },
             ),
             const SizedBox(height: 5),
+/*------------------------------------------------------------------------------------*/
+/*------------------------------------  Password  ------------------------------------*/
+/*------------------------------------------------------------------------------------*/
             GlobalTextField(
               hint: 'الرقم السرى',
               prefixIcon: Icons.lock_outline,
@@ -95,6 +110,9 @@ class _SignupFormState extends State<SignupForm> {
                 });
               },
             ),
+/*------------------------------------------------------------------------------------*/
+/*------------------------------------  Sign Btn  ------------------------------------*/
+/*------------------------------------------------------------------------------------*/
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SignBtn(
@@ -102,7 +120,15 @@ class _SignupFormState extends State<SignupForm> {
                 onClicked: () {
                   if (formKey.currentState.validate()) {
                     formKey.currentState.save();
-                    // AuthService.signUp(context, email, pass, fName, lName);
+                    authController.register(
+                      RegisterModel(
+                        firstName: fName,
+                        lastName: lName,
+                        email: email,
+                        password: pass,
+                        privacyPolicy: 1,
+                      ),
+                    );
                   }
                 },
               ),

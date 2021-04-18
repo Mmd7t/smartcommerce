@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:smartcommerce/models/user_model.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/pages/registration/components/forget_password.dart';
 import 'package:smartcommerce/pages/registration/components/sign_btn.dart';
 import 'package:smartcommerce/widgets/global_textfield.dart';
@@ -12,6 +14,7 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   var email, pass;
   final formKey = GlobalKey<FormState>();
+  final authController = Get.find<AuthController>();
   LoginModel loginModel;
   @override
   void initState() {
@@ -75,7 +78,10 @@ class _LoginFormState extends State<LoginForm> {
                 onClicked: () {
                   if (formKey.currentState.validate()) {
                     formKey.currentState.save();
-                    // AuthService().login(context, email, pass);
+                    authController.login(LoginModel(
+                      email: email,
+                      password: pass,
+                    ));
                   }
                 },
               ),

@@ -1,6 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/pages/registration/registration.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  final apiController = Get.find<AuthController>();
+
+  @override
+  void initState() {
+    super.initState();
+    print(apiController.apiToken);
+    print(apiController.userProfileModel.value.email);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -72,7 +89,6 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {},
-              // Navigator.of(context).pushNamed(PotassiumFood.routeName),
               title: const Text("المزيد"),
               leading: Icon(
                 Icons.add,
@@ -81,7 +97,6 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {},
-              // Navigator.of(context).pushNamed(AllowedFood.routeName),
               title: const Text("اتصل بنا"),
               leading: Icon(
                 Icons.call_outlined,
@@ -90,7 +105,6 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {},
-              // Navigator.of(context).pushNamed(ForbiddenFood.routeName),
               title: const Text("الاسئلة الشائعة"),
               leading: Icon(
                 Icons.chat_outlined,
@@ -99,7 +113,6 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {},
-              // Navigator.of(context).pushNamed(ForbiddenFood.routeName),
               title: const Text("سياسة الخصوصية"),
               leading: Icon(
                 Icons.privacy_tip_outlined,
@@ -112,16 +125,25 @@ class MyDrawer extends StatelessWidget {
               endIndent: 30,
               indent: 30,
             ),
-            ListTile(
-              onTap: () {
-                // context.read<AuthProvider>().signOut();
-              },
-              title: const Text("تسجيل الخروج"),
-              leading: Icon(
-                Icons.exit_to_app_outlined,
-                color: Theme.of(context).accentColor,
-              ),
-            ),
+            (apiController.apiToken == null)
+                ? ListTile(
+                    onTap: () {
+                      Get.toNamed(Registration.routeName);
+                    },
+                    title: const Text("تسجيل دخول"),
+                    leading: Icon(
+                      Icons.exit_to_app_outlined,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  )
+                : ListTile(
+                    onTap: () {},
+                    title: const Text("تسجيل الخروج"),
+                    leading: Icon(
+                      Icons.exit_to_app_outlined,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
           ],
         ),
       ),
