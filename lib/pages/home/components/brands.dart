@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/pages/products_pages/products.dart';
+import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
 
 class HomeBrands extends StatefulWidget {
@@ -44,7 +45,8 @@ class _HomeBrandsState extends State<HomeBrands> {
                     controller.getBrandProducts();
                   });
 
-                  Get.toNamed(ProductsByBrands.routeName);
+                  Get.toNamed(ProductsByBrands.routeName,
+                      arguments: ProductsType.brand);
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

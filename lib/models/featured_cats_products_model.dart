@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:smartcommerce/models/product_data.dart';
+
 FeaturedCatsProductsModel featuredCatsProductsModelFromJson(String str) =>
     FeaturedCatsProductsModel.fromJson(json.decode(str));
 
@@ -32,10 +34,13 @@ class Products {
     this.data,
   });
 
-  List<Datum> data;
+  List<ProductData> data;
 
   factory Products.fromJson(Map<String, dynamic> json) => Products(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: json["data"] != null
+            ? List<ProductData>.from(
+                json["data"].map((x) => ProductData.fromJson(x)))
+            : [],
       );
 
   Map<String, dynamic> toJson() => {
