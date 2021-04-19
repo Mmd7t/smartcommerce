@@ -22,5 +22,10 @@ class SharedPrefsHelper {
     await initPrefs();
     String apiTokenSaved = prefs.getString(Constants.apiKey);
     return apiTokenSaved;
+  } /*-------------------------------------  get Api key  --------------------------------------*/
+
+  static Future removeToken() async {
+    await initPrefs();
+    prefs.remove(Constants.apiKey);
   }
 }

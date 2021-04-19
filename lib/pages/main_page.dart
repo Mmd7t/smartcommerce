@@ -9,9 +9,11 @@ import 'profile/profile.dart';
 
 class MainPage extends StatefulWidget {
   static const String routeName = 'mainPage';
-
+  final int initial;
   @override
   _MainPageState createState() => _MainPageState();
+
+  MainPage({this.initial = 0});
 }
 
 class _MainPageState extends State<MainPage> {
@@ -23,13 +25,14 @@ class _MainPageState extends State<MainPage> {
     Container(),
   ];
 
-  int pageIndex = 0;
+  int pageIndex;
   PageController pageController;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 0);
+    pageIndex = widget.initial;
+    pageController = PageController(initialPage: widget.initial);
   }
 
   @override

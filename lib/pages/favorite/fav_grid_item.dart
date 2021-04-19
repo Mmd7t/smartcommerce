@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
-import 'package:smartcommerce/models/product_data.dart';
+import 'package:smartcommerce/models/user_profile_model.dart';
+import 'package:smartcommerce/widgets/global_image.dart';
+import 'package:smartcommerce/widgets/progress.dart';
 
-import '../global_image.dart';
-import '../progress.dart';
-
-class ProductGridItem extends StatelessWidget {
-  final ProductData data;
-  static const double radius = 10;
+class FavGridItem extends StatelessWidget {
+  final Wishlist data;
   final AuthController controller = Get.put(AuthController());
+  static const double radius = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class ProductGridItem extends StatelessWidget {
       footer: footer(
         name: "${data.name}",
         context: context,
-        price: "${data.formattedPrice.formatted}",
+        price: "${data.price.formatted}",
       ),
 /*------------------------------------------------------------------------------*/
 /*----------------------------------  Header  ----------------------------------*/
@@ -87,9 +86,7 @@ class ProductGridItem extends StatelessWidget {
             icon: controller.wishListProcessList.contains(data.id) == true
                 ? circularDefaultProgress(context, size: 15, color: Colors.red)
                 : Icon(
-                    controller.inFav(data.id) == true
-                        ? Icons.favorite
-                        : Icons.favorite_border,
+                    Icons.close,
                     color: Colors.red,
                   ),
             onPressed: () {
@@ -157,5 +154,5 @@ class ProductGridItem extends StatelessWidget {
     );
   }
 
-  ProductGridItem(this.data);
+  FavGridItem(this.data);
 }

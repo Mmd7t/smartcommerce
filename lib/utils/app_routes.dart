@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:smartcommerce/pages/addresses/new_shipping_address.dart';
 import 'package:smartcommerce/pages/addresses/user_address.dart';
+import 'package:smartcommerce/pages/favorite/favorite_page.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
 import 'package:smartcommerce/pages/products_pages/product_details/product_details_page.dart';
@@ -37,6 +38,10 @@ class AppPages {
     GetPage(
       name: ProductsByBrands.routeName,
       page: () => ProductsByBrands(),
+    ),
+    GetPage(
+      name: FavoritePage.routeName,
+      page: () => FavoritePage(),
     ),
     GetPage(
       name: ProductDetails.routeName,

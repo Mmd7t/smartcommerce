@@ -22,6 +22,7 @@ class AuthController extends GetxController {
   RxBool loadingReviews = RxBool(false);
   RxBool userDataLoading = RxBool(false);
   RxBool wishListLoading = RxBool(false);
+  RxList<int> wishListProcessList = RxList([]);
 
   void saveToken(String token) {
     apiToken = token.obs;
@@ -31,9 +32,9 @@ class AuthController extends GetxController {
   Future<void> getToken() async {
     String data = await SharedPrefsHelper.getApiTokenFromPrefs();
     if (data != null) {
-      //    apiToken = data.obs;
-      apiToken =
-          "\$2y\$10\$f05o1IgQ8zQSFdSwzHPbke2beEai0.1QCZOCfkMtvxPvUQnqzdQiK".obs;
+      apiToken = data.obs;
+      // apiToken =
+      //     "\$2y\$10\$f05o1IgQ8zQSFdSwzHPbke2beEai0.1QCZOCfkMtvxPvUQnqzdQiK".obs;
     }
   }
 
@@ -60,6 +61,11 @@ class AuthController extends GetxController {
     } catch (e) {
       throw e;
     }
+  }
+
+  logOut() {
+    SharedPrefsHelper.removeToken();
+    Get.offAllNamed(Registration.routeName);
   }
 
   Future<void> login(loginModel) async {
@@ -107,37 +113,53 @@ class AuthController extends GetxController {
     }
   }
 
+  ////// fav ///////////////////////
+
   Future<void> addToFav(int id) async {
-    await getToken();
+    wishListProcessList.add(id);
     if (apiToken != null && loadingReviews.value == false && reviews.isEmpty) {
       wishListLoading.value = true;
       HttpResponse data = await client.addToUserWishList(apiToken.value, id);
       if (data != null) {
-        getUserReviews();
+        await getUserProfile();
       }
       wishListLoading.value = false;
     }
+    wishListProcessList.remove(id);
   }
 
   Future<void> removeFromFav(int id) async {
-    await getToken();
+    wishListProcessList.add(id);
     if (apiToken != null && loadingReviews.value == false && reviews.isEmpty) {
       wishListLoading.value = true;
       HttpResponse data = await client.deleteFromWishList(apiToken.value, id);
       if (data != null) {
-        getUserReviews();
+        await getUserProfile();
       }
       wishListLoading.value = false;
     }
+    wishListProcessList.remove(id);
   }
 
   void lookUpFav(int id) async {
+    if (wishListLoading.value != true) {
+      if (userProfileModel.value.wishlist
+          .where((element) => element.id == id)
+          .isNotEmpty) {
+        await removeFromFav(id);
+      } else {
+        await addToFav(id);
+      }
+    }
+  }
+
+  bool inFav(int id) {
+    bool ret = false;
     if (userProfileModel.value.wishlist
         .where((element) => element.id == id)
         .isNotEmpty) {
-      await removeFromFav(id);
-    } else {
-      await addToFav(id);
+      ret = true;
     }
+    return ret;
   }
 }
