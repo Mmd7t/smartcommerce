@@ -86,9 +86,7 @@ class _ProductDetailsState extends State<ProductDetails>
               StickyHeader(),
             ];
           },
-          body: TabBarView(
-            children: pages,
-          ),
+          body: TabBarView(children: pages),
         ),
       ),
       bottomNavigationBar: Padding(

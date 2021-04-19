@@ -6,9 +6,7 @@ import 'package:smartcommerce/utils/theme.dart';
 
 import 'translations/translations.dart';
 
-void main() {
-  runApp(MyApp());
-}
+main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override

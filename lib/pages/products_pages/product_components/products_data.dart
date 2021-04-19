@@ -22,7 +22,7 @@ class ProductsData extends StatelessWidget {
                   ? circularDefaultProgress(context)
                   : controller.brandProducts.value.products.data.isEmpty
                       ? EmptyProductDetails(text: "no products here".tr)
-                      : ProductsGrid(type: ProductsType.brand),
+                      : ProductsGrid(),
             ),
           )
         : Obx(
@@ -32,7 +32,7 @@ class ProductsData extends StatelessWidget {
                   ? circularDefaultProgress(context)
                   : controller.featuredCatsProducts.value.products.data.isEmpty
                       ? EmptyProductDetails(text: "no products here".tr)
-                      : ProductsGrid(type: ProductsType.featured),
+                      : ProductsGrid(),
             ),
           );
   }

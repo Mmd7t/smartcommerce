@@ -9,8 +9,6 @@ part of 'retrofit.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    _dio.interceptors
-        .add(PrettyDioLogger(requestBody: true, requestHeader: true));
     baseUrl ??= 'https://market.smartcommerce.me/ar/api/';
   }
 
@@ -315,6 +313,46 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = FeaturedCatsProductsModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<ProductDetailsModel> getProductDetails(apiToken, id) async {
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'api_token': apiToken};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'product/$id/{api_token}',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ProductDetailsModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<UserOrdersModel> getUserOrders(apiToken) async {
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'api_token': apiToken};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('user/orders',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = UserOrdersModel.fromJson(_result.data);
     return value;
   }
 }

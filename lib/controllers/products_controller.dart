@@ -2,8 +2,10 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/models/featured_cats_products_model.dart';
+import 'package:smartcommerce/models/product_details_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
+import 'package:smartcommerce/utils/shared_prefs.dart';
 
 class ProductsController extends GetxController {
   final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
@@ -18,6 +20,19 @@ class ProductsController extends GetxController {
       FeaturedCatsProductsModel().obs;
   //// loader /////
   RxBool loadingfeaturedCatsProducts = RxBool(false);
+
+  RxInt selectedProductDetails = RxInt(0);
+  Rx<ProductDetailsModel> productDetails = ProductDetailsModel().obs;
+  //// loader /////
+  RxBool loadingProductDetails = RxBool(false);
+
+  RxString apiToken;
+  Future<void> getToken() async {
+    String data = await SharedPrefsHelper.getApiTokenFromPrefs();
+    if (data != null) {
+      apiToken = data.obs;
+    }
+  }
 
   getBrandProducts() async {
     print(selectedBrandProduct.value);
@@ -43,19 +58,18 @@ class ProductsController extends GetxController {
     loadingfeaturedCatsProducts.value = false;
   }
 
-  // void getSelectedSubCategories() async {
-  //   if (subCategories[selectedSubCategories.value] != null &&
-  //       subCategories[selectedSubCategories.value].data.isNotEmpty &&
-  //       subCategories[selectedSubCategories.value].fetching != true) {
-  //   } else {
-  //     subCategories[selectedSubCategories.value] = SubCategory.empty();
-  //     List data = await client.getCategoryChildren(selectedSubCategories.value);
-  //     if (data != null) {
-  //       subCategories.update(
-  //           selectedSubCategories.value, (value) => value..data = data);
-  //       subCategories[selectedSubCategories.value].data = data;
-  //     }
-  //     subCategories[selectedSubCategories.value].fetching = false;
-  //   }
-  // }
+  getProductDetails() async {
+    await getToken();
+    if (apiToken.value != null) {
+      print(selectedProductDetails.value);
+      loadingProductDetails.value = true;
+      ProductDetailsModel data = await client.getProductDetails(
+          apiToken.value, selectedProductDetails.value);
+      if (data != null) {
+        print('Product Details is hereeeeeeeeeeeeeeeeeeeee');
+        productDetails = data.obs;
+      }
+      loadingfeaturedCatsProducts.value = false;
+    }
+  }
 }

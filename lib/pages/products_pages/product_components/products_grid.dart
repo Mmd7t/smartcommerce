@@ -36,8 +36,9 @@ class ProductsGrid extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(radius),
                 splashColor: Theme.of(context).accentColor,
-                onTap: () =>
-                    Navigator.of(context).pushNamed(ProductDetails.routeName),
+                onTap: () {
+                  Get.toNamed(ProductDetails.routeName);
+                },
                 child: GridTile(
 /*------------------------------------------------------------------------------*/
 /*----------------------------------  Footer  ----------------------------------*/
