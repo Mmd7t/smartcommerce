@@ -29,6 +29,9 @@ dependencies:
   toast: any
   flutter_rating_bar: any
   timeago: any
+  auto_size_text: ^2.1.0
+  flutter_countdown_timer: ^4.0.2
+  animated_text_kit: ^4.2.0
 
 
 dev_dependencies:

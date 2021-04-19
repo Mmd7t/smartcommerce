@@ -10,6 +10,7 @@ import 'package:smartcommerce/models/featured_cats_products_model.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
 import 'package:smartcommerce/models/product_details_model.dart';
 import 'package:smartcommerce/models/review.dart';
+import 'package:smartcommerce/models/search.dart';
 import 'package:smartcommerce/models/sliders_model.dart';
 import 'package:smartcommerce/models/two_banners_model.dart';
 import 'package:smartcommerce/models/user_orders_model.dart';
@@ -119,6 +120,13 @@ abstract class RestClient {
   Future<BrandProductsModel> getBrandProducts(@Path("id") int id);
 
   /*--------------------------------------------------------------------------*/
+  /*----------------------------  search Products  ----------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @POST("product/search")
+  Future<SearchData> searchProducts(@Field("api_token") String apiToken,
+      @Field("search_title") String searchTitle);
+
+  /*--------------------------------------------------------------------------*/
   /*---------------------  Featured Categories Products  ---------------------*/
   /*--------------------------------------------------------------------------*/
   @POST("category/{id}/products")
@@ -127,8 +135,9 @@ abstract class RestClient {
   /*--------------------------------------------------------------------------*/
   /*---------------------  Featured Categories Products  ---------------------*/
   /*--------------------------------------------------------------------------*/
-  @POST("product/{id}/ ")
-  Future<ProductDetailsModel> getProductDetails(@Path("id") int id);
+  @GET("product/{id}/{api_token}")
+  Future<ProductDetailsModel> getProductDetails(
+      @Path("id") int id, @Path("api_token") String apiToken);
 
   /*--------------------------------------------------------------------------*/
   /*------------------------------  User Orders  -----------------------------*/

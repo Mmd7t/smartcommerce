@@ -298,6 +298,26 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<SearchData> searchProducts(apiToken, searchTitle) async {
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    ArgumentError.checkNotNull(searchTitle, 'searchTitle');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'api_token': apiToken, 'search_title': searchTitle};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('product/search',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = SearchData.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<FeaturedCatsProductsModel> getFeaturedCatsProducts(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
@@ -317,15 +337,16 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<ProductDetailsModel> getProductDetails(id) async {
+  Future<ProductDetailsModel> getProductDetails(id, apiToken) async {
     ArgumentError.checkNotNull(id, 'id');
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>('product/$id/ ',
         queryParameters: queryParameters,
         options: RequestOptions(
-            method: 'POST',
+            method: 'GET',
             headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),

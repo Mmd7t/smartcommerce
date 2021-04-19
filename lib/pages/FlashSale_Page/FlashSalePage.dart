@@ -20,8 +20,12 @@ class _FlashSalePageState extends State<FlashSalePage> {
             controller.flashSaleLoading.value == true
                 ? circularDefaultProgress(context)
                 : GridView.builder(
+                    itemCount: controller
+                        .flashSaleProductsModel.value.flashProducts.length,
                     gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        maxCrossAxisExtent: null),
+                      maxCrossAxisExtent: 300,
+                      childAspectRatio: 3 / 6,
+                    ),
                     itemBuilder: (context, index) => FlashSaleItem(controller
                         .flashSaleProductsModel.value.flashProducts[index])),
       ),
