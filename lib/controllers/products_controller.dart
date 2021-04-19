@@ -9,22 +9,26 @@ import 'package:smartcommerce/utils/shared_prefs.dart';
 
 class ProductsController extends GetxController {
   final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
-
+/*------------------------------  Brand Products  -------------------------------*/
   RxInt selectedBrandProduct = RxInt(0);
   Rx<BrandProductsModel> brandProducts = BrandProductsModel().obs;
   //// loader /////
   RxBool loadingBrandProducts = RxBool(false);
-
+/*---------------------------  Featured Cats Products  --------------------------*/
   RxInt selectedFeaturedCatsProducts = RxInt(0);
   Rx<FeaturedCatsProductsModel> featuredCatsProducts =
       FeaturedCatsProductsModel().obs;
   //// loader /////
   RxBool loadingfeaturedCatsProducts = RxBool(false);
-
+/*------------------------------  Product Details  ------------------------------*/
   RxInt selectedProductDetails = RxInt(0);
   Rx<ProductDetailsModel> productDetails = ProductDetailsModel().obs;
   //// loader /////
   RxBool loadingProductDetails = RxBool(false);
+
+  setSelectedProductDetails(int value) {
+    selectedProductDetails = value.obs;
+  }
 
   RxString apiToken;
   Future<void> getToken() async {
@@ -64,12 +68,21 @@ class ProductsController extends GetxController {
       print(selectedProductDetails.value);
       loadingProductDetails.value = true;
       ProductDetailsModel data = await client.getProductDetails(
-          apiToken.value, selectedProductDetails.value);
+          apiToken.value.toString(), selectedProductDetails.value);
       if (data != null) {
         print('Product Details is hereeeeeeeeeeeeeeeeeeeee');
         productDetails = data.obs;
       }
       loadingfeaturedCatsProducts.value = false;
     }
+    print(selectedProductDetails.value);
+    loadingProductDetails.value = true;
+    ProductDetailsModel data = await client.getProductDetails(
+        apiToken.value.toString(), selectedProductDetails.value);
+    if (data != null) {
+      print('Product Details is hereeeeeeeeeeeeeeeeeeeee');
+      productDetails = data.obs;
+    }
+    loadingfeaturedCatsProducts.value = false;
   }
 }

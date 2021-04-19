@@ -9,6 +9,7 @@ class ProductsGrid extends StatelessWidget {
   static const double radius = 10;
   final ProductsType type;
   const ProductsGrid({Key key, this.type}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetX(
@@ -32,11 +33,13 @@ class ProductsGrid extends StatelessWidget {
               data = controller.featuredCatsProducts.value.products.data;
             }
             return ClipRRect(
-              borderRadius: BorderRadius.circular(radius),
+              borderRadius: BorderRadius.circular(ProductsGrid.radius),
               child: InkWell(
-                borderRadius: BorderRadius.circular(radius),
+                borderRadius: BorderRadius.circular(ProductsGrid.radius),
                 splashColor: Theme.of(context).accentColor,
                 onTap: () {
+                  controller.setSelectedProductDetails(data[index].id);
+                  controller.getProductDetails();
                   Get.toNamed(ProductDetails.routeName);
                 },
                 child: GridTile(
@@ -68,9 +71,6 @@ class ProductsGrid extends StatelessWidget {
     );
   }
 
-/*-----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------  Footer Function  ------------------------------------------*/
-/*-----------------------------------------------------------------------------------------------------*/
   footer({name, context, price}) {
     return Directionality(
       textDirection: TextDirection.ltr,
@@ -106,9 +106,6 @@ class ProductsGrid extends StatelessWidget {
     );
   }
 
-/*-----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------  Header Function  ------------------------------------------*/
-/*-----------------------------------------------------------------------------------------------------*/
   header(context) {
     // bool isAddedToCart = await CartDB().getDataById(data.id);
     return Row(
@@ -132,15 +129,12 @@ class ProductsGrid extends StatelessWidget {
     );
   }
 
-/*-----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------  Child Function  -------------------------------------------*/
-/*-----------------------------------------------------------------------------------------------------*/
   child({context, img}) {
     return Card(
       elevation: 0.0,
       margin: const EdgeInsets.all(5.0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius),
+        borderRadius: BorderRadius.circular(ProductsGrid.radius),
       ),
       child: Container(
         padding: const EdgeInsets.all(10).copyWith(top: 30),
@@ -157,7 +151,7 @@ class ProductsGrid extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             width: 1.2,
           ),
-          borderRadius: BorderRadius.circular(radius),
+          borderRadius: BorderRadius.circular(ProductsGrid.radius),
         ),
         child: Stack(
           alignment: Alignment.topCenter,

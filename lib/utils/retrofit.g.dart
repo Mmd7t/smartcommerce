@@ -322,10 +322,9 @@ class _RestClient implements RestClient {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _data = {'api_token': apiToken};
-    _data.removeWhere((k, v) => v == null);
+    final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'product/$id/{api_token}',
+        'product/$id/$apiToken',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',

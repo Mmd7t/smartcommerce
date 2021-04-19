@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
 import 'description_part.dart';
 import 'header_part.dart';
 import 'reviews_part.dart';
@@ -14,6 +16,7 @@ class ProductDetails extends StatefulWidget {
 
 class _ProductDetailsState extends State<ProductDetails>
     with TickerProviderStateMixin {
+  final contoller = Get.find<ProductsController>();
   Animation animation, animation2;
   AnimationController animationController;
   var pages = [
@@ -68,42 +71,45 @@ class _ProductDetailsState extends State<ProductDetails>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      extendBody: true,
-      body: DefaultTabController(
-        length: 2,
-        child: NestedScrollView(
-          physics: NeverScrollableScrollPhysics(),
-          headerSliverBuilder: (context, isScolled) {
-            return [
-              SliverAppBar(
-                automaticallyImplyLeading: false,
-                collapsedHeight: MediaQuery.of(context).size.height * 0.4,
-                expandedHeight: MediaQuery.of(context).size.height * 0.4,
-                flexibleSpace: HeaderPart(),
-              ),
-              StickyHeader(),
-            ];
-          },
-          body: TabBarView(children: pages),
+    return Obx(
+      () => Scaffold(
+        appBar: AppBar(),
+        extendBody: true,
+        body: DefaultTabController(
+          length: 2,
+          child: NestedScrollView(
+            physics: NeverScrollableScrollPhysics(),
+            headerSliverBuilder: (context, isScolled) {
+              return [
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  collapsedHeight: MediaQuery.of(context).size.height * 0.4,
+                  expandedHeight: MediaQuery.of(context).size.height * 0.4,
+                  flexibleSpace: HeaderPart(),
+                ),
+                StickyHeader(),
+              ];
+            },
+            body: TabBarView(children: pages),
+          ),
         ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _priceWidget(),
-            /*----------------------------------  Add to Cart  ------------------------------------*/
-            MaterialButton(
-              child: const Text("Add to Cart"),
-              color: Colors.red,
-              onPressed: () {},
-              height: 50,
-              minWidth: MediaQuery.of(context).size.width * 0.5,
-            ),
-          ],
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _priceWidget(
+                  price: contoller.productDetails.value.formattedPrice),
+              /*----------------------------------  Add to Cart  ------------------------------------*/
+              MaterialButton(
+                child: const Text("Add to Cart"),
+                color: Colors.red,
+                onPressed: () {},
+                height: 50,
+                minWidth: MediaQuery.of(context).size.width * 0.5,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -112,7 +118,7 @@ class _ProductDetailsState extends State<ProductDetails>
   //--**
   /*----------------------------------  Price Widget  ------------------------------------*/
   //--**
-  _priceWidget() {
+  _priceWidget({price}) {
     return Stack(
       alignment: Alignment.centerRight,
       children: [
@@ -131,7 +137,7 @@ class _ProductDetailsState extends State<ProductDetails>
             duration: Duration(milliseconds: 600),
             opacity: animation2.value,
             child: Text(
-              "20",
+              '$price',
               style: TextStyle(
                 fontSize: Theme.of(context).textTheme.headline6.fontSize,
                 fontWeight: FontWeight.w600,

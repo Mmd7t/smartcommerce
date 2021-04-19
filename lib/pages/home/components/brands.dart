@@ -16,7 +16,6 @@ class _HomeBrandsState extends State<HomeBrands> {
   @override
   void initState() {
     super.initState();
-
     controller.selectedBrandProduct.value = homeController.brandsList[0].id;
     controller.getBrandProducts();
   }

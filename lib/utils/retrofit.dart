@@ -129,7 +129,7 @@ abstract class RestClient {
   /*--------------------------------------------------------------------------*/
   @POST("product/{id}/{api_token}")
   Future<ProductDetailsModel> getProductDetails(
-      @Field("api_token") String apiToken, @Path("id") int id);
+      @Path("api_token") String apiToken, @Path("id") int id);
 
   /*--------------------------------------------------------------------------*/
   /*------------------------------  User Orders  -----------------------------*/
