@@ -9,8 +9,8 @@ import 'package:smartcommerce/pages/user_review/user_reviews.dart';
 class AppPages {
   static var list = [
     GetPage(
-      name: OnboardingPage.routeName,
-      page: () => OnboardingPage(),
+      name: OnBoardingPage.routeName,
+      page: () => OnBoardingPage(),
     ),
     GetPage(
       name: MainPage.routeName,
@@ -23,7 +23,8 @@ class AppPages {
     GetPage(
       name: MyAddressScreen.routeName,
       page: () => MyAddressScreen(),
-    ),    GetPage(
+    ),
+    GetPage(
       name: UserReviews.routeName,
       page: () => UserReviews(),
     ),

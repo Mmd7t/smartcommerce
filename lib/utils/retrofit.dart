@@ -104,7 +104,7 @@ abstract class RestClient {
   /*-----------------------  Home Flashsale Products  ------------------------*/
   /*--------------------------------------------------------------------------*/
   @GET("flashsale/products/")
-  Future<FlashsaleProductsModel> getFlashsaleProducts(
+  Future<FlashSaleProductsModel> getFlashSaleProducts(
       @Header("Authorization") String token);
 }
 

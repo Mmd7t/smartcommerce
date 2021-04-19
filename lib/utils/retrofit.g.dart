@@ -260,7 +260,7 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<FlashsaleProductsModel> getFlashsaleProducts(token) async {
+  Future<FlashSaleProductsModel> getFlashSaleProducts(token) async {
     ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -274,7 +274,7 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = FlashsaleProductsModel.fromJson(_result.data);
+    final value = FlashSaleProductsModel.fromJson(_result.data);
     return value;
   }
 }

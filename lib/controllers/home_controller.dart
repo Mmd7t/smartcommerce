@@ -15,8 +15,8 @@ class HomeController extends GetxController {
   RxList<SlidersModel> slidersList = <SlidersModel>[].obs;
   RxList<BrandsModel> brandsList = <BrandsModel>[].obs;
   Rx<TwoBannersModel> twoBannersModel = TwoBannersModel().obs;
-  Rx<FlashsaleProductsModel> flashsaleProductsModel =
-      FlashsaleProductsModel().obs;
+  Rx<FlashSaleProductsModel> flashsaleProductsModel =
+      FlashSaleProductsModel().obs;
 
   @override
   void onInit() {
