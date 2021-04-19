@@ -5,11 +5,14 @@ import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/models/brands_model.dart';
 import 'package:smartcommerce/models/categories_model.dart';
 import 'package:smartcommerce/models/categories_parent_model.dart';
+import 'package:smartcommerce/models/featured_cats_products_model.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
+import 'package:smartcommerce/models/product_details_model.dart';
 import 'package:smartcommerce/models/review.dart';
 import 'package:smartcommerce/models/search.dart';
 import 'package:smartcommerce/models/sliders_model.dart';
 import 'package:smartcommerce/models/two_banners_model.dart';
+import 'package:smartcommerce/models/user_orders_model.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 
@@ -114,12 +117,32 @@ abstract class RestClient {
   /*--------------------------------------------------------------------------*/
   @POST("brand/{id}/products")
   Future<BrandProductsModel> getBrandProducts(@Path("id") int id);
+
   /*--------------------------------------------------------------------------*/
   /*----------------------------  search Products  ----------------------------*/
   /*--------------------------------------------------------------------------*/
   @POST("product/search")
   Future<SearchData> searchProducts(@Field("api_token") String apiToken,
       @Field("search_title") String searchTitle);
+
+  /*--------------------------------------------------------------------------*/
+  /*---------------------  Featured Categories Products  ---------------------*/
+  /*--------------------------------------------------------------------------*/
+  @POST("category/{id}/products")
+  Future<FeaturedCatsProductsModel> getFeaturedCatsProducts(@Path("id") int id);
+
+  /*--------------------------------------------------------------------------*/
+  /*---------------------  Featured Categories Products  ---------------------*/
+  /*--------------------------------------------------------------------------*/
+  @POST("product/{id}/{api_token}")
+  Future<ProductDetailsModel> getProductDetails(
+      @Path("api_token") String apiToken, @Path("id") int id);
+
+  /*--------------------------------------------------------------------------*/
+  /*------------------------------  User Orders  -----------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @POST("user/orders")
+  Future<UserOrdersModel> getUserOrders(@Field("api_token") String apiToken);
 }
 
 //      _dio.interceptors.add(PrettyDioLogger(requestBody: true , requestHeader: true));

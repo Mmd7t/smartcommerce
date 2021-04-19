@@ -56,6 +56,7 @@ class Products {
   });
 
   List<ProductData> data;
+
   dynamic nextPageUrl;
   dynamic prevPageUrl;
   int lastPage;
