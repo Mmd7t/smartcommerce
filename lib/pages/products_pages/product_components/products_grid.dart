@@ -3,58 +3,63 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
+
 import '../product_details/product_details_page.dart';
 
 class ProductsGrid extends StatelessWidget {
   static const double radius = 10;
-  final brandProductsController = Get.find<ProductsController>();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          childAspectRatio: 3 / 5,
-        ),
-        itemCount:
-            brandProductsController.brandProducts.value.products.data.length,
-        itemBuilder: (context, index) {
-          List<Datum> data =
-              brandProductsController.brandProducts.value.products.data;
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(radius),
-            child: InkWell(
+    return GetX(
+      init: ProductsController(),
+      builder: (ProductsController brandProductsController) {
+        print(brandProductsController
+            .brandProducts.value.products.data.first.brandId);
+        return GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            childAspectRatio: 3 / 5,
+          ),
+          itemCount:
+              brandProductsController.brandProducts.value.products.data.length,
+          itemBuilder: (context, index) {
+            List<Datum> data =
+                brandProductsController.brandProducts.value.products.data;
+            return ClipRRect(
               borderRadius: BorderRadius.circular(radius),
-              splashColor: Theme.of(context).accentColor,
-              onTap: () =>
-                  Navigator.of(context).pushNamed(ProductDetails.routeName),
-              child: GridTile(
+              child: InkWell(
+                borderRadius: BorderRadius.circular(radius),
+                splashColor: Theme.of(context).accentColor,
+                onTap: () =>
+                    Navigator.of(context).pushNamed(ProductDetails.routeName),
+                child: GridTile(
 /*------------------------------------------------------------------------------*/
 /*----------------------------------  Footer  ----------------------------------*/
 /*------------------------------------------------------------------------------*/
-                footer: footer(
-                  name: "${data[index].name}",
-                  context: context,
-                  price: "${data[index].formattedPrice.formatted}",
-                ),
+                  footer: footer(
+                    name: "${data[index].name}",
+                    context: context,
+                    price: "${data[index].formattedPrice.formatted}",
+                  ),
 /*------------------------------------------------------------------------------*/
 /*----------------------------------  Header  ----------------------------------*/
 /*------------------------------------------------------------------------------*/
-                header: header(context),
+                  header: header(context),
 /*------------------------------------------------------------------------------*/
 /*----------------------------------  Child  -----------------------------------*/
 /*------------------------------------------------------------------------------*/
-                child: child(
-                  context: context,
-                  img: "${data[index].baseImage}",
+                  child: child(
+                    context: context,
+                    img: "${data[index].baseImage}",
+                  ),
                 ),
               ),
-            ),
-          );
-        },
-      ),
+            );
+          },
+        );
+      },
     );
   }
 

@@ -7,26 +7,22 @@ import 'package:smartcommerce/utils/retrofit.dart';
 class ProductsController extends GetxController {
   final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
 
-  RxMap<int, BrandProductsModel> subCategories =
-      <int, BrandProductsModel>{}.obs;
-
   RxInt selectedBrandProduct = RxInt(0);
-
   Rx<BrandProductsModel> brandProducts = BrandProductsModel().obs;
 
+  //// loader /////
+  RxBool loadingBrandProducts = RxBool(false);
+
   getBrandProducts() async {
-    try {
-      BrandProductsModel data =
-          await client.getBrandProducts(selectedBrandProduct.value);
-      if (data != null) {
-        print('Brand Products is hereeeeeeeeeeeeeeeeeeeee');
-        brandProducts = data.obs;
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
-      throw e;
+    print(selectedBrandProduct.value);
+    loadingBrandProducts.value = true;
+    BrandProductsModel data =
+        await client.getBrandProducts(selectedBrandProduct.value);
+    if (data != null) {
+      print('Brand Products is hereeeeeeeeeeeeeeeeeeeee');
+      brandProducts = data.obs;
     }
+    loadingBrandProducts.value = false;
   }
 
   // void getSelectedSubCategories() async {

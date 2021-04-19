@@ -34,8 +34,8 @@ class AppPages {
       page: () => NewShippingAddress(),
     ),
     GetPage(
-      name: Products.routeName,
-      page: () => Products(),
+      name: ProductsByBrands.routeName,
+      page: () => ProductsByBrands(),
     ),
   ];
 }
