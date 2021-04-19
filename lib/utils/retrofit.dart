@@ -5,6 +5,7 @@ import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/models/brands_model.dart';
 import 'package:smartcommerce/models/categories_model.dart';
 import 'package:smartcommerce/models/categories_parent_model.dart';
+import 'package:smartcommerce/models/featured_cats_products_model.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
 import 'package:smartcommerce/models/review.dart';
 import 'package:smartcommerce/models/sliders_model.dart';
@@ -112,6 +113,12 @@ abstract class RestClient {
   /*--------------------------------------------------------------------------*/
   @POST("brand/{id}/products")
   Future<BrandProductsModel> getBrandProducts(@Path("id") int id);
+
+  /*--------------------------------------------------------------------------*/
+  /*---------------------  Featured Categories Products  ---------------------*/
+  /*--------------------------------------------------------------------------*/
+  @POST("category/{id}/products")
+  Future<FeaturedCatsProductsModel> getFeaturedCatsProducts(@Path("id") int id);
 }
 
 //      _dio.interceptors.add(PrettyDioLogger(requestBody: true , requestHeader: true));

@@ -1,18 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
+import 'package:smartcommerce/models/featured_cats_products_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 
 class ProductsController extends GetxController {
   final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
 
-  RxMap<int, BrandProductsModel> subCategories =
-      <int, BrandProductsModel>{}.obs;
-
   RxInt selectedBrandProduct = RxInt(0);
-
   Rx<BrandProductsModel> brandProducts = BrandProductsModel().obs;
+
+  RxInt selectedFeaturedCatsProducts = RxInt(0);
+  Rx<FeaturedCatsProductsModel> featuredCatsProducts =
+      FeaturedCatsProductsModel().obs;
 
   getBrandProducts() async {
     try {
@@ -21,6 +22,21 @@ class ProductsController extends GetxController {
       if (data != null) {
         print('Brand Products is hereeeeeeeeeeeeeeeeeeeee');
         brandProducts = data.obs;
+      } else {
+        throw Exception();
+      }
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  getFeaturedCatsProducts() async {
+    try {
+      FeaturedCatsProductsModel data = await client
+          .getFeaturedCatsProducts(selectedFeaturedCatsProducts.value);
+      if (data != null) {
+        print('Brand Products is hereeeeeeeeeeeeeeeeeeeee');
+        featuredCatsProducts = data.obs;
       } else {
         throw Exception();
       }

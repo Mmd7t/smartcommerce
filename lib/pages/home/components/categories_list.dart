@@ -1,13 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
-import 'package:smartcommerce/controllers/home_controller.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
+import 'package:smartcommerce/pages/products_pages/products.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
-class HomeCategoriesList extends StatelessWidget {
-  final homeController = Get.find<HomeController>();
+class HomeCategoriesList extends StatefulWidget {
+  @override
+  _HomeCategoriesListState createState() => _HomeCategoriesListState();
+}
+
+class _HomeCategoriesListState extends State<HomeCategoriesList> {
   final categoryController = Get.find<CategoryController>();
+  ProductsController controller = Get.put(ProductsController());
+  @override
+  void initState() {
+    super.initState();
+    controller.selectedFeaturedCatsProducts.value =
+        categoryController.categoriesParentList[0].id;
+    controller.getFeaturedCatsProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +40,41 @@ class HomeCategoriesList extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: Container(
-                        width: size.width * 0.3,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CircleAvatar(
-                              maxRadius: size.width * 0.13,
-                              backgroundColor: Theme.of(context).primaryColor,
-                              backgroundImage: GlobalImage.globalImageProvider(
-                                  categoryController
-                                      .categoriesParentList[index].logo.path),
-                            ),
-                            const SizedBox(height: 5),
-                            Text(
-                              '${categoryController.categoriesParentList[index].name}',
-                              style: TextStyle(color: Colors.red),
-                              maxLines: 3,
-                              softWrap: true,
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            controller.selectedFeaturedCatsProducts.value =
+                                categoryController
+                                    .categoriesParentList[index].id;
+                            controller.getFeaturedCatsProducts();
+                          });
+                          Get.toNamed(Products.routeName);
+                        },
+                        child: Container(
+                          width: size.width * 0.3,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              CircleAvatar(
+                                maxRadius: size.width * 0.13,
+                                backgroundColor: Theme.of(context).primaryColor,
+                                backgroundImage:
+                                    GlobalImage.globalImageProvider(
+                                        categoryController
+                                            .categoriesParentList[index]
+                                            .logo
+                                            .path),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                '${categoryController.categoriesParentList[index].name}',
+                                style: TextStyle(color: Colors.red),
+                                maxLines: 3,
+                                softWrap: true,
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );
