@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
-import 'package:smartcommerce/models/brand_products_model.dart';
+import 'package:smartcommerce/models/product_data.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
 
 import '../product_details/product_details_page.dart';
@@ -16,7 +16,7 @@ class ProductsList extends StatelessWidget {
         return ListView.builder(
           itemCount: controller.brandProducts.value.products.data.length,
           itemBuilder: (context, index) {
-            List<BrandsDatum> data =
+            List<ProductData> data =
                 controller.brandProducts.value.products.data;
             return InkWell(
               borderRadius: BorderRadius.circular(15),
