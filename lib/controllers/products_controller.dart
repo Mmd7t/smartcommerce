@@ -67,22 +67,13 @@ class ProductsController extends GetxController {
     if (apiToken.value != null) {
       print(selectedProductDetails.value);
       loadingProductDetails.value = true;
-      ProductDetailsModel data = await client.getProductDetails(
-          apiToken.value.toString(), selectedProductDetails.value);
+      ProductDetailsModel data =
+          await client.getProductDetails(selectedProductDetails.value);
       if (data != null) {
         print('Product Details is hereeeeeeeeeeeeeeeeeeeee');
         productDetails = data.obs;
       }
       loadingfeaturedCatsProducts.value = false;
     }
-    print(selectedProductDetails.value);
-    loadingProductDetails.value = true;
-    ProductDetailsModel data = await client.getProductDetails(
-        apiToken.value.toString(), selectedProductDetails.value);
-    if (data != null) {
-      print('Product Details is hereeeeeeeeeeeeeeeeeeeee');
-      productDetails = data.obs;
-    }
-    loadingfeaturedCatsProducts.value = false;
   }
 }
