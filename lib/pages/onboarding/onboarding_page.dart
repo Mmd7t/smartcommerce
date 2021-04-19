@@ -3,18 +3,19 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/address_provider.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
+import 'package:smartcommerce/controllers/flashsale_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
 
-class OnboardingPage extends StatefulWidget {
-  static const String routeName = 'onboardingPage';
+class OnBoardingPage extends StatefulWidget {
+  static const String routeName = 'onBoardingPage';
   @override
-  _OnboardingPageState createState() => _OnboardingPageState();
+  _OnBoardingPageState createState() => _OnBoardingPageState();
 }
 
-class _OnboardingPageState extends State<OnboardingPage> {
+class _OnBoardingPageState extends State<OnBoardingPage> {
   int currentIndex = 0;
   PageController pageController = PageController(initialPage: 0);
 
@@ -35,6 +36,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     home.getBrands();
     home.getTwoBanners();
     Get.put(AddressController(), permanent: true).initDB();
+    Get.put(FlashSaleController(), permanent: true).getFlashSaleProducts();
     Get.put(ProductsController(), permanent: true);
   }
 

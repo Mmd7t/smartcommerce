@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.theme,
       debugShowCheckedModeBanner: false,
       getPages: AppPages.list,
-      initialRoute: OnboardingPage.routeName,
+      initialRoute: OnBoardingPage.routeName,
       translations: Messages(),
       locale: const Locale('ar', 'EG'),
     );

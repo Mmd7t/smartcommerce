@@ -45,7 +45,7 @@ class _HomeBrandsState extends State<HomeBrands> {
                     controller.getBrandProducts();
                   });
 
-                  Get.toNamed(Products.routeName);
+                  Get.toNamed(ProductsByBrands.routeName);
                 },
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

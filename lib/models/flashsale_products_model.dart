@@ -4,14 +4,14 @@
 
 import 'dart:convert';
 
-FlashsaleProductsModel flashsaleProductsModelFromJson(String str) =>
-    FlashsaleProductsModel.fromJson(json.decode(str));
+FlashSaleProductsModel flashSaleProductsModelFromJson(String str) =>
+    FlashSaleProductsModel.fromJson(json.decode(str));
 
-String flashsaleProductsModelToJson(FlashsaleProductsModel data) =>
+String flashSaleProductsModelToJson(FlashSaleProductsModel data) =>
     json.encode(data.toJson());
 
-class FlashsaleProductsModel {
-  FlashsaleProductsModel({
+class FlashSaleProductsModel {
+  FlashSaleProductsModel({
     this.id,
     this.createdAt,
     this.updatedAt,
@@ -27,8 +27,8 @@ class FlashsaleProductsModel {
   String campaignName;
   List<Translation> translations;
 
-  factory FlashsaleProductsModel.fromJson(Map<String, dynamic> json) =>
-      FlashsaleProductsModel(
+  factory FlashSaleProductsModel.fromJson(Map<String, dynamic> json) =>
+      FlashSaleProductsModel(
         id: json["id"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),

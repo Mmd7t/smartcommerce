@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 
-import 'product_components/categories.dart';
 import 'product_components/products_data.dart';
 import 'product_components/section2.dart';
 
-class Products extends StatelessWidget {
+class ProductsByBrands extends StatelessWidget {
   static const String routeName = 'Products';
   @override
   Widget build(BuildContext context) {
@@ -14,7 +13,7 @@ class Products extends StatelessWidget {
       body: Column(
         children: [
 /*-----------------------------------  Categories  ----------------------------------*/
-          ProductsCategories(),
+          //  ProductsCategories(),
           const SizedBox(height: 10),
 /*-----------------------------------  Section 2  -----------------------------------*/
           ProductsSection2(),

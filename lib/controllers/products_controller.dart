@@ -11,23 +11,25 @@ class ProductsController extends GetxController {
   RxInt selectedBrandProduct = RxInt(0);
   Rx<BrandProductsModel> brandProducts = BrandProductsModel().obs;
 
+<<<<<<< HEAD
   RxInt selectedFeaturedCatsProducts = RxInt(0);
   Rx<FeaturedCatsProductsModel> featuredCatsProducts =
       FeaturedCatsProductsModel().obs;
+=======
+  //// loader /////
+  RxBool loadingBrandProducts = RxBool(false);
+>>>>>>> fa4ea48c11e8fd6ed75919b58031ffa0bdb0a4be
 
   getBrandProducts() async {
-    try {
-      BrandProductsModel data =
-          await client.getBrandProducts(selectedBrandProduct.value);
-      if (data != null) {
-        print('Brand Products is hereeeeeeeeeeeeeeeeeeeee');
-        brandProducts = data.obs;
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
-      throw e;
+    print(selectedBrandProduct.value);
+    loadingBrandProducts.value = true;
+    BrandProductsModel data =
+        await client.getBrandProducts(selectedBrandProduct.value);
+    if (data != null) {
+      print('Brand Products is hereeeeeeeeeeeeeeeeeeeee');
+      brandProducts = data.obs;
     }
+    loadingBrandProducts.value = false;
   }
 
   getFeaturedCatsProducts() async {

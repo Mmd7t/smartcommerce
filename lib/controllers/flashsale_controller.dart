@@ -4,21 +4,18 @@ import 'package:smartcommerce/models/flashsale_products_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 
-class FlashsaleController extends GetxController {
+class FlashSaleController extends GetxController {
   final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
-  Rx<FlashsaleProductsModel> flashsaleProductsModel =
-      FlashsaleProductsModel().obs;
+  Rx<FlashSaleProductsModel> flashSaleProductsModel;
+  RxBool flashSaleLoading = RxBool(false);
 
-  @override
-  void onInit() {
-    super.onInit();
-    getFlashsaleProducts();
-  }
-
-  getFlashsaleProducts() async {
-    FlashsaleProductsModel flashsaleProducts =
-        await client.getFlashsaleProducts(Constants.basicAuth);
-    flashsaleProductsModel = flashsaleProducts.obs;
-    return flashsaleProductsModel;
+  getFlashSaleProducts() async {
+    flashSaleLoading.value = true;
+    FlashSaleProductsModel flashSaleProducts =
+        await client.getFlashSaleProducts(Constants.basicAuth);
+    if (flashSaleProducts != null) {
+      flashSaleProductsModel = flashSaleProducts.obs;
+    }
+    flashSaleLoading.value = false;
   }
 }

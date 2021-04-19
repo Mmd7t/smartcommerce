@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartcommerce/widgets/drawer.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 
+import 'FlashSale_Page/FlashSalePage.dart';
 import 'categories/categories_page.dart';
 import 'home/home.dart';
 import 'profile/profile.dart';
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
     Home(),
     ProfilePage(),
     CategoriesPage(),
-    Container(),
+    FlashSalePage(),
     Container(),
   ];
 

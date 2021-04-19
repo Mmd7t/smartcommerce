@@ -10,8 +10,8 @@ import 'package:smartcommerce/pages/user_review/user_reviews.dart';
 class AppPages {
   static var list = [
     GetPage(
-      name: OnboardingPage.routeName,
-      page: () => OnboardingPage(),
+      name: OnBoardingPage.routeName,
+      page: () => OnBoardingPage(),
     ),
     GetPage(
       name: MainPage.routeName,
@@ -34,8 +34,8 @@ class AppPages {
       page: () => NewShippingAddress(),
     ),
     GetPage(
-      name: Products.routeName,
-      page: () => Products(),
+      name: ProductsByBrands.routeName,
+      page: () => ProductsByBrands(),
     ),
   ];
 }

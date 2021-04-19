@@ -59,7 +59,9 @@ class Products {
   int lastPage;
 
   factory Products.fromJson(Map<String, dynamic> json) => Products(
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+        data: json["data"] != null
+            ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
+            : [],
         nextPageUrl: json["next_page_url"],
         prevPageUrl: json["prev_page_url"],
         lastPage: json["last_page"],

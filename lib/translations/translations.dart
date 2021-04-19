@@ -49,6 +49,7 @@ class Messages extends Translations {
           "user reviews": "مراجعات المستخدم",
           "new shipping": "أضافة عنوان جديد",
           "save": "حفظ",
+          "no products here": "لا يوجد منتجات هنا",
           "zipValid": "الرقم البريدى",
           "houseValid": "رقم المنزل",
           "addressValid": "أدخل عنوان توصيل كامل",
