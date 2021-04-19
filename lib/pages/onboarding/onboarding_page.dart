@@ -5,6 +5,7 @@ import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
 import 'package:smartcommerce/controllers/flashsale_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
 
@@ -30,13 +31,13 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         Get.put(CategoryController(), permanent: true);
     HomeController home = Get.put(HomeController(), permanent: true);
     category.getCategoriesParents();
-
     home.getFeaturedCategories();
     home.getSliders();
     home.getBrands();
     home.getTwoBanners();
     Get.put(AddressController(), permanent: true).initDB();
     Get.put(FlashSaleController(), permanent: true).getFlashSaleProducts();
+    Get.put(ProductsController(), permanent: true);
   }
 
   @override

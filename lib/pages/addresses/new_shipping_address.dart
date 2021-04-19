@@ -209,10 +209,13 @@ class _NewShippingAddressState extends State<NewShippingAddress> {
                     ),
                     Container(
                       width: MediaQuery.of(context).size.width,
-                      child: RaisedButton(
+                      child: ElevatedButton(
                         child: Text("save".tr),
-                        textColor: Theme.of(context).primaryColor,
-                        color: Theme.of(context).accentColor,
+                        style: ElevatedButton.styleFrom(
+                          textStyle:
+                              TextStyle(color: Theme.of(context).primaryColor),
+                          primary: Theme.of(context).accentColor,
+                        ),
                         onPressed: _saveForm,
                       ),
                     ),

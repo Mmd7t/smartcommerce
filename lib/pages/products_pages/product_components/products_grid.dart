@@ -1,55 +1,60 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
+import 'package:smartcommerce/models/brand_products_model.dart';
+import 'package:smartcommerce/widgets/global_image.dart';
 import '../product_details/product_details_page.dart';
 
 class ProductsGrid extends StatelessWidget {
   static const double radius = 10;
+  final brandProductsController = Get.find<ProductsController>();
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        childAspectRatio: 3 / 4,
-      ),
-      itemCount: 15,
-      itemBuilder: (context, index) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(radius),
-          child: InkWell(
+    return Obx(
+      () => GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 3 / 5,
+        ),
+        itemCount:
+            brandProductsController.brandProducts.value.products.data.length,
+        itemBuilder: (context, index) {
+          List<Datum> data =
+              brandProductsController.brandProducts.value.products.data;
+          return ClipRRect(
             borderRadius: BorderRadius.circular(radius),
-            splashColor: Theme.of(context).accentColor,
-            onTap: () =>
-                Navigator.of(context).pushNamed(ProductDetails.routeName),
-            child: GridTile(
+            child: InkWell(
+              borderRadius: BorderRadius.circular(radius),
+              splashColor: Theme.of(context).accentColor,
+              onTap: () =>
+                  Navigator.of(context).pushNamed(ProductDetails.routeName),
+              child: GridTile(
 /*------------------------------------------------------------------------------*/
 /*----------------------------------  Footer  ----------------------------------*/
 /*------------------------------------------------------------------------------*/
-              footer: footer(
-                name: "Food",
-                context: context,
-                price: "15.00 EGP",
-              ),
+                footer: footer(
+                  name: "${data[index].name}",
+                  context: context,
+                  price: "${data[index].formattedPrice.formatted}",
+                ),
 /*------------------------------------------------------------------------------*/
 /*----------------------------------  Header  ----------------------------------*/
 /*------------------------------------------------------------------------------*/
-              header: header(
-                context: context,
-                data: " product[index]",
-              ),
+                header: header(context),
 /*------------------------------------------------------------------------------*/
 /*----------------------------------  Child  -----------------------------------*/
 /*------------------------------------------------------------------------------*/
-              child: child(
-                context: context,
-                img:
-                    "https://purepng.com/public/uploads/large/purepng.com-food-platefood-meat-plate-tasty-grill-breakfast-dinner-french-fries-launch-941524624215fnp4x.png",
+                child: child(
+                  context: context,
+                  img: "${data[index].baseImage}",
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -69,10 +74,14 @@ class ProductsGrid extends StatelessWidget {
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  name,
-                  style: Theme.of(context).textTheme.bodyText1,
-                  overflow: TextOverflow.clip,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    name,
+                    style: Theme.of(context).textTheme.bodyText1,
+                    overflow: TextOverflow.clip,
+                    textDirection: TextDirection.rtl,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -90,7 +99,7 @@ class ProductsGrid extends StatelessWidget {
 /*-----------------------------------------------------------------------------------------------------*/
 /*----------------------------------------  Header Function  ------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
-  header({context, data}) {
+  header(context) {
     // bool isAddedToCart = await CartDB().getDataById(data.id);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -155,7 +164,7 @@ class ProductsGrid extends StatelessWidget {
               width: 70,
               height: 70,
             ),
-            Image.network(img, height: 100),
+            GlobalImage.globalImage(img),
           ],
         ),
       ),

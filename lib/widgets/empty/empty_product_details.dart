@@ -23,7 +23,7 @@ class EmptyProductDetails extends StatelessWidget {
               text ?? 'Opps...',
               style: Theme.of(context)
                   .textTheme
-                  .headline
+                  .headline5
                   .copyWith(color: Get.theme.primaryColor),
             ),
           ],

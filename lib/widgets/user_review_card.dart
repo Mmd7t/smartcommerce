@@ -59,7 +59,7 @@ class UserReviewCard extends StatelessWidget {
                         children: [
                           Text(
                             review.reviewerName,
-                            style: Theme.of(context).textTheme.title,
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                           SizedBox(
                             width: 5,
@@ -82,7 +82,7 @@ class UserReviewCard extends StatelessWidget {
                   margin: EdgeInsets.only(left: 45),
                   child: Text(
                     review.review,
-                    style: Theme.of(context).textTheme.body1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
                         color: Theme.of(context).textTheme.caption.color),
                     overflow: TextOverflow.clip,
                   )),

@@ -18,11 +18,6 @@ class HomeController extends GetxController {
   Rx<FlashSaleProductsModel> flashsaleProductsModel =
       FlashSaleProductsModel().obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
   getFeaturedCategories() async {
     List<CategoriesModel> listOfCats =
         await client.getHomeCategoriesList(Constants.basicAuth);
