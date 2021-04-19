@@ -48,7 +48,7 @@ class AddressController extends ChangeNotifier with SharedPrefAddress {
   initDB() async {
     db = AddressDB();
     await db.init();
-    _addresses = await db.getAddress();
+    _addresses.value = await db.getAddress();
     int selected = await getSelected();
     if (selected != null) {
       _selectedAddress.value =
