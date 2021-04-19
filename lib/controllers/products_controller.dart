@@ -10,15 +10,14 @@ class ProductsController extends GetxController {
 
   RxInt selectedBrandProduct = RxInt(0);
   Rx<BrandProductsModel> brandProducts = BrandProductsModel().obs;
+  //// loader /////
+  RxBool loadingBrandProducts = RxBool(false);
 
-<<<<<<< HEAD
   RxInt selectedFeaturedCatsProducts = RxInt(0);
   Rx<FeaturedCatsProductsModel> featuredCatsProducts =
       FeaturedCatsProductsModel().obs;
-=======
   //// loader /////
-  RxBool loadingBrandProducts = RxBool(false);
->>>>>>> fa4ea48c11e8fd6ed75919b58031ffa0bdb0a4be
+  RxBool loadingfeaturedCatsProducts = RxBool(false);
 
   getBrandProducts() async {
     print(selectedBrandProduct.value);
@@ -33,18 +32,15 @@ class ProductsController extends GetxController {
   }
 
   getFeaturedCatsProducts() async {
-    try {
-      FeaturedCatsProductsModel data = await client
-          .getFeaturedCatsProducts(selectedFeaturedCatsProducts.value);
-      if (data != null) {
-        print('Brand Products is hereeeeeeeeeeeeeeeeeeeee');
-        featuredCatsProducts = data.obs;
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
-      throw e;
+    print(selectedFeaturedCatsProducts.value);
+    loadingfeaturedCatsProducts.value = true;
+    FeaturedCatsProductsModel data = await client
+        .getFeaturedCatsProducts(selectedFeaturedCatsProducts.value);
+    if (data != null) {
+      print('Featured Cats Products is hereeeeeeeeeeeeeeeeeeeee');
+      featuredCatsProducts = data.obs;
     }
+    loadingfeaturedCatsProducts.value = false;
   }
 
   // void getSelectedSubCategories() async {

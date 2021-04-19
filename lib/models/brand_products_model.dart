@@ -53,14 +53,15 @@ class Products {
     this.lastPage,
   });
 
-  List<Datum> data;
+  List<BrandsDatum> data;
   dynamic nextPageUrl;
   dynamic prevPageUrl;
   int lastPage;
 
   factory Products.fromJson(Map<String, dynamic> json) => Products(
         data: json["data"] != null
-            ? List<Datum>.from(json["data"].map((x) => Datum.fromJson(x)))
+            ? List<BrandsDatum>.from(
+                json["data"].map((x) => BrandsDatum.fromJson(x)))
             : [],
         nextPageUrl: json["next_page_url"],
         prevPageUrl: json["prev_page_url"],
@@ -75,8 +76,8 @@ class Products {
       };
 }
 
-class Datum {
-  Datum({
+class BrandsDatum {
+  BrandsDatum({
     this.id,
     this.name,
     this.shortDescription,
@@ -102,7 +103,7 @@ class Datum {
   int wishlist;
   List<DatumTranslation> translations;
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory BrandsDatum.fromJson(Map<String, dynamic> json) => BrandsDatum(
         id: json["id"],
         name: json["name"],
         shortDescription: json["short_description"],

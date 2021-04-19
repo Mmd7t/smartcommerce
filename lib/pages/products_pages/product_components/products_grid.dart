@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
-import 'package:smartcommerce/models/brand_products_model.dart';
+import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
-
 import '../product_details/product_details_page.dart';
 
 class ProductsGrid extends StatelessWidget {
   static const double radius = 10;
+  final ProductsType type;
+  const ProductsGrid({Key key, this.type}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetX(
       init: ProductsController(),
-      builder: (ProductsController brandProductsController) {
-        print(brandProductsController
-            .brandProducts.value.products.data.first.brandId);
+      builder: (ProductsController controller) {
         return GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
@@ -22,11 +21,16 @@ class ProductsGrid extends StatelessWidget {
             mainAxisSpacing: 10,
             childAspectRatio: 3 / 5,
           ),
-          itemCount:
-              brandProductsController.brandProducts.value.products.data.length,
+          itemCount: (type == ProductsType.brand)
+              ? controller.brandProducts.value.products.data.length
+              : controller.featuredCatsProducts.value.products.data.length,
           itemBuilder: (context, index) {
-            List<Datum> data =
-                brandProductsController.brandProducts.value.products.data;
+            List data;
+            if (type == ProductsType.brand) {
+              data = controller.brandProducts.value.products.data;
+            } else {
+              data = controller.featuredCatsProducts.value.products.data;
+            }
             return ClipRRect(
               borderRadius: BorderRadius.circular(radius),
               child: InkWell(

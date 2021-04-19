@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
+import 'package:smartcommerce/models/brand_products_model.dart';
+import 'package:smartcommerce/widgets/global_image.dart';
 
 import '../product_details/product_details_page.dart';
 
@@ -6,40 +10,51 @@ class ProductsList extends StatelessWidget {
   static const double radius = 10;
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 15,
-      itemBuilder: (context, index) {
-        return InkWell(
-          borderRadius: BorderRadius.circular(15),
-          splashColor: Theme.of(context).primaryColor,
-          onTap: () =>
-              Navigator.of(context).pushNamed(ProductDetails.routeName),
-          child: Card(
-            margin: const EdgeInsets.all(5),
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: AspectRatio(
-              aspectRatio: 16 / 5,
-              child: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(15)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
+    return GetX(
+      init: ProductsController(),
+      builder: (ProductsController controller) {
+        return ListView.builder(
+          itemCount: controller.brandProducts.value.products.data.length,
+          itemBuilder: (context, index) {
+            List<BrandsDatum> data =
+                controller.brandProducts.value.products.data;
+            return InkWell(
+              borderRadius: BorderRadius.circular(15),
+              splashColor: Theme.of(context).primaryColor,
+              onTap: () =>
+                  Navigator.of(context).pushNamed(ProductDetails.routeName),
+              child: Card(
+                margin: const EdgeInsets.all(5),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                child: AspectRatio(
+                  aspectRatio: 16 / 5,
+                  child: Container(
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(15)),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        leading(context: context),
-                        const SizedBox(width: 15),
-                        title(),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            leading(
+                                context: context, img: data[index].baseImage),
+                            const SizedBox(width: 15),
+                            title(
+                                name: data[index].name,
+                                context: context,
+                                price: data[index].formattedPrice.formatted),
+                          ],
+                        ),
+                        trailing(),
                       ],
                     ),
-                    trailing(),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );
@@ -49,7 +64,12 @@ class ProductsList extends StatelessWidget {
 /*----------------------------------------  Footer Function  ------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
   title({name, context, price}) {
-    return Text('data');
+    return Column(
+      children: [
+        Text(name),
+        Text(price),
+      ],
+    );
   }
 
 /*-----------------------------------------------------------------------------------------------------*/
@@ -96,6 +116,7 @@ class ProductsList extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Theme.of(context).accentColor),
             ),
+            child: GlobalImage.globalImage(img),
           ),
         ),
       ),

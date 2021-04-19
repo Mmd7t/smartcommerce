@@ -146,13 +146,13 @@ class InCurrentCurrency {
     this.currency,
   });
 
-  int amount;
+  String amount;
   String formatted;
   Currency currency;
 
   factory InCurrentCurrency.fromJson(Map<String, dynamic> json) =>
       InCurrentCurrency(
-        amount: json["amount"],
+        amount: json["amount"].toString(),
         formatted: json["formatted"],
         currency: currencyValues.map[json["currency"]],
       );
