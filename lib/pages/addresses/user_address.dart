@@ -96,10 +96,12 @@ class MyAddressScreen extends GetView<AddressController> {
             Container(
               width: MediaQuery.of(context).size.width,
               margin: EdgeInsets.all(10),
-              child: RaisedButton(
+              child: ElevatedButton(
                 child: Text("addShippingAddress".tr),
-                textColor: Theme.of(context).primaryColor,
-                color: Theme.of(context).accentColor,
+                style: ElevatedButton.styleFrom(
+                  textStyle: TextStyle(color: Theme.of(context).primaryColor),
+                  primary: Theme.of(context).accentColor,
+                ),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => NewShippingAddress())),
               ),

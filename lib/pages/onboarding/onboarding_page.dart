@@ -4,6 +4,7 @@ import 'package:smartcommerce/controllers/address_provider.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
 
@@ -29,12 +30,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
         Get.put(CategoryController(), permanent: true);
     HomeController home = Get.put(HomeController(), permanent: true);
     category.getCategoriesParents();
-
     home.getFeaturedCategories();
     home.getSliders();
     home.getBrands();
     home.getTwoBanners();
     Get.put(AddressController(), permanent: true).initDB();
+    Get.put(ProductsController(), permanent: true);
   }
 
   @override

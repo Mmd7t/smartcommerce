@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:smartcommerce/models/auth_model.dart';
+import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/models/brands_model.dart';
 import 'package:smartcommerce/models/categories_model.dart';
 import 'package:smartcommerce/models/categories_parent_model.dart';
@@ -10,7 +11,6 @@ import 'package:smartcommerce/models/sliders_model.dart';
 import 'package:smartcommerce/models/two_banners_model.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
-
 part 'retrofit.g.dart';
 
 @RestApi(baseUrl: Constants.baseUrl)
@@ -106,6 +106,12 @@ abstract class RestClient {
   @GET("flashsale/products/")
   Future<FlashsaleProductsModel> getFlashsaleProducts(
       @Header("Authorization") String token);
+
+  /*--------------------------------------------------------------------------*/
+  /*----------------------------  Brand Products  ----------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @POST("brand/{id}/products")
+  Future<BrandProductsModel> getBrandProducts(@Path("id") int id);
 }
 
 //      _dio.interceptors.add(PrettyDioLogger(requestBody: true , requestHeader: true));
