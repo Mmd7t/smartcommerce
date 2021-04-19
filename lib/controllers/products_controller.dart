@@ -59,7 +59,7 @@ class ProductsController extends GetxController {
     print(selectedProductDetails.value);
     loadingProductDetails.value = true;
     ProductDetailsModel data = await client.getProductDetails(
-        id, (Get.put(AuthController()).apiToken ?? "".obs).value);
+        id, (Get.put(AuthController()).apiToken ?? " ".obs).value);
     if (data != null) {
       print('Product Details is hereeeeeeeeeeeeeeeeeeeee');
       productDetails = data.obs;

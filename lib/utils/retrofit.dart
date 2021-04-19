@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
@@ -134,7 +135,7 @@ abstract class RestClient {
   /*--------------------------------------------------------------------------*/
   /*---------------------  Featured Categories Products  ---------------------*/
   /*--------------------------------------------------------------------------*/
-  @POST("product/{id}/{api_token}")
+  @GET("product/{id}/{api_token}")
   Future<ProductDetailsModel> getProductDetails(
       @Path("id") int id, @Path("api_token") String apiToken);
 

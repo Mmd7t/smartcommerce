@@ -31,7 +31,9 @@ class AuthController extends GetxController {
   Future<void> getToken() async {
     String data = await SharedPrefsHelper.getApiTokenFromPrefs();
     if (data != null) {
-      apiToken = data.obs;
+      //    apiToken = data.obs;
+      apiToken =
+          "\$2y\$10\$f05o1IgQ8zQSFdSwzHPbke2beEai0.1QCZOCfkMtvxPvUQnqzdQiK".obs;
     }
   }
 
