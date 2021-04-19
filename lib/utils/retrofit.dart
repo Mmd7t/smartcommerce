@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
@@ -8,6 +7,7 @@ import 'package:smartcommerce/models/categories_model.dart';
 import 'package:smartcommerce/models/categories_parent_model.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
 import 'package:smartcommerce/models/review.dart';
+import 'package:smartcommerce/models/search.dart';
 import 'package:smartcommerce/models/sliders_model.dart';
 import 'package:smartcommerce/models/two_banners_model.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
@@ -114,6 +114,12 @@ abstract class RestClient {
   /*--------------------------------------------------------------------------*/
   @POST("brand/{id}/products")
   Future<BrandProductsModel> getBrandProducts(@Path("id") int id);
+  /*--------------------------------------------------------------------------*/
+  /*----------------------------  search Products  ----------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @POST("product/search")
+  Future<SearchData> searchProducts(@Field("api_token") String apiToken,
+      @Field("search_title") String searchTitle);
 }
 
 //      _dio.interceptors.add(PrettyDioLogger(requestBody: true , requestHeader: true));

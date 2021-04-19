@@ -9,8 +9,6 @@ part of 'retrofit.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    _dio.interceptors
-        .add(PrettyDioLogger(requestBody: true, requestHeader: true));
     baseUrl ??= 'https://market.smartcommerce.me/ar/api/';
   }
 
@@ -296,6 +294,26 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     final value = BrandProductsModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<SearchData> searchProducts(apiToken, searchTitle) async {
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    ArgumentError.checkNotNull(searchTitle, 'searchTitle');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'api_token': apiToken, 'search_title': searchTitle};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('product/search',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = SearchData.fromJson(_result.data);
     return value;
   }
 }
