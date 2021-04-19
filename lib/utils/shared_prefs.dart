@@ -12,15 +12,15 @@ class SharedPrefsHelper {
   }
 
 /*-------------------------------------  save Api key  -------------------------------------*/
-  static saveApiKeyToPrefs(apiToken) async {
+  static void saveApiKeyToPrefs(apiToken) async {
     await initPrefs();
     prefs.setString(Constants.apiKey, apiToken);
   }
 
 /*-------------------------------------  get Api key  --------------------------------------*/
-  static getApiTokenFromPrefs() async {
+  static Future<String> getApiTokenFromPrefs() async {
     await initPrefs();
-    String apiTokenSaved = prefs.getString(Constants.apiKey) ?? '';
+    String apiTokenSaved = prefs.getString(Constants.apiKey);
     return apiTokenSaved;
   }
 }

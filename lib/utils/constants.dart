@@ -5,9 +5,12 @@ import 'package:smartcommerce/translations/translations_keys.dart';
 
 class Constants {
   static const String baseUrl = 'https://market.smartcommerce.me/ar/api/';
+  static const String imageURL =
+      'https://market.smartcommerce.me//storage/media/';
   static const String apiKey = 'apiKey';
   static const String username = 'smartcommerce';
   static const String password = 'smart2020';
+  static const String appName = 'Smart Commerce';
   static final String basicAuth =
       'Basic ' + base64Encode(utf8.encode('$username:$password'));
 

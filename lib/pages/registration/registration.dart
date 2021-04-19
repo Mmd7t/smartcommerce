@@ -4,7 +4,7 @@ import 'package:smartcommerce/pages/registration/components/login_form.dart';
 import 'package:smartcommerce/pages/registration/components/signup_form.dart';
 import 'package:smartcommerce/pages/registration/components/social_btn.dart';
 
-enum RegistrationType { login, signup }
+enum RegistrationType { login, signUp }
 
 class Registration extends StatefulWidget {
   static const String routeName = 'registration';
@@ -13,7 +13,7 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
-  var _type = RegistrationType.signup;
+  var _type = RegistrationType.signUp;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +127,7 @@ class _RegistrationState extends State<Registration> {
             child: Text(
               'انشاء حساب',
               style: Theme.of(context).textTheme.button.copyWith(
-                    color: (_type == RegistrationType.signup)
+                    color: (_type == RegistrationType.signUp)
                         ? Colors.white
                         : Colors.black,
                   ),
@@ -138,12 +138,12 @@ class _RegistrationState extends State<Registration> {
                 bottomRight: Radius.circular(35),
               ),
             ),
-            color: (_type == RegistrationType.signup)
+            color: (_type == RegistrationType.signUp)
                 ? Theme.of(context).accentColor
                 : Colors.grey.shade300,
             onPressed: () {
               setState(() {
-                _type = RegistrationType.signup;
+                _type = RegistrationType.signUp;
               });
             },
           ),

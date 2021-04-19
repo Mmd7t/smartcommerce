@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:smartcommerce/models/brands_model.dart';
 import 'package:smartcommerce/models/categories_model.dart';
-import 'package:smartcommerce/models/categories_parent_model.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
 import 'package:smartcommerce/models/sliders_model.dart' hide Options;
 import 'package:smartcommerce/models/two_banners_model.dart';
@@ -12,8 +11,7 @@ import 'package:smartcommerce/utils/retrofit.dart';
 class HomeController extends GetxController {
   final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
   RxList<CategoriesModel> featuredCategoriesList = <CategoriesModel>[].obs;
-  RxList<CategoriesParentModel> categoriesParentList =
-      <CategoriesParentModel>[].obs;
+
   RxList<SlidersModel> slidersList = <SlidersModel>[].obs;
   RxList<BrandsModel> brandsList = <BrandsModel>[].obs;
   Rx<TwoBannersModel> twoBannersModel = TwoBannersModel().obs;
@@ -23,11 +21,6 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getFeaturedCategories();
-    getSliders();
-    getBrands();
-    getTwoBanners();
-    getCategoriesParents();
   }
 
   getFeaturedCategories() async {
@@ -56,12 +49,5 @@ class HomeController extends GetxController {
         await client.getTwoBanners(Constants.basicAuth);
     twoBannersModel = twoBanners.obs;
     return twoBannersModel;
-  }
-
-  getCategoriesParents() async {
-    List<CategoriesParentModel> listOfCatsParents =
-        await client.getProductMainCategoryData(Constants.basicAuth);
-    categoriesParentList.addAll(listOfCatsParents);
-    return categoriesParentList;
   }
 }

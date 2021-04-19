@@ -4,7 +4,7 @@ import 'package:smartcommerce/widgets/global_appbar.dart';
 
 import 'categories/categories_page.dart';
 import 'home/home.dart';
-import 'profile.dart';
+import 'profile/profile.dart';
 
 class MainPage extends StatefulWidget {
   static const String routeName = 'mainPage';

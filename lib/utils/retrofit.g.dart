@@ -77,6 +77,27 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<List<Review>> getProfileReviews(apiToken) async {
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'api_token': apiToken};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<List<dynamic>>('user/reviews',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    var value = _result.data
+        .map((dynamic i) => Review.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<List<CategoriesModel>> getHomeCategoriesList(token) async {
     ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
@@ -97,6 +118,48 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<HttpResponse<dynamic>> deleteFromWishList(apiToken, productID) async {
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    ArgumentError.checkNotNull(productID, 'productID');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'api_token': apiToken, 'product_id': productID};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('wishlist/delete',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> addToUserWishList(apiToken, productID) async {
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    ArgumentError.checkNotNull(productID, 'productID');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'api_token': apiToken, 'product_id': productID};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('wishlist/store',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
   Future<List<CategoriesParentModel>> getProductMainCategoryData(token) async {
     ArgumentError.checkNotNull(token, 'token');
     const _extra = <String, dynamic>{};
@@ -107,6 +170,27 @@ class _RestClient implements RestClient {
         options: RequestOptions(
             method: 'GET',
             headers: <String, dynamic>{r'Authorization': token},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    var value = _result.data
+        .map((dynamic i) =>
+            CategoriesParentModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<CategoriesParentModel>> getCategoryChildren(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<List<dynamic>>('category/childs/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);

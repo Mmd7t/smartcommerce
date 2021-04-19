@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/address_provider.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
-import 'package:smartcommerce/pages/main_page.dart';
+import 'package:smartcommerce/controllers/category_controller.dart';
+import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
-import 'package:get/get.dart';
 
 class OnboardingPage extends StatefulWidget {
   static const String routeName = 'onboardingPage';
@@ -18,8 +20,21 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   void initState() {
     super.initState();
-    Get.put(AuthController(), permanent: true);
-    Get.put(AuthController(), permanent: true);
+    getData();
+  }
+
+  getData() async {
+    Get.put(AuthController(), permanent: true).getUserProfile();
+    CategoryController category =
+        Get.put(CategoryController(), permanent: true);
+    HomeController home = Get.put(HomeController(), permanent: true);
+    category.getCategoriesParents();
+
+    home.getFeaturedCategories();
+    home.getSliders();
+    home.getBrands();
+    home.getTwoBanners();
+    Get.put(AddressController(), permanent: true).initDB();
   }
 
   @override
@@ -83,7 +98,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                             duration: const Duration(milliseconds: 500),
                             curve: Curves.easeInOut);
                       } else {
-                        Get.toNamed(MainPage.routeName);
+                        Get.put(AuthController(), permanent: true).navigate();
                       }
                     },
                   ),

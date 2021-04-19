@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:smartcommerce/utils/constants.dart';
 
 class GlobalAppBar extends PreferredSize {
+  final String title;
   @override
   Size get preferredSize => Size(double.infinity, kToolbarHeight);
 
@@ -17,7 +19,9 @@ class GlobalAppBar extends PreferredSize {
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
       ),
       centerTitle: true,
-      title: const Text('Smart Commerce'),
+      title: Text(title),
     );
   }
+
+  GlobalAppBar({this.title = Constants.appName});
 }
