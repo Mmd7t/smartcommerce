@@ -4,7 +4,7 @@ import 'package:smartcommerce/pages/addresses/user_address.dart';
 import 'package:smartcommerce/pages/favorite/favorite_page.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
-import 'package:smartcommerce/pages/products_pages/product_details/product_details_page.dart';
+import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/pages/products_pages/products.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
 import 'package:smartcommerce/pages/user_review/user_reviews.dart';

@@ -7,7 +7,7 @@ import 'package:flutter_countdown_timer/index.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
-import 'package:smartcommerce/pages/products_pages/product_details/product_details_page.dart';
+import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/widgets/custom_image.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 

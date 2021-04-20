@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
-import 'package:smartcommerce/pages/products_pages/product_details/product_details_page.dart';
+import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 
 import 'fav_grid_item.dart';
 

@@ -26,16 +26,28 @@ class ProductsData extends StatelessWidget {
                           controller.brandProducts.value.products.data),
             ),
           )
-        : Obx(
-            () => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: controller.loadingfeaturedCatsProducts.value == true
-                  ? circularDefaultProgress(context)
-                  : controller.featuredCatsProducts.value.products.data.isEmpty
-                      ? EmptyProductDetails(text: "no products here".tr)
-                      : ProductsGrid(
-                          controller.featuredCatsProducts.value.products.data),
-            ),
-          );
+        : (type == ProductsType.category)
+            ? Obx(
+                () => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: controller.categoriesListLoader() == true
+                      ? circularDefaultProgress(context)
+                      : controller.categoryProductList().isEmpty
+                          ? EmptyProductDetails(text: "no products here".tr)
+                          : ProductsGrid(controller.categoryProductList()),
+                ),
+              )
+            : Obx(
+                () => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: controller.loadingFeaturedCatsProducts.value == true
+                      ? circularDefaultProgress(context)
+                      : controller
+                              .featuredCatsProducts.value.products.data.isEmpty
+                          ? EmptyProductDetails(text: "no products here".tr)
+                          : ProductsGrid(controller
+                              .featuredCatsProducts.value.products.data),
+                ),
+              );
   }
 }

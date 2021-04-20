@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
+import 'package:smartcommerce/models/category_products.dart';
 import 'package:smartcommerce/models/featured_cats_products_model.dart';
+import 'package:smartcommerce/models/product_data.dart';
 import 'package:smartcommerce/models/product_details_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
@@ -19,7 +21,12 @@ class ProductsController extends GetxController {
   RxInt selectedFeaturedCatsProducts = RxInt(0);
   Rx<FeaturedCatsProductsModel> featuredCatsProducts =
       FeaturedCatsProductsModel().obs;
-  RxBool loadingfeaturedCatsProducts = RxBool(false);
+  RxBool loadingFeaturedCatsProducts = RxBool(false);
+
+/*------------------------------  Brand Products  -------------------------------*/
+  RxInt selectedCategoryProduct = RxInt(0);
+  RxInt selectedCategory = RxInt(0);
+  RxMap<int, CategoryProducts> categoryProducts = <int, CategoryProducts>{}.obs;
 
 /*------------------------------  Product Details  ------------------------------*/
   RxInt selectedProductDetails = RxInt(0);
@@ -36,7 +43,6 @@ class ProductsController extends GetxController {
     BrandProductsModel data =
         await client.getBrandProducts(selectedBrandProduct.value);
     if (data != null) {
-      print('Brand Products is hereeeeeeeeeeeeeeeeeeeee');
       brandProducts = data.obs;
     }
     loadingBrandProducts.value = false;
@@ -44,14 +50,50 @@ class ProductsController extends GetxController {
 
   getFeaturedCatsProducts() async {
     print(selectedFeaturedCatsProducts.value);
-    loadingfeaturedCatsProducts.value = true;
+    loadingFeaturedCatsProducts.value = true;
     FeaturedCatsProductsModel data = await client
         .getFeaturedCatsProducts(selectedFeaturedCatsProducts.value);
     if (data != null) {
-      print('Featured Cats Products is hereeeeeeeeeeeeeeeeeeeee');
       featuredCatsProducts = data.obs;
     }
-    loadingfeaturedCatsProducts.value = false;
+    loadingFeaturedCatsProducts.value = false;
+  }
+
+  void getSelectedCategoryProducts() async {
+    if (categoryProducts[selectedCategoryProduct.value] != null &&
+        categoryProducts[selectedCategoryProduct.value].data.isNotEmpty &&
+        categoryProducts[selectedCategoryProduct.value].fetching != true) {
+    } else {
+      categoryProducts[selectedCategoryProduct.value] =
+          CategoryProducts.empty();
+      FeaturedCatsProductsModel data =
+          await client.getFeaturedCatsProducts(selectedCategoryProduct.value);
+      if (data != null) {
+        categoryProducts.update(selectedCategoryProduct.value,
+            (value) => value..data = data.products.data);
+        categoryProducts[selectedCategoryProduct.value].data =
+            data.products.data;
+      }
+      categoryProducts[selectedCategoryProduct.value].fetching = false;
+    }
+  }
+
+  bool categoriesListLoader() {
+    bool ret = false;
+    if (categoryProducts[selectedCategoryProduct.value] != null) {
+      ret = categoryProducts[selectedCategoryProduct.value].fetching;
+    }
+    return ret;
+  }
+
+  List<ProductData> categoryProductList() {
+    List<ProductData> ret = [];
+    if (categoryProducts[selectedCategoryProduct.value] != null) {
+      if (categoryProducts[selectedCategoryProduct.value].fetching != true) {
+        ret = categoryProducts[selectedCategoryProduct.value].data;
+      }
+    }
+    return ret;
   }
 
   getProductDetails(int id) async {
@@ -65,6 +107,6 @@ class ProductsController extends GetxController {
       productDetails = data.obs;
     }
 
-    loadingfeaturedCatsProducts.value = false;
+    loadingFeaturedCatsProducts.value = false;
   }
 }

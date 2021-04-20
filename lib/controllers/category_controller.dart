@@ -51,6 +51,16 @@ class CategoryController extends GetxController {
     return ret;
   }
 
+  List<CategoriesParentModel> subCategoriesListCategoryIndex(int index) {
+    List<CategoriesParentModel> ret = [];
+    if (subCategories[index] != null) {
+      if (subCategories[index].fetching != true) {
+        ret = subCategories[index].data;
+      }
+    }
+    return ret;
+  }
+
   bool subCategoriesListLoader() {
     bool ret = false;
     if (subCategories[selectedSubCategories.value] != null) {

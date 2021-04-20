@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_getx_widget.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
+import 'package:smartcommerce/pages/products_pages/products.dart';
+import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/custom_image.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
@@ -40,62 +43,79 @@ class CategoriesSectorTwo extends StatelessWidget {
                           spacing: 10.0,
                           children: List.generate(
                             controller.subCategoriesList().length,
-                            (index) => Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: AnimatedContainer(
-                                padding: const EdgeInsets.all(4),
-                                duration: const Duration(milliseconds: 500),
-                                width: size.width * 0.43,
-                                height: size.width * 0.43,
-                                decoration: BoxDecoration(
+                            (index) => InkWell(
+                              onTap: () {
+                                ProductsController productsController =
+                                    Get.put(ProductsController());
+                                productsController
+                                        .selectedCategoryProduct.value =
+                                    controller.subCategoriesList()[index].id;
+                                productsController.selectedCategory.value =
+                                    controller.selectedSubCategories.value;
+
+                                productsController
+                                    .getSelectedCategoryProducts();
+
+                                Get.toNamed(ProductsByBrands.routeName,
+                                    arguments: ProductsType.category);
+                              },
+                              child: Card(
+                                shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(
-                                      color: Colors.amber[700], width: 1.5),
                                 ),
                                 child: AnimatedContainer(
+                                  padding: const EdgeInsets.all(4),
                                   duration: const Duration(milliseconds: 500),
                                   width: size.width * 0.43,
                                   height: size.width * 0.43,
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(12),
+                                    borderRadius: BorderRadius.circular(15),
                                     border: Border.all(
-                                      color: Colors.amber[700],
-                                      width: 1.5,
-                                    ),
-                                    image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: cachedNetworkImageProvider(
-                                          controller
-                                              .subCategoriesList()[index]
-                                              .logo
-                                              .path),
-                                    ),
+                                        color: Colors.amber[700], width: 1.5),
                                   ),
-                                  child: Stack(
-                                    alignment: Alignment.bottomCenter,
-                                    children: [
-                                      cachedNetworkImage(
-                                          controller
-                                              .subCategoriesList()[index]
-                                              .logo
-                                              .path,
-                                          radius: 15.0),
-                                      Container(
-                                        height: 25,
-                                        child: GridTileBar(
-                                          backgroundColor: Colors.black26,
-                                          title: Text(
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 500),
+                                    width: size.width * 0.43,
+                                    height: size.width * 0.43,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(12),
+                                      border: Border.all(
+                                        color: Colors.amber[700],
+                                        width: 1.5,
+                                      ),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: cachedNetworkImageProvider(
                                             controller
                                                 .subCategoriesList()[index]
-                                                .name
-                                                .toString(),
-                                            maxLines: 1,
+                                                .logo
+                                                .path),
+                                      ),
+                                    ),
+                                    child: Stack(
+                                      alignment: Alignment.bottomCenter,
+                                      children: [
+                                        cachedNetworkImage(
+                                            controller
+                                                .subCategoriesList()[index]
+                                                .logo
+                                                .path,
+                                            radius: 15.0),
+                                        Container(
+                                          height: 25,
+                                          child: GridTileBar(
+                                            backgroundColor: Colors.black26,
+                                            title: Text(
+                                              controller
+                                                  .subCategoriesList()[index]
+                                                  .name
+                                                  .toString(),
+                                              maxLines: 1,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

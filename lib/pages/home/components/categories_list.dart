@@ -14,13 +14,6 @@ class HomeCategoriesList extends StatefulWidget {
 class _HomeCategoriesListState extends State<HomeCategoriesList> {
   final categoryController = Get.find<CategoryController>();
   ProductsController controller = Get.put(ProductsController());
-  @override
-  void initState() {
-    super.initState();
-    controller.selectedFeaturedCatsProducts.value =
-        categoryController.categoriesParentList[0].id;
-    controller.getFeaturedCatsProducts();
-  }
 
   @override
   Widget build(BuildContext context) {

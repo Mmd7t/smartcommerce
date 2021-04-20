@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:smartcommerce/translations/translations_keys.dart';
 
-enum ProductsType { brand, featured }
+enum ProductsType { brand, featured, category }
 
 class Constants {
   static const String baseUrl = 'https://market.smartcommerce.me/ar/api/';

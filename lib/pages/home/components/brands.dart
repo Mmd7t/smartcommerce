@@ -14,12 +14,6 @@ class HomeBrands extends StatefulWidget {
 class _HomeBrandsState extends State<HomeBrands> {
   final homeController = Get.find<HomeController>();
   ProductsController controller = Get.put(ProductsController());
-  @override
-  void initState() {
-    super.initState();
-    controller.selectedBrandProduct.value = homeController.brandsList[0].id;
-    controller.getBrandProducts();
-  }
 
   @override
   Widget build(BuildContext context) {
