@@ -135,9 +135,8 @@ abstract class RestClient {
   /*--------------------------------------------------------------------------*/
   /*---------------------  Featured Categories Products  ---------------------*/
   /*--------------------------------------------------------------------------*/
-  @GET("product/{id}/{api_token}")
-  Future<ProductDetailsModel> getProductDetails(
-      @Path("id") int id, @Path("api_token") String apiToken);
+  @GET("product/{id}/ ")
+  Future<ProductDetailsModel> getProductDetails(@Path("id") int id);
 
   /*--------------------------------------------------------------------------*/
   /*------------------------------  User Orders  -----------------------------*/

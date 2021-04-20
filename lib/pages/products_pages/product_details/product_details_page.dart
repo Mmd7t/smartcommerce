@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
+import 'package:smartcommerce/widgets/progress.dart';
 import 'description_part.dart';
 import 'header_part.dart';
 import 'reviews_part.dart';
@@ -48,7 +50,7 @@ class _ProductDetailsState extends State<ProductDetails>
         if (timer.tick <= 5) {
           if (timer.tick == 1) {
             setState(() {
-              high = 150;
+              high = 200;
               isClicked = true;
               animationController.forward();
             });
@@ -75,31 +77,45 @@ class _ProductDetailsState extends State<ProductDetails>
       () => Scaffold(
         appBar: AppBar(),
         extendBody: true,
-        body: DefaultTabController(
-          length: 2,
-          child: NestedScrollView(
-            physics: NeverScrollableScrollPhysics(),
-            headerSliverBuilder: (context, isScolled) {
-              return [
-                SliverAppBar(
-                  automaticallyImplyLeading: false,
-                  collapsedHeight: MediaQuery.of(context).size.height * 0.4,
-                  expandedHeight: MediaQuery.of(context).size.height * 0.4,
-                  flexibleSpace: HeaderPart(),
+        body: (contoller.productDetails == null)
+            ? Center(child: circularProgress(context))
+            : DefaultTabController(
+                length: 2,
+                child: NestedScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  headerSliverBuilder: (context, isScolled) {
+                    return [
+                      SliverAppBar(
+                        automaticallyImplyLeading: false,
+                        collapsedHeight:
+                            MediaQuery.of(context).size.height * 0.4,
+                        expandedHeight:
+                            MediaQuery.of(context).size.height * 0.4,
+                        flexibleSpace: HeaderPart(),
+                      ),
+                      StickyHeader(),
+                    ];
+                  },
+                  body: TabBarView(children: pages),
                 ),
-                StickyHeader(),
-              ];
-            },
-            body: TabBarView(children: pages),
-          ),
-        ),
+              ),
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              _priceWidget(
-                  price: contoller.productDetails.value.formattedPrice),
+              Container(
+                height: kToolbarHeight + 10,
+                width: MediaQuery.of(context).size.width * 0.40,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: Theme.of(context).accentColor, width: 1.6),
+                ),
+                child:
+                    Html(data: contoller.productDetails.value.formattedPrice),
+              ),
               /*----------------------------------  Add to Cart  ------------------------------------*/
               MaterialButton(
                 child: const Text("Add to Cart"),
@@ -112,97 +128,6 @@ class _ProductDetailsState extends State<ProductDetails>
           ),
         ),
       ),
-    );
-  }
-
-  //--**
-  /*----------------------------------  Price Widget  ------------------------------------*/
-  //--**
-  _priceWidget({price}) {
-    return Stack(
-      alignment: Alignment.centerRight,
-      children: [
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 500),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(color: Colors.red, width: 1.2),
-            borderRadius: BorderRadius.circular(50),
-          ),
-          alignment: Alignment.centerLeft,
-          padding: const EdgeInsets.only(left: 20),
-          width: high,
-          height: 50,
-          child: AnimatedOpacity(
-            duration: Duration(milliseconds: 600),
-            opacity: animation2.value,
-            child: Text(
-              '$price',
-              style: TextStyle(
-                fontSize: Theme.of(context).textTheme.headline6.fontSize,
-                fontWeight: FontWeight.w600,
-                color: Colors.red,
-              ),
-            ),
-          ),
-        ),
-        GlobalSplash(
-          radius: 50,
-          onPressed: () {
-            if (!isClicked) {
-              setState(() {
-                high = 150;
-                isClicked = true;
-                animationController.forward();
-              });
-            } else {
-              setState(() {
-                high = 50;
-                isClicked = false;
-                animationController.reverse();
-              });
-            }
-          },
-          child: RotationTransition(
-            turns: animation,
-            alignment: Alignment.center,
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.red, width: 1.2),
-                shape: BoxShape.circle,
-              ),
-              child: Text(
-                "\$",
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              width: 50,
-              height: 50,
-            ),
-          ),
-        ),
-      ],
-    );
-  } //Pri
-
-}
-
-class GlobalSplash extends StatelessWidget {
-  final Widget child;
-  final Function onPressed;
-  final double radius;
-
-  const GlobalSplash({Key key, this.onPressed, this.child, this.radius})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onPressed,
-      child: child,
-      splashColor: Theme.of(context).accentColor,
-      borderRadius: BorderRadius.circular(radius),
     );
   }
 }

@@ -337,9 +337,8 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<ProductDetailsModel> getProductDetails(id, apiToken) async {
+  Future<ProductDetailsModel> getProductDetails(id) async {
     ArgumentError.checkNotNull(id, 'id');
-    ArgumentError.checkNotNull(apiToken, 'apiToken');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};

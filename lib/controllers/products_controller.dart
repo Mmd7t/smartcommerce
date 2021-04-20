@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/models/featured_cats_products_model.dart';
 import 'package:smartcommerce/models/product_details_model.dart';
@@ -58,8 +57,7 @@ class ProductsController extends GetxController {
     selectedProductDetails.value = id;
     print(selectedProductDetails.value);
     loadingProductDetails.value = true;
-    ProductDetailsModel data = await client.getProductDetails(
-        id, (Get.put(AuthController()).apiToken ?? " ".obs).value);
+    ProductDetailsModel data = await client.getProductDetails(id);
     if (data != null) {
       print('Product Details is hereeeeeeeeeeeeeeeeeeeee');
       productDetails = data.obs;
