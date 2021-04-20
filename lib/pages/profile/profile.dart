@@ -77,7 +77,9 @@ class ProfilePage extends StatelessWidget {
                           horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Theme.of(context).accentColor,
+                        border: Border.all(
+                            color: Theme.of(context).accentColor, width: 1.5),
+                        color: Theme.of(context).scaffoldBackgroundColor,
                       ),
                       child: ListTile(
                         onTap: () {
@@ -102,10 +104,11 @@ class ProfilePage extends StatelessWidget {
                                       ? "التقييمات".tr
                                       : "".tr,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).accentColor,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
+                        trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                     ),
                   ),
