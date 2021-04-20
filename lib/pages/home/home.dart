@@ -10,7 +10,7 @@ import 'components/two_banners.dart';
 
 class Home extends StatelessWidget {
   static const String routeName = 'home';
-  FocusNode focusNode = FocusNode();
+  final FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

@@ -5,13 +5,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
-import 'package:smartcommerce/pages/products_pages/product_details/product_details_page.dart';
+import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/widgets/custom_image.dart';
+import 'package:smartcommerce/widgets/progress.dart';
 
 class FlashSaleItem extends StatelessWidget {
   final FlashProduct product;
   static const double radius = 10;
+  final AuthController controller = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
@@ -176,12 +179,20 @@ class FlashSaleItem extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        IconButton(
-          icon: const Icon(
-            Icons.favorite_border,
-            color: Colors.red,
+        Obx(
+          () => IconButton(
+            icon: controller.wishListProcessList.contains(product.id) == true
+                ? circularDefaultProgress(context, size: 15, color: Colors.red)
+                : Icon(
+                    controller.inFav(product.id) == true
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: Colors.red,
+                  ),
+            onPressed: () {
+              controller.lookUpFav(product.id);
+            },
           ),
-          onPressed: () {},
         ),
         IconButton(
           icon: Icon(

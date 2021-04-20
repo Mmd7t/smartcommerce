@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/pages/favorite/favorite_page.dart';
+import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -14,15 +16,14 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: GetX(
-        init:  AuthController(),
-        builder:(AuthController controller)=> Container(
+        init: AuthController(),
+        builder: (AuthController controller) => Container(
           color: Theme.of(context).scaffoldBackgroundColor,
           child: ListView(
             children: [
@@ -42,14 +43,20 @@ class _MyDrawerState extends State<MyDrawer> {
                   currentAccountPicture: CircleAvatar(
                     backgroundColor: Theme.of(context).accentColor,
                   ),
-                  accountName:   Text(controller.userProfileModel.value.firstName.toString()+" " + controller.userProfileModel.value.lastName.toString(),
+                  accountName: Text(
+                      controller.userProfileModel.value.firstName.toString() +
+                          " " +
+                          controller.userProfileModel.value.lastName.toString(),
                       style: const TextStyle(color: Colors.black)),
-                  accountEmail:   Text(controller.userProfileModel.value.email.toString(),
+                  accountEmail: Text(
+                      controller.userProfileModel.value.email.toString(),
                       style: const TextStyle(color: Colors.black)),
                 ),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.offAll(MainPage.routeName);
+                },
                 title: const Text("الرئيسية"),
                 leading: Icon(
                   Icons.home_outlined,
@@ -57,7 +64,9 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.toNamed(FavoritePage.routeName);
+                },
                 title: const Text("المفضلة"),
                 leading: Icon(
                   Icons.favorite_border,
@@ -65,7 +74,11 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.off(MainPage(
+                    initial: 3,
+                  ));
+                },
                 title: const Text("العروض"),
                 leading: Icon(
                   Icons.tag,
@@ -73,7 +86,11 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.off(MainPage(
+                    initial: 2,
+                  ));
+                },
                 title: const Text("الفئات"),
                 leading: Icon(
                   Icons.category_outlined,
@@ -81,7 +98,11 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Get.off(MainPage(
+                    initial: 1,
+                  ));
+                },
                 title: const Text("أنا"),
                 leading: Icon(
                   Icons.person_outline,
@@ -138,7 +159,9 @@ class _MyDrawerState extends State<MyDrawer> {
                       ),
                     )
                   : ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Get.put(AuthController()).logOut();
+                      },
                       title: const Text("تسجيل الخروج"),
                       leading: Icon(
                         Icons.exit_to_app_outlined,

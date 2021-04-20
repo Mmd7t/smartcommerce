@@ -9,6 +9,8 @@ part of 'retrofit.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
+    _dio.interceptors
+        .add(PrettyDioLogger(requestBody: true, requestHeader: true));
     baseUrl ??= 'https://market.smartcommerce.me/ar/api/';
   }
 

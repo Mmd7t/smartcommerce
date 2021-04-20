@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
+import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
-
-import '../product_details/product_details_page.dart';
 
 class ProductsList extends StatelessWidget {
   static const double radius = 10;
