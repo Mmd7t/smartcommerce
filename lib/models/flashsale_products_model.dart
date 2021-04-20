@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:smartcommerce/models/product_submodels.dart';
+
 FlashSaleProductsModel flashSaleProductsModelFromJson(String str) =>
     FlashSaleProductsModel.fromJson(json.decode(str));
 
@@ -99,100 +101,6 @@ class FlashProduct {
         "pivot": pivot.toJson(),
         "qty": qty,
         "sold": sold,
-      };
-}
-
-class Pivot {
-  Pivot({
-    this.flashSaleId,
-    this.productId,
-    this.id,
-    this.endDate,
-    this.price,
-    this.qty,
-    this.sold,
-  });
-
-  int flashSaleId;
-  int productId;
-  int id;
-  DateTime endDate;
-  Price price;
-  int qty;
-  int sold;
-
-  factory Pivot.fromJson(Map<String, dynamic> json) => Pivot(
-        flashSaleId: json["flash_sale_id"],
-        productId: json["product_id"],
-        id: json["id"],
-        endDate: DateTime.parse(json["end_date"]),
-        price: Price.fromJson(json["price"]),
-        qty: json["qty"],
-        sold: json["sold"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "flash_sale_id": flashSaleId,
-        "product_id": productId,
-        "id": id,
-        "end_date": endDate.toIso8601String(),
-        "price": price.toJson(),
-        "qty": qty,
-        "sold": sold,
-      };
-}
-
-class Price {
-  Price({
-    this.amount,
-    this.formatted,
-    this.currency,
-    this.inCurrentCurrency,
-  });
-
-  String amount;
-  String formatted;
-  String currency;
-  InCurrentCurrency inCurrentCurrency;
-
-  factory Price.fromJson(Map<String, dynamic> json) => Price(
-        amount: json["amount"],
-        formatted: json["formatted"],
-        currency: json["currency"],
-        inCurrentCurrency:
-            InCurrentCurrency.fromJson(json["inCurrentCurrency"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "amount": amount,
-        "formatted": formatted,
-        "currency": currency,
-        "inCurrentCurrency": inCurrentCurrency.toJson(),
-      };
-}
-
-class InCurrentCurrency {
-  InCurrentCurrency({
-    this.amount,
-    this.formatted,
-    this.currency,
-  });
-
-  int amount;
-  String formatted;
-  String currency;
-
-  factory InCurrentCurrency.fromJson(Map<String, dynamic> json) =>
-      InCurrentCurrency(
-        amount: json["amount"],
-        formatted: json["formatted"],
-        currency: json["currency"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "amount": amount,
-        "formatted": formatted,
-        "currency": currency,
       };
 }
 

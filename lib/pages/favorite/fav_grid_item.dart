@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
 import 'package:smartcommerce/widgets/progress.dart';
@@ -9,6 +10,7 @@ class FavGridItem extends StatelessWidget {
   final Wishlist data;
   final AuthController controller = Get.put(AuthController());
   static const double radius = 10;
+  final CartController cart = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -94,12 +96,25 @@ class FavGridItem extends StatelessWidget {
             },
           ),
         ),
-        IconButton(
-          icon: Icon(
-            Icons.shopping_cart_outlined,
-            color: Colors.amber[700],
+        Obx(
+          () => IconButton(
+            icon: cart.cartProcessList.contains(data.id) == true
+                ? circularDefaultProgress(context,
+                    size: 15, color: Colors.amber[700])
+                : Icon(
+                    cart.checkInCart(data.id) == true
+                        ? Icons.shopping_cart
+                        : Icons.shopping_cart_outlined,
+                    color: Colors.amber[700],
+                  ),
+            onPressed: () async {
+              if (cart.checkInCart(data.id)) {
+                cart.removeItem(data.id);
+              } else {
+                cart.addFromFav(data);
+              }
+            },
           ),
-          onPressed: () {},
         ),
       ],
     );

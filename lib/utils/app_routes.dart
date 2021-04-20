@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:smartcommerce/pages/addresses/new_shipping_address.dart';
 import 'package:smartcommerce/pages/addresses/user_address.dart';
+import 'package:smartcommerce/pages/cart/cart_screen.dart';
 import 'package:smartcommerce/pages/favorite/favorite_page.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
@@ -11,6 +12,10 @@ import 'package:smartcommerce/pages/user_review/user_reviews.dart';
 
 class AppPages {
   static var list = [
+    GetPage(
+      name: CartScreen.routeName,
+      page: () => CartScreen(),
+    ),
     GetPage(
       name: OnBoardingPage.routeName,
       page: () => OnBoardingPage(),

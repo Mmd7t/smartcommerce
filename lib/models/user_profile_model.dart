@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:smartcommerce/models/product_submodels.dart';
+
 UserProfileModel userProfileModelFromJson(String str) =>
     UserProfileModel.fromJson(json.decode(str));
 
@@ -111,104 +113,4 @@ class Wishlist {
         "price": price.toJson(),
         "translations": List<dynamic>.from(translations.map((x) => x.toJson())),
       };
-}
-
-class Price {
-  Price({
-    this.amount,
-    this.formatted,
-    this.currency,
-    this.inCurrentCurrency,
-  });
-
-  String amount;
-  String formatted;
-  Currency currency;
-  InCurrentCurrency inCurrentCurrency;
-
-  factory Price.fromJson(Map<String, dynamic> json) => Price(
-        amount: json["amount"],
-        formatted: json["formatted"],
-        currency: currencyValues.map[json["currency"]],
-        inCurrentCurrency:
-            InCurrentCurrency.fromJson(json["inCurrentCurrency"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "amount": amount,
-        "formatted": formatted,
-        "currency": currencyValues.reverse[currency],
-        "inCurrentCurrency": inCurrentCurrency.toJson(),
-      };
-}
-
-enum Currency { EGP }
-
-final currencyValues = EnumValues({"EGP": Currency.EGP});
-
-class InCurrentCurrency {
-  InCurrentCurrency({
-    this.amount,
-    this.formatted,
-    this.currency,
-  });
-
-  double amount;
-  String formatted;
-  Currency currency;
-
-  factory InCurrentCurrency.fromJson(Map<String, dynamic> json) =>
-      InCurrentCurrency(
-        amount: json["amount"].toDouble(),
-        formatted: json["formatted"],
-        currency: currencyValues.map[json["currency"]],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "amount": amount,
-        "formatted": formatted,
-        "currency": currencyValues.reverse[currency],
-      };
-}
-
-class Translation {
-  Translation({
-    this.locale,
-    this.name,
-    this.shortDescription,
-  });
-
-  Locale locale;
-  String name;
-  dynamic shortDescription;
-
-  factory Translation.fromJson(Map<String, dynamic> json) => Translation(
-        locale: localeValues.map[json["locale"]],
-        name: json["name"],
-        shortDescription: json["short_description"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "locale": localeValues.reverse[locale],
-        "name": name,
-        "short_description": shortDescription,
-      };
-}
-
-enum Locale { AR }
-
-final localeValues = EnumValues({"ar": Locale.AR});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => new MapEntry(v, k));
-    }
-    return reverseMap;
-  }
 }

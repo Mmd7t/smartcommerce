@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/pages/cart/cart_screen.dart';
 import 'package:smartcommerce/utils/constants.dart';
 
 class GlobalAppBar extends PreferredSize {
@@ -12,7 +14,9 @@ class GlobalAppBar extends PreferredSize {
       actions: [
         IconButton(
           icon: const Icon(Icons.shopping_cart_outlined),
-          onPressed: () {},
+          onPressed: () {
+            Get.toNamed(CartScreen.routeName);
+          },
         ),
       ],
       shape: RoundedRectangleBorder(

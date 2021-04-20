@@ -64,6 +64,16 @@ class Messages extends Translations {
           "areYouSure": "هل أنت متأكد",
           "no": "لا",
           "yes": "نعم",
+          "priceTag": "ج.م",
+          "cartScreenTitle": "المدينة",
+          "cartLoginMessage": "المدينة",
+          "continueShopping": "المدينة",
+          "checkout": "المدينة",
+          "total": "المدينة",
+          "emptyBag": "المدينة",
+          "signIn": "المدينة",
+          "outOfStock": "المدينة",
+          "removeConfirmation": "المدينة",
         }
       };
 }

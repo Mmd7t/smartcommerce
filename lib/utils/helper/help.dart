@@ -3,6 +3,16 @@ import 'package:get/get.dart';
 import 'package:toast/toast.dart';
 
 class Helper {
+  static getPrice(double price, BuildContext context, {TextStyle style}) {
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Text("${price.toStringAsFixed(1)} ${"priceTag".tr}",
+          style: style != null
+              ? style
+              : Theme.of(context).textTheme.title.copyWith(fontSize: 18)),
+    );
+  }
+
   static showToast(String message, BuildContext context, {TextStyle style}) {
     Toast.show(message, context,
         duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
@@ -26,19 +36,15 @@ class Helper {
                 ),
               ),
               actions: [
-                TextButton(
+                FlatButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: Text(
-                    "no".tr,
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
+                  child: Text("no".tr),
+                  textColor: Theme.of(context).primaryColor,
                 ),
-                TextButton(
+                FlatButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: Text(
-                    "yes".tr,
-                    style: TextStyle(color: Theme.of(context).primaryColor),
-                  ),
+                  child: Text("yes".tr),
+                  textColor: Theme.of(context).primaryColor,
                 ),
               ],
             ));

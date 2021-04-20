@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
 
 import '../global_image.dart';
@@ -10,6 +11,7 @@ class ProductGridItem extends StatelessWidget {
   final ProductData data;
   static const double radius = 10;
   final AuthController controller = Get.put(AuthController());
+  final CartController cart = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +99,25 @@ class ProductGridItem extends StatelessWidget {
             },
           ),
         ),
-        IconButton(
-          icon: Icon(
-            Icons.shopping_cart_outlined,
-            color: Colors.amber[700],
+        Obx(
+          () => IconButton(
+            icon: cart.cartProcessList.contains(data.id) == true
+                ? circularDefaultProgress(context,
+                    size: 15, color: Colors.amber[700])
+                : Icon(
+                    cart.checkInCart(data.id) == true
+                        ? Icons.shopping_cart
+                        : Icons.shopping_cart_outlined,
+                    color: Colors.amber[700],
+                  ),
+            onPressed: () async {
+              if (cart.checkInCart(data.id)) {
+                cart.removeItem(data.id);
+              } else {
+                cart.fromProductSmall(data);
+              }
+            },
           ),
-          onPressed: () {},
         ),
       ],
     );

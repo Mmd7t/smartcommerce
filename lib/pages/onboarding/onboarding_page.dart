@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/address_provider.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
 import 'package:smartcommerce/controllers/flashsale_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
@@ -28,6 +29,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
   getData() async {
     Get.put(AuthController(), permanent: true).getUserProfile();
+    Get.put(CartController(), permanent: true).initDB();
     CategoryController category =
         Get.put(CategoryController(), permanent: true);
     HomeController home = Get.put(HomeController(), permanent: true);

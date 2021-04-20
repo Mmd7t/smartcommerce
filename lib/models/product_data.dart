@@ -1,3 +1,5 @@
+import 'package:smartcommerce/models/product_submodels.dart';
+
 class ProductData {
   ProductData({
     this.id,
@@ -52,60 +54,6 @@ class ProductData {
         "special_price": specialPrice,
         "wishlist": wishlist,
         "translations": List<dynamic>.from(translations.map((x) => x.toJson())),
-      };
-}
-
-class Price {
-  Price({
-    this.amount,
-    this.formatted,
-    this.currency,
-    this.inCurrentCurrency,
-  });
-
-  String amount;
-  String formatted;
-  String currency;
-  InCurrentCurrency inCurrentCurrency;
-
-  factory Price.fromJson(Map<String, dynamic> json) => Price(
-        amount: json["amount"],
-        formatted: json["formatted"],
-        currency: json["currency"],
-        inCurrentCurrency:
-            InCurrentCurrency.fromJson(json["inCurrentCurrency"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "amount": amount,
-        "formatted": formatted,
-        "currency": currency,
-        "inCurrentCurrency": inCurrentCurrency.toJson(),
-      };
-}
-
-class InCurrentCurrency {
-  InCurrentCurrency({
-    this.amount,
-    this.formatted,
-    this.currency,
-  });
-
-  double amount;
-  String formatted;
-  String currency;
-
-  factory InCurrentCurrency.fromJson(Map<String, dynamic> json) =>
-      InCurrentCurrency(
-        amount: json["amount"].toDouble(),
-        formatted: json["formatted"],
-        currency: json["currency"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "amount": amount,
-        "formatted": formatted,
-        "currency": currency,
       };
 }
 
