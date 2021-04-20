@@ -33,6 +33,7 @@ dependencies:
   flutter_countdown_timer: ^4.0.2
   animated_text_kit: ^4.2.0
   flutter_html: any
+  intl: ^0.17.0
 
 
 dev_dependencies:

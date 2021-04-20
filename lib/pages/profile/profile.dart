@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/controllers/orders_controller.dart';
 import 'package:smartcommerce/pages/addresses/user_address.dart';
+import 'package:smartcommerce/pages/orders/orders_page.dart';
 import 'package:smartcommerce/pages/user_review/user_reviews.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -77,12 +79,16 @@ class ProfilePage extends StatelessWidget {
                           horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Theme.of(context).accentColor,
+                        border: Border.all(
+                            color: Theme.of(context).accentColor, width: 1.5),
+                        color: Theme.of(context).scaffoldBackgroundColor,
                       ),
                       child: ListTile(
                         onTap: () {
                           print(index);
                           if (index == 0) {
+                            Get.put(OrdersController()).getOrders();
+                            Get.toNamed(OrdersPage.routeName);
                           } else if (index == 1) {
                             Get.toNamed(MyAddressScreen.routeName);
                           } else if (index == 2) {
@@ -102,10 +108,11 @@ class ProfilePage extends StatelessWidget {
                                       ? "التقييمات".tr
                                       : "".tr,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Theme.of(context).accentColor,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
+                        trailing: const Icon(Icons.arrow_forward_ios_outlined),
                       ),
                     ),
                   ),

@@ -18,31 +18,40 @@ class HomeController extends GetxController {
   Rx<FlashSaleProductsModel> flashsaleProductsModel =
       FlashSaleProductsModel().obs;
 
+  RxBool isFeaturedCatsLoading = false.obs;
+  RxBool isSlidersLoading = false.obs;
+  RxBool isBrandsLoading = false.obs;
+  RxBool isTwoBannersLoading = false.obs;
+
   getFeaturedCategories() async {
+    isFeaturedCatsLoading.value = true;
     List<CategoriesModel> listOfCats =
         await client.getHomeCategoriesList(Constants.basicAuth);
     featuredCategoriesList.addAll(listOfCats);
-    return featuredCategoriesList;
+    isFeaturedCatsLoading.value = false;
   }
 
   getSliders() async {
+    isSlidersLoading.value = true;
     List<SlidersModel> listOfSliders =
         await client.getSlidersList(Constants.basicAuth);
     slidersList.addAll(listOfSliders);
-    return slidersList;
+    isSlidersLoading.value = false;
   }
 
   getBrands() async {
+    isBrandsLoading.value = true;
     List<BrandsModel> listOfBrands =
         await client.getBrandsList(Constants.basicAuth);
     brandsList.addAll(listOfBrands);
-    return brandsList;
+    isBrandsLoading.value = false;
   }
 
   getTwoBanners() async {
+    isTwoBannersLoading.value = true;
     TwoBannersModel twoBanners =
         await client.getTwoBanners(Constants.basicAuth);
     twoBannersModel = twoBanners.obs;
-    return twoBannersModel;
+    isTwoBannersLoading.value = false;
   }
 }

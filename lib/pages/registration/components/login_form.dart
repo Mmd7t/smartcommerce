@@ -5,6 +5,7 @@ import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/pages/registration/components/forget_password.dart';
 import 'package:smartcommerce/pages/registration/components/sign_btn.dart';
 import 'package:smartcommerce/widgets/global_textfield.dart';
+import 'package:smartcommerce/widgets/progress.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class _LoginFormState extends State<LoginForm> {
   var email, pass;
   final formKey = GlobalKey<FormState>();
   final authController = Get.find<AuthController>();
+  // login loading
+  bool isLoading = false;
   LoginModel loginModel;
   @override
   void initState() {
@@ -73,18 +76,29 @@ class _LoginFormState extends State<LoginForm> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
-              child: SignBtn(
-                text: 'تسجيل دخول',
-                onClicked: () {
-                  if (formKey.currentState.validate()) {
-                    formKey.currentState.save();
-                    authController.login(LoginModel(
-                      email: email,
-                      password: pass,
-                    ));
-                  }
-                },
-              ),
+              child: (isLoading)
+                  ? circularProgress(context, size: 40)
+                  : SignBtn(
+                      text: 'تسجيل دخول',
+                      onClicked: () {
+                        if (formKey.currentState.validate()) {
+                          formKey.currentState.save();
+                          setState(() {
+                            isLoading = true;
+                          });
+                          authController
+                              .login(LoginModel(
+                            email: email,
+                            password: pass,
+                          ))
+                              .then((value) {
+                            setState(() {
+                              isLoading = false;
+                            });
+                          });
+                        }
+                      },
+                    ),
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 10),

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
+import 'package:smartcommerce/widgets/progress.dart';
 
 class Sliders extends StatefulWidget {
   @override
@@ -20,35 +21,38 @@ class _SlidersState extends State<Sliders> {
       child: Column(
         children: [
           Obx(
-            () => CarouselSlider.builder(
-              itemCount: homeController.slidersList[0].slides.length,
-              itemBuilder: (context, index, i) {
-                return Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      alignment: Alignment.topCenter,
-                      image: GlobalImage.globalImageProvider(homeController
-                          .slidersList[0].slides[index].file.path),
-                      fit: BoxFit.cover,
+            () => (homeController.isSlidersLoading.value)
+                ? circularDefaultProgress(context)
+                : CarouselSlider.builder(
+                    itemCount: homeController.slidersList[0].slides.length,
+                    itemBuilder: (context, index, i) {
+                      return Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 8),
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade200,
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            alignment: Alignment.topCenter,
+                            image: GlobalImage.globalImageProvider(
+                                homeController
+                                    .slidersList[0].slides[index].file.path),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      );
+                    },
+                    options: CarouselOptions(
+                      aspectRatio: 15 / 7.5,
+                      viewportFraction: 0.9,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          currentIndex = index;
+                        });
+                      },
                     ),
                   ),
-                );
-              },
-              options: CarouselOptions(
-                aspectRatio: 15 / 7.5,
-                viewportFraction: 0.9,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    currentIndex = index;
-                  });
-                },
-              ),
-            ),
           ),
           Indicators(cindex: currentIndex, length: 3),
         ],

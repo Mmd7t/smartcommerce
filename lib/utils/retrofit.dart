@@ -142,7 +142,15 @@ abstract class RestClient {
   /*------------------------------  User Orders  -----------------------------*/
   /*--------------------------------------------------------------------------*/
   @POST("user/orders")
-  Future<UserOrdersModel> getUserOrders(@Field("api_token") String apiToken);
+  Future<List<UserOrdersModel>> getUserOrders(
+      @Field("api_token") String apiToken);
+
+  /*--------------------------------------------------------------------------*/
+  /*------------------------------  User Orders  -----------------------------*/
+  /*--------------------------------------------------------------------------*/
+  // @POST("user/orders")
+  // Future<List<UserOrdersModel>> getUserOrdersDetails(
+  //     @Field("api_token") String apiToken);
 }
 
 //      _dio.interceptors.add(PrettyDioLogger(requestBody: true , requestHeader: true));

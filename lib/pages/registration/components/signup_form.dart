@@ -4,6 +4,7 @@ import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/pages/registration/components/sign_btn.dart';
 import 'package:smartcommerce/widgets/global_textfield.dart';
+import 'package:smartcommerce/widgets/progress.dart';
 
 class SignupForm extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class _SignupFormState extends State<SignupForm> {
   RegisterModel userModel = RegisterModel();
   final authController = Get.find<AuthController>();
   String email, fName, lName, pass;
+  // login loading
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -115,23 +118,36 @@ class _SignupFormState extends State<SignupForm> {
 /*------------------------------------------------------------------------------------*/
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
-              child: SignBtn(
-                text: 'تسجيل حساب',
-                onClicked: () {
-                  if (formKey.currentState.validate()) {
-                    formKey.currentState.save();
-                    authController.register(
-                      RegisterModel(
-                        firstName: fName,
-                        lastName: lName,
-                        email: email,
-                        password: pass,
-                        privacyPolicy: 1,
-                      ),
-                    );
-                  }
-                },
-              ),
+              child: (isLoading)
+                  ? circularProgress(context, size: 40)
+                  : SignBtn(
+                      text: 'تسجيل حساب',
+                      onClicked: () {
+                        if (formKey.currentState.validate()) {
+                          formKey.currentState.save();
+                          setState(() {
+                            isLoading = true;
+                          });
+                          authController
+                              .register(
+                            RegisterModel(
+                              firstName: fName,
+                              lastName: lName,
+                              email: email,
+                              password: pass,
+                              privacyPolicy: 1,
+                            ),
+                          )
+                              .then((value) {
+                            setState(() {
+                              setState(() {
+                                isLoading = false;
+                              });
+                            });
+                          });
+                        }
+                      },
+                    ),
             ),
           ],
         ),

@@ -19,12 +19,12 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AspectRatio(
-      aspectRatio: 4 / 1.8,
+      aspectRatio: 4 / 1.5,
       child: Container(
         width: size.width,
         alignment: Alignment.center,
         child: Obx(
-          () => categoryController.fetchingMainCategories.value == true
+          () => categoryController.fetchingMainCategories.value
               ? circularDefaultProgress(context)
               : ListView.builder(
                   itemCount: categoryController.categoriesParentList.length,
@@ -49,7 +49,7 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               CircleAvatar(
-                                maxRadius: size.width * 0.13,
+                                maxRadius: size.width * 0.11,
                                 backgroundColor: Theme.of(context).primaryColor,
                                 backgroundImage:
                                     GlobalImage.globalImageProvider(
@@ -61,7 +61,11 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
                               const SizedBox(height: 5),
                               Text(
                                 '${categoryController.categoriesParentList[index].name}',
-                                style: TextStyle(color: Colors.red),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1
+                                    .copyWith(
+                                        color: Theme.of(context).accentColor),
                                 maxLines: 3,
                                 softWrap: true,
                                 textAlign: TextAlign.center,

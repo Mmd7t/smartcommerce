@@ -15,26 +15,14 @@ class ProductGridItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridTile(
-/*------------------------------------------------------------------------------*/
-/*----------------------------------  Footer  ----------------------------------*/
-/*------------------------------------------------------------------------------*/
-      footer: footer(
-        name: "${data.name}",
-        context: context,
-        price: "${data.formattedPrice.formatted}",
-      ),
-/*------------------------------------------------------------------------------*/
-/*----------------------------------  Header  ----------------------------------*/
-/*------------------------------------------------------------------------------*/
-      header: header(context),
-/*------------------------------------------------------------------------------*/
-/*----------------------------------  Child  -----------------------------------*/
-/*------------------------------------------------------------------------------*/
-      child: child(
-        context: context,
-        img: "${data.baseImage}",
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        child(
+          context: context,
+          img: "${data.baseImage}",
+        ),
+      ],
     );
   }
 
@@ -45,23 +33,21 @@ class ProductGridItem extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: Container(
-        padding: const EdgeInsets.only(bottom: 15),
+        // padding: const EdgeInsets.only(bottom: 15),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const Divider(
-                endIndent: 20, indent: 20, height: 20, color: Colors.red),
+                endIndent: 20, indent: 20, height: 10, color: Colors.red),
             Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    name,
-                    style: Theme.of(context).textTheme.bodyText1,
-                    overflow: TextOverflow.clip,
-                    textDirection: TextDirection.rtl,
-                  ),
+                Text(
+                  name,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  overflow: TextOverflow.ellipsis,
+                  textDirection: TextDirection.rtl,
+                  maxLines: 2,
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -80,7 +66,6 @@ class ProductGridItem extends StatelessWidget {
 /*----------------------------------------  Header Function  ------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
   header(context) {
-    // bool isAddedToCart = await CartDB().getDataById(data.id);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -127,47 +112,37 @@ class ProductGridItem extends StatelessWidget {
 /*----------------------------------------  Child Function  -------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
   child({context, img}) {
-    return Card(
-      elevation: 0.0,
-      margin: const EdgeInsets.all(5.0),
-      shape: RoundedRectangleBorder(
+    return Container(
+      padding: const EdgeInsets.all(10).copyWith(top: 30),
+      decoration: BoxDecoration(
+        boxShadow: const [
+          BoxShadow(
+            blurRadius: 2.0,
+            offset: Offset(0, 1),
+            color: Colors.black12,
+          )
+        ],
+        color: Theme.of(context).scaffoldBackgroundColor,
+        border: Border.all(
+          color: Theme.of(context).primaryColor,
+          width: 1.2,
+        ),
         borderRadius: BorderRadius.circular(radius),
       ),
-      child: Container(
-        padding: const EdgeInsets.all(10).copyWith(top: 30),
-        decoration: BoxDecoration(
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 2.0,
-              offset: Offset(0, 1),
-              color: Colors.black12,
-            )
-          ],
-          color: Theme.of(context).scaffoldBackgroundColor,
-          border: Border.all(
-            color: Theme.of(context).primaryColor,
-            width: 1.2,
+      child: Column(
+        children: [
+          header(context),
+          SizedBox(
+            width: 100,
+            height: 100,
+            child: GlobalImage.globalImage(img),
           ),
-          borderRadius: BorderRadius.circular(radius),
-        ),
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: [
-            Container(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  child: const Text(''),
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                ),
-              ),
-              width: 70,
-              height: 70,
-            ),
-            GlobalImage.globalImage(img),
-          ],
-        ),
+          footer(
+            name: "${data.name}",
+            context: context,
+            price: "${data.formattedPrice.formatted}",
+          ),
+        ],
       ),
     );
   }

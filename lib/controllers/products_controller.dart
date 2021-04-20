@@ -96,6 +96,7 @@ class ProductsController extends GetxController {
   }
 
   getProductDetails(int id) async {
+    loadingProductDetails.value = true;
     selectedProductDetails.value = id;
     print(selectedProductDetails.value);
     loadingProductDetails.value = true;
@@ -104,7 +105,6 @@ class ProductsController extends GetxController {
       print('Product Details is hereeeeeeeeeeeeeeeeeeeee');
       productDetails = data.obs;
     }
-
-    loadingFeaturedCatsProducts.value = false;
+    loadingProductDetails.value = false;
   }
 }

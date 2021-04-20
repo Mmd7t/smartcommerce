@@ -5,6 +5,7 @@ import 'package:smartcommerce/pages/cart/cart_screen.dart';
 import 'package:smartcommerce/pages/favorite/favorite_page.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
+import 'package:smartcommerce/pages/orders/orders_page.dart';
 import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/pages/products_pages/products.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
@@ -51,6 +52,10 @@ class AppPages {
     GetPage(
       name: ProductDetails.routeName,
       page: () => ProductDetails(),
+    ),
+    GetPage(
+      name: OrdersPage.routeName,
+      page: () => OrdersPage(),
     ),
   ];
 }

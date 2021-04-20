@@ -8,9 +8,9 @@ part of 'retrofit.dart';
 
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
-    ArgumentError.checkNotNull(_dio, '_dio');
     _dio.interceptors
         .add(PrettyDioLogger(requestBody: true, requestHeader: true));
+    ArgumentError.checkNotNull(_dio, '_dio');
     baseUrl ??= 'https://market.smartcommerce.me/ar/api/';
   }
 
@@ -357,13 +357,13 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<UserOrdersModel> getUserOrders(apiToken) async {
+  Future<List<UserOrdersModel>> getUserOrders(apiToken) async {
     ArgumentError.checkNotNull(apiToken, 'apiToken');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = {'api_token': apiToken};
     _data.removeWhere((k, v) => v == null);
-    final _result = await _dio.request<Map<String, dynamic>>('user/orders',
+    final _result = await _dio.request<List<dynamic>>('user/orders',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'POST',
@@ -371,7 +371,9 @@ class _RestClient implements RestClient {
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
-    final value = UserOrdersModel.fromJson(_result.data);
+    var value = _result.data
+        .map((dynamic i) => UserOrdersModel.fromJson(i as Map<String, dynamic>))
+        .toList();
     return value;
   }
 }
