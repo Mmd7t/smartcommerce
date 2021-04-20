@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/controllers/orders_controller.dart';
 import 'package:smartcommerce/pages/addresses/user_address.dart';
+import 'package:smartcommerce/pages/orders/orders_page.dart';
 import 'package:smartcommerce/pages/user_review/user_reviews.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -85,6 +87,8 @@ class ProfilePage extends StatelessWidget {
                         onTap: () {
                           print(index);
                           if (index == 0) {
+                            Get.put(OrdersController()).getOrders();
+                            Get.toNamed(OrdersPage.routeName);
                           } else if (index == 1) {
                             Get.toNamed(MyAddressScreen.routeName);
                           } else if (index == 2) {

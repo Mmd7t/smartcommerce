@@ -24,7 +24,7 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
         width: size.width,
         alignment: Alignment.center,
         child: Obx(
-          () => categoryController.fetchingMainCategories.value == true
+          () => categoryController.fetchingMainCategories.value
               ? circularDefaultProgress(context)
               : ListView.builder(
                   itemCount: categoryController.categoriesParentList.length,

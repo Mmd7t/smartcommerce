@@ -64,6 +64,17 @@ class Messages extends Translations {
           "areYouSure": "هل أنت متأكد",
           "no": "لا",
           "yes": "نعم",
+          'All Orders': 'جميع الطلبات',
+          "Order No": 'طلب رقم',
+          'Total': 'المبلغ الكلى',
+          'discount': 'تخفيض',
+          'Payment Method': 'طريقة الدفع',
+          'Ordered Date': 'تاريخ الطلب',
+          'Canceled': 'ملغية',
+          'Processing': 'قيد التنفيذ',
+          'Completed': 'مكتملة',
+          'Pending': 'متوقفة',
+          'Pending Payment': 'الدفع متوقف',
         }
       };
 }

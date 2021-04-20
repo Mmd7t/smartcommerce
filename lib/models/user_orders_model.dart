@@ -81,7 +81,7 @@ class UserOrdersModel {
   int couponId;
   Discount discount;
   Discount total;
-  PaymentMethod paymentMethod;
+  String paymentMethod;
   Currency currency;
   String currencyRate;
   Locale locale;
@@ -122,7 +122,7 @@ class UserOrdersModel {
         couponId: json["coupon_id"] == null ? null : json["coupon_id"],
         discount: Discount.fromJson(json["discount"]),
         total: Discount.fromJson(json["total"]),
-        paymentMethod: paymentMethodValues.map[json["payment_method"]],
+        paymentMethod: json["payment_method"],
         currency: currencyValues.map[json["currency"]],
         currencyRate: json["currency_rate"],
         locale: localeValues.map[json["locale"]],
@@ -163,7 +163,7 @@ class UserOrdersModel {
         "coupon_id": couponId == null ? null : couponId,
         "discount": discount.toJson(),
         "total": total.toJson(),
-        "payment_method": paymentMethodValues.reverse[paymentMethod],
+        "payment_method": paymentMethod,
         "currency": currencyValues.reverse[currency],
         "currency_rate": currencyRate,
         "locale": localeValues.reverse[locale],
@@ -246,13 +246,6 @@ class InCurrentCurrency {
 enum Locale { AR }
 
 final localeValues = EnumValues({"ar": Locale.AR});
-
-enum PaymentMethod { EMPTY, PAYMENT_METHOD }
-
-final paymentMethodValues = EnumValues({
-  "الدفع عند الاستلام": PaymentMethod.EMPTY,
-  "": PaymentMethod.PAYMENT_METHOD
-});
 
 enum Status { PENDING, COMPLETED, CANCELED, PENDING_PAYMENT, PROCESSING }
 

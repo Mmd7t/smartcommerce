@@ -21,31 +21,19 @@ class _HeaderPartState extends State<HeaderPart> {
           child: Column(
             children: [
               CarouselSlider.builder(
-                itemCount: 2,
+                itemCount: contoller.productDetails.value.files.length,
                 itemBuilder: (context, index, realIndex) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: Container(
-                      padding: const EdgeInsets.all(25),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: Colors.primaries[index], width: 1.3),
-                        borderRadius: BorderRadius.circular(18),
-                      ),
-                      alignment: Alignment.center,
-                      child: GlobalImage.globalImage(
-                          contoller.productDetails.value.baseImage.path),
-                    ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: GlobalImage.globalImage(
+                        contoller.productDetails.value.files[index].path),
                   ),
                 ),
                 options: CarouselOptions(
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.97,
-                  // autoPlay: true,
+                  aspectRatio: 16 / 9.5,
                   autoPlayInterval: Duration(seconds: 3),
+                  enableInfiniteScroll: false,
                   onPageChanged: (index, reason) {
                     setState(() {
                       currentIndex = index;
@@ -63,7 +51,7 @@ class _HeaderPartState extends State<HeaderPart> {
               Expanded(
                 child: Container(
                   child: Text(
-                    "${contoller.productDetails.value.brand.name}",
+                    "${contoller.productDetails.value.name}",
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
