@@ -276,7 +276,9 @@ class Brand {
         id: json["id"],
         slug: json["slug"],
         isActive: json["is_active"],
-        createdAt: DateTime.parse(json["created_at"]),
+        createdAt: (json["created_at"] == null)
+            ? DateTime.parse(json["created_at"])
+            : DateTime.now(),
         updatedAt: DateTime.parse(json["updated_at"]),
         name: json["name"],
         translations: List<BrandTranslation>.from(
@@ -512,13 +514,13 @@ class InCurrentCurrency {
     this.currency,
   });
 
-  int amount;
+  String amount;
   String formatted;
   String currency;
 
   factory InCurrentCurrency.fromJson(Map<String, dynamic> json) =>
       InCurrentCurrency(
-        amount: json["amount"],
+        amount: json["amount"].toString(),
         formatted: json["formatted"],
         currency: json["currency"],
       );

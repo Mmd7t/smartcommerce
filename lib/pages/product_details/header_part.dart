@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
+import 'package:smartcommerce/widgets/global_image.dart';
 
 class HeaderPart extends StatefulWidget {
   @override
@@ -8,6 +11,7 @@ class HeaderPart extends StatefulWidget {
 
 class _HeaderPartState extends State<HeaderPart> {
   int currentIndex = 0;
+  final contoller = Get.find<ProductsController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,8 +36,8 @@ class _HeaderPartState extends State<HeaderPart> {
                         borderRadius: BorderRadius.circular(18),
                       ),
                       alignment: Alignment.center,
-                      child: Image.network(
-                          "https://purepng.com/public/uploads/large/purepng.com-food-platefood-meat-plate-tasty-grill-breakfast-dinner-french-fries-launch-941524624215fnp4x.png"),
+                      child: GlobalImage.globalImage(
+                          contoller.productDetails.value.baseImage.path),
                     ),
                   ),
                 ),
@@ -53,14 +57,13 @@ class _HeaderPartState extends State<HeaderPart> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 35),
           child: Row(
             children: [
               Expanded(
                 child: Container(
-                  alignment: Alignment.centerLeft,
                   child: Text(
-                    " product.name",
+                    "${contoller.productDetails.value.brand.name}",
                     style: Theme.of(context).textTheme.headline6,
                   ),
                 ),
