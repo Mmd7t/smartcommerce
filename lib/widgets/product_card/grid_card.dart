@@ -133,8 +133,8 @@ class ProductGridItem extends StatelessWidget {
         children: [
           header(context),
           SizedBox(
-            width: 100,
-            height: 100,
+            width: 85,
+            height: 85,
             child: GlobalImage.globalImage(img),
           ),
           footer(

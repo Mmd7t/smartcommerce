@@ -11,6 +11,7 @@ import 'package:smartcommerce/pages/registration/registration.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 import 'package:smartcommerce/utils/shared_prefs.dart';
+import 'package:smartcommerce/widgets/custom_dialog.dart';
 
 class AuthController extends GetxController {
   final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
@@ -33,8 +34,6 @@ class AuthController extends GetxController {
     String data = await SharedPrefsHelper.getApiTokenFromPrefs();
     if (data != null) {
       apiToken = data.obs;
-      // apiToken =
-      //     "\$2y\$10\$f05o1IgQ8zQSFdSwzHPbke2beEai0.1QCZOCfkMtvxPvUQnqzdQiK".obs;
     }
   }
 
@@ -45,6 +44,10 @@ class AuthController extends GetxController {
       Get.toNamed(MainPage.routeName);
     }
   }
+
+/*--------------------------------------------------------------------------------------*/
+/*--------------------------------  Register Function  ---------------------------------*/
+/*--------------------------------------------------------------------------------------*/
 
   Future<void> register(registerModel) async {
     try {
@@ -63,27 +66,43 @@ class AuthController extends GetxController {
     }
   }
 
+/*--------------------------------------------------------------------------------------*/
+/*----------------------------------  Logout Function  ---------------------------------*/
+/*--------------------------------------------------------------------------------------*/
+
   logOut() {
     SharedPrefsHelper.removeToken();
     Get.offAllNamed(Registration.routeName);
   }
 
+/*--------------------------------------------------------------------------------------*/
+/*----------------------------------  Login Function  ----------------------------------*/
+/*--------------------------------------------------------------------------------------*/
+
   Future<void> login(loginModel) async {
     try {
       AuthResponseModel response =
           await client.postLogin(loginModel.toJson(), Constants.basicAuth);
-      if (response != null) {
+      if (response != null && response.message == 'success') {
         saveToken(response.apiToken);
         Get.toNamed(MainPage.routeName);
         getUserProfile();
         print(response.apiToken);
+      } else if (response.message == 'wrong_email') {
+        errorDialog(content: 'wrong email\ntry again please');
+      } else if (response.message == 'wrong_password') {
+        errorDialog(content: 'wrong password\ntry again please');
       } else {
-        throw Exception();
+        errorDialog(content: 'error ocured\ntry again please');
       }
     } catch (e) {
       throw e;
     }
   }
+
+/*--------------------------------------------------------------------------------------*/
+/*------------------------------  User Profile Function  -------------------------------*/
+/*--------------------------------------------------------------------------------------*/
 
   Future<void> getUserProfile() async {
     await getToken();
