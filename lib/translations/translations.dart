@@ -85,6 +85,7 @@ class Messages extends Translations {
           'Completed': 'مكتملة',
           'Pending': 'متوقفة',
           'Pending Payment': 'الدفع متوقف',
+          'brands': 'الماركات',
         }
       };
 }

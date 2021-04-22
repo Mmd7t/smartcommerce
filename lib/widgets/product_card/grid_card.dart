@@ -9,20 +9,45 @@ import '../progress.dart';
 
 class ProductGridItem extends StatelessWidget {
   final ProductData data;
-  static const double radius = 10;
+  ProductGridItem(this.data);
+  static const double radius = 5;
   final AuthController controller = Get.put(AuthController());
   final CartController cart = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        child(
-          context: context,
-          img: "${data.baseImage}",
-        ),
-      ],
+    return Card(
+      elevation: 2.5,
+      child: child(
+        context: context,
+        img: "${data.baseImage}",
+      ),
+    );
+  }
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------  Child Function  -------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+  child({context, img}) {
+    return Container(
+      padding: const EdgeInsets.all(10).copyWith(top: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          header(context),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GlobalImage.globalImage(img),
+            ),
+          ),
+          footer(
+            name: "${data.name}",
+            context: context,
+            price: "${data.formattedPrice.formatted}",
+          ),
+        ],
+      ),
     );
   }
 
@@ -30,35 +55,33 @@ class ProductGridItem extends StatelessWidget {
 /*----------------------------------------  Footer Function  ------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
   footer({name, context, price}) {
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Container(
-        // padding: const EdgeInsets.only(bottom: 15),
-        child: Column(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 5),
+              child: Text(
+                name,
+                style: Theme.of(context).textTheme.bodyText1,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ),
             const Divider(
-                endIndent: 20, indent: 20, height: 10, color: Colors.red),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  name,
-                  style: Theme.of(context).textTheme.bodyText1,
-                  overflow: TextOverflow.ellipsis,
-                  textDirection: TextDirection.rtl,
-                  maxLines: 2,
-                ),
-                const SizedBox(height: 10),
-                Text(
-                  '$price',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-              ],
+                endIndent: 20, indent: 20, height: 12, color: Colors.red),
+            Text(
+              '$price',
+              style: Theme.of(context).textTheme.subtitle2.copyWith(
+                    color: Theme.of(context).accentColor,
+                    fontWeight: FontWeight.bold,
+                  ),
             ),
           ],
         ),
-      ),
+      ],
     );
   }
 
@@ -107,45 +130,4 @@ class ProductGridItem extends StatelessWidget {
       ],
     );
   }
-
-/*-----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------  Child Function  -------------------------------------------*/
-/*-----------------------------------------------------------------------------------------------------*/
-  child({context, img}) {
-    return Container(
-      padding: const EdgeInsets.all(10).copyWith(top: 30),
-      decoration: BoxDecoration(
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 2.0,
-            offset: Offset(0, 1),
-            color: Colors.black12,
-          )
-        ],
-        color: Theme.of(context).scaffoldBackgroundColor,
-        border: Border.all(
-          color: Theme.of(context).primaryColor,
-          width: 1.2,
-        ),
-        borderRadius: BorderRadius.circular(radius),
-      ),
-      child: Column(
-        children: [
-          header(context),
-          SizedBox(
-            width: 85,
-            height: 85,
-            child: GlobalImage.globalImage(img),
-          ),
-          footer(
-            name: "${data.name}",
-            context: context,
-            price: "${data.formattedPrice.formatted}",
-          ),
-        ],
-      ),
-    );
-  }
-
-  ProductGridItem(this.data);
 }

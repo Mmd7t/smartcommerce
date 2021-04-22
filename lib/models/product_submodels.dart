@@ -119,7 +119,7 @@ class Brand {
         id: json["id"],
         slug: json["slug"],
         isActive: json["is_active"],
-        createdAt: (json["created_at"] == null)
+        createdAt: (json["created_at"] != null)
             ? DateTime.parse(json["created_at"])
             : DateTime.now(),
         updatedAt: DateTime.parse(json["updated_at"]),

@@ -12,7 +12,7 @@ class TwoBanners extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: Obx(
         () => (homeController.isTwoBannersLoading.value)
-            ? circularDefaultProgress(context)
+            ? circularDefaultProgress(context, size: 40.0)
             : Row(
                 children: [
                   (homeController.twoBannersModel.value.banner1.image != null)
@@ -23,7 +23,7 @@ class TwoBanners extends StatelessWidget {
                             child: GlobalImage.globalImage(homeController
                                 .twoBannersModel.value.banner1.image.path),
                             decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: Colors.grey.shade200,
                               image: DecorationImage(
                                 image: GlobalImage.globalImageProvider(
                                     homeController.twoBannersModel.value.banner1
@@ -43,7 +43,7 @@ class TwoBanners extends StatelessWidget {
                             child: GlobalImage.globalImage(homeController
                                 .twoBannersModel.value.banner2.image.path),
                             decoration: BoxDecoration(
-                              color: Colors.red,
+                              color: Colors.grey.shade200,
                               image: DecorationImage(
                                 image: GlobalImage.globalImageProvider(
                                     homeController.twoBannersModel.value.banner2

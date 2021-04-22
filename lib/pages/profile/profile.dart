@@ -26,7 +26,8 @@ class ProfilePage extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                          color: Theme.of(context).accentColor.withOpacity(0.4),
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.4),
                           width: 3),
                     ),
                     child: Container(
@@ -35,7 +36,7 @@ class ProfilePage extends StatelessWidget {
                         shape: BoxShape.circle,
                         border: Border.all(
                             color:
-                                Theme.of(context).accentColor.withOpacity(0.5),
+                                Theme.of(context).primaryColor.withOpacity(0.5),
                             width: 3),
                       ),
                       child: CircleAvatar(
@@ -65,7 +66,10 @@ class ProfilePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: Text(
                       controller.userProfileModel.value.email,
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.subtitle1.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -74,14 +78,12 @@ class ProfilePage extends StatelessWidget {
 /*----------------------------------------------------------------------------------------------*/
                   ...List.generate(
                     3,
-                    (index) => Container(
+                    (index) => Card(
+                      elevation: 2.5,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                            color: Theme.of(context).accentColor, width: 1.5),
-                        color: Theme.of(context).scaffoldBackgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: ListTile(
                         onTap: () {
@@ -97,8 +99,10 @@ class ProfilePage extends StatelessWidget {
                         },
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 5, horizontal: 15),
-                        leading: Icon(Icons.person,
-                            color: Theme.of(context).accentColor),
+                        leading: Icon(
+                          Icons.person_outline,
+                          color: Theme.of(context).primaryColor,
+                        ),
                         title: Text(
                           index == 0
                               ? "الطلبات".tr
@@ -112,7 +116,10 @@ class ProfilePage extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        trailing: const Icon(Icons.arrow_forward_ios_outlined),
+                        trailing: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Theme.of(context).primaryColor,
+                        ),
                       ),
                     ),
                   ),

@@ -18,8 +18,7 @@ class Home extends StatelessWidget {
       children: [
         Container(
           width: size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5)
-              .copyWith(bottom: 10),
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: TextField(
             focusNode: focusNode,
             autocorrect: false,
@@ -35,18 +34,6 @@ class Home extends StatelessWidget {
         ),
         HomeCategoriesList(),
         Sliders(),
-        Padding(
-          padding: const EdgeInsets.all(15.0).copyWith(bottom: 8),
-          child: Text(
-            'الماركات',
-            style: TextStyle(
-              fontSize: Theme.of(context).textTheme.headline5.fontSize,
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).accentColor,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
         HomeBrands(),
         TwoBanners(),
         HomeBestSales(),

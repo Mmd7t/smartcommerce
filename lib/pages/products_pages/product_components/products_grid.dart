@@ -7,7 +7,7 @@ import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/widgets/product_card/grid_card.dart';
 
 class ProductsGrid extends StatelessWidget {
-  static const double radius = 10;
+  static const double radius = 5;
 
   final List<ProductData> data;
   ProductsGrid(this.data);
@@ -20,7 +20,7 @@ class ProductsGrid extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 5,
         mainAxisSpacing: 5,
-        childAspectRatio: 3 / 4.8,
+        childAspectRatio: 3 / 4.2,
       ),
       itemCount: data.length,
       itemBuilder: (context, index) {

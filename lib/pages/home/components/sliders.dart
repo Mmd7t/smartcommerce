@@ -16,23 +16,23 @@ class _SlidersState extends State<Sliders> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          Obx(
-            () => (homeController.isSlidersLoading.value)
-                ? circularDefaultProgress(context)
-                : CarouselSlider.builder(
-                    itemCount: homeController.slidersList[0].slides.length,
-                    itemBuilder: (context, index, i) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 8),
+    return Column(
+      children: [
+        Obx(
+          () => (homeController.isSlidersLoading.value)
+              ? circularDefaultProgress(context, size: 40.0)
+              : CarouselSlider.builder(
+                  itemCount: homeController.slidersList[0].slides.length,
+                  itemBuilder: (context, index, i) {
+                    return Card(
+                      elevation: 3,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 8),
+                      child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
                           color: Colors.grey.shade200,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(5),
                           image: DecorationImage(
                             alignment: Alignment.topCenter,
                             image: GlobalImage.globalImageProvider(
@@ -41,22 +41,22 @@ class _SlidersState extends State<Sliders> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                      );
+                      ),
+                    );
+                  },
+                  options: CarouselOptions(
+                    aspectRatio: 15 / 7.5,
+                    viewportFraction: 0.97,
+                    onPageChanged: (index, reason) {
+                      setState(() {
+                        currentIndex = index;
+                      });
                     },
-                    options: CarouselOptions(
-                      aspectRatio: 15 / 7.5,
-                      viewportFraction: 0.9,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          currentIndex = index;
-                        });
-                      },
-                    ),
                   ),
-          ),
-          Indicators(cindex: currentIndex, length: 3),
-        ],
-      ),
+                ),
+        ),
+        Indicators(cindex: currentIndex, length: 3),
+      ],
     );
   }
 }

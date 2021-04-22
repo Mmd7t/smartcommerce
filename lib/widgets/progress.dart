@@ -5,15 +5,23 @@ import 'package:get/get.dart';
 circularProgress(BuildContext context, {double size = 70.0, Color color}) {
   return Center(
     child: SpinKitWave(
-      color: color == null ? Theme.of(context).accentColor : color,
+      type: SpinKitWaveType.center,
+      itemBuilder: (context, index) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: color == null ? Theme.of(context).accentColor : color,
+          ),
+        );
+      },
       size: size,
     ),
   );
 }
 
-circularMainProgress(BuildContext context, {Color color}) {
+circularMainProgress({Color color}) {
   return Center(
-    child: SpinKitWanderingCubes(
+    child: SpinKitChasingDots(
       color: Get.theme.primaryColor,
     ),
   );
@@ -22,8 +30,8 @@ circularMainProgress(BuildContext context, {Color color}) {
 circularDefaultProgress(BuildContext context,
     {double size = 70.0, Color color}) {
   return Center(
-    child: SpinKitWanderingCubes(
-      color: color == null ? Theme.of(context).accentColor : color,
+    child: SpinKitChasingDots(
+      color: color == null ? Theme.of(context).primaryColor : color,
       size: size,
     ),
   );

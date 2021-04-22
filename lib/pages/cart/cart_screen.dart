@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +9,7 @@ import 'package:smartcommerce/utils/helper/help.dart';
 import 'package:smartcommerce/widgets/auth_first_screen.dart';
 import 'package:smartcommerce/widgets/cart_item.dart';
 import 'package:smartcommerce/widgets/empty/empty_cart.dart';
+import 'package:smartcommerce/widgets/global_appbar.dart';
 
 class CartScreen extends StatefulWidget {
   static const String routeName = 'CartScreen';
@@ -36,11 +36,7 @@ class _CartScreenState extends State<CartScreen> {
 
   _unAuthCart() {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("cartScreenTitle".tr),
-        centerTitle: true,
-        elevation: 0,
-      ),
+      appBar: GlobalAppBar(title: "cartScreenTitle".tr, isCartPage: true),
       body: Stack(
         children: <Widget>[
           AuthFirstScreen(
@@ -75,12 +71,7 @@ class _CartScreenState extends State<CartScreen> {
 
   _authCart() {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("cartScreenTitle".tr),
-        centerTitle: true,
-        elevation: 0,
-        actions: <Widget>[],
-      ),
+      appBar: GlobalAppBar(title: "cartScreenTitle".tr, isCartPage: true),
       body: cartController.cartData.isEmpty
           ? EmptyCart()
           : Container(

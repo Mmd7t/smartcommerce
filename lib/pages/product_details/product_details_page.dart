@@ -11,10 +11,7 @@ import 'sticky_header.dart';
 class ProductDetails extends StatelessWidget {
   static const String routeName = 'productDetails';
   final contoller = Get.find<ProductsController>();
-  final pages = [
-    DescriptionPart(),
-    ReviewsPart(),
-  ];
+  final pages = [DescriptionPart(), ReviewsPart()];
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -23,7 +20,6 @@ class ProductDetails extends StatelessWidget {
             ? Center(child: circularProgress(context))
             : Scaffold(
                 appBar: GlobalAppBar(),
-                extendBody: true,
                 body: DefaultTabController(
                   length: 2,
                   child: NestedScrollView(
@@ -52,20 +48,31 @@ class ProductDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        height: kToolbarHeight + 10,
+                        height: kToolbarHeight - 4,
                         width: MediaQuery.of(context).size.width * 0.40,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              color: Theme.of(context).accentColor, width: 1.6),
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Text(contoller
-                            .productDetails.value.sellingPrice.formatted),
+                        child: Text(
+                          contoller.productDetails.value.sellingPrice.formatted,
+                          style: Theme.of(context).textTheme.subtitle1.copyWith(
+                                color: Theme.of(context).accentColor,
+                                fontWeight: FontWeight.w900,
+                              ),
+                        ),
                       ),
                       /*----------------------------------  Add to Cart  ------------------------------------*/
                       MaterialButton(
                         child: const Text("Add to Cart"),
-                        color: Colors.red,
+                        elevation: 0,
+                        textColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        color: Theme.of(context).accentColor,
                         onPressed: () {},
                         height: 50,
                         minWidth: MediaQuery.of(context).size.width * 0.5,

@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -8,13 +7,13 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
-import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/widgets/custom_image.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
 class FlashSaleItem extends StatelessWidget {
   final FlashProduct product;
-  static const double radius = 10;
+  FlashSaleItem(this.product);
+  static const double radius = 8;
   final AuthController controller = Get.put(AuthController());
   final CartController cart = Get.put(CartController());
 
@@ -23,67 +22,54 @@ class FlashSaleItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(radius),
       child: InkWell(
-          borderRadius: BorderRadius.circular(radius),
-          splashColor: Theme.of(context).accentColor,
-          onTap: () =>
-              Navigator.of(context).pushNamed(ProductDetails.routeName),
-          child: Card(
-            elevation: 0.0,
-            margin: const EdgeInsets.all(5.0),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(radius),
-            ),
-            child: Container(
-              padding: const EdgeInsets.all(5).copyWith(top: 4),
-              decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                    blurRadius: 2.0,
-                    offset: Offset(0, 1),
-                    color: Colors.black12,
-                  )
-                ],
-                color: Theme.of(context).scaffoldBackgroundColor,
-                border: Border.all(
-                  color: Theme.of(context).primaryColor,
-                  width: 1.2,
-                ),
-                borderRadius: BorderRadius.circular(radius),
-              ),
-              child: Column(
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: Stack(
-                      alignment: Alignment.topCenter,
-                      children: [
-                        Container(
-                          height: 800,
-                          child: child(
-                            context: context,
-                            img: "${product.baseImage}",
-                          ),
-                        ),
-                        header(
-                          context,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 3,
-                    child: footer(
-                        name: "${product.name}",
-                        context: context,
-                        price: "${product.price.formatted}",
-                        product: product),
-                  ),
-                ],
-              ),
-            ),
-          )),
+        borderRadius: BorderRadius.circular(radius),
+        splashColor: Theme.of(context).accentColor,
+        // onTap: () =>
+        //     Navigator.of(context).pushNamed(ProductDetails.routeName),
+        child: Card(
+          elevation: 2.5,
+          margin: const EdgeInsets.all(5.0),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(radius),
+          ),
+          child: child(
+            context: context,
+            img: "${product.baseImage}",
+          ),
+        ),
+      ),
     );
   }
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------  Child Function  -------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+  child({context, img}) {
+    return Container(
+      padding: const EdgeInsets.all(10).copyWith(top: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          header(context),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: cachedNetworkImage(img),
+            ),
+          ),
+          footer(
+              name: "${product.name}",
+              context: context,
+              price: "${product.price.formatted}",
+              product: product),
+        ],
+      ),
+    );
+  }
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------  Footer Function  ------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
 
   footer({name, context, price, FlashProduct product}) {
     return Directionality(
@@ -219,32 +205,4 @@ class FlashSaleItem extends StatelessWidget {
       ],
     );
   }
-
-/*-----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------  Child Function  -------------------------------------------*/
-/*-----------------------------------------------------------------------------------------------------*/
-  child({context, img}) {
-    return Center(
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Container(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                child: const Text(''),
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-            ),
-            width: 70,
-            height: 70,
-          ),
-          cachedNetworkImage(img)
-        ],
-      ),
-    );
-  }
-
-  FlashSaleItem(this.product);
 }
