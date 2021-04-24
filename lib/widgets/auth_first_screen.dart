@@ -21,25 +21,22 @@ class AuthFirstScreen extends StatelessWidget {
             height: 150,
             width: 150,
           ),
-          SizedBox(
-            height: 10.0,
-          ),
+          const SizedBox(height: 10.0),
           Text(
             message,
             style: Theme.of(context)
                 .textTheme
-                .title
+                .headline6
                 .copyWith(fontWeight: FontWeight.bold),
           ),
-          SizedBox(
-            height: 30,
-          ),
-          RaisedButton(
+          const SizedBox(height: 30),
+          ElevatedButton(
               child: Text(
                 "signIn".tr.toString().toUpperCase(),
                 style: TextStyle(color: Theme.of(context).primaryColor),
               ),
-              color: Theme.of(context).accentColor,
+              style: ElevatedButton.styleFrom(
+                  primary: Theme.of(context).accentColor),
               onPressed: () {
                 Get.toNamed(Registration.routeName);
               })

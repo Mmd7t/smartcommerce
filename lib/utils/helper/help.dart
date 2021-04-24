@@ -9,7 +9,7 @@ class Helper {
       child: Text("${price.toStringAsFixed(1)} ${"priceTag".tr}",
           style: style != null
               ? style
-              : Theme.of(context).textTheme.title.copyWith(fontSize: 18)),
+              : Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
     );
   }
 
@@ -36,15 +36,19 @@ class Helper {
                 ),
               ),
               actions: [
-                FlatButton(
+                TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
                   child: Text("no".tr),
-                  textColor: Theme.of(context).primaryColor,
+                  style: TextButton.styleFrom(
+                    textStyle: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
                 ),
-                FlatButton(
+                TextButton(
                   onPressed: () => Navigator.of(context).pop(true),
                   child: Text("yes".tr),
-                  textColor: Theme.of(context).primaryColor,
+                  style: TextButton.styleFrom(
+                    textStyle: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
                 ),
               ],
             ));
