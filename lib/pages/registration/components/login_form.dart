@@ -33,7 +33,7 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           children: [
             GlobalTextField(
-              hint: 'الايميل',
+              hint: 'email'.tr,
               prefixIcon: Icons.email_outlined,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -52,7 +52,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
             const SizedBox(height: 5),
             GlobalTextField(
-              hint: 'الرقم السرى',
+              hint: 'password'.tr,
               prefixIcon: Icons.lock_outline,
               obscure: true,
               suffixIcon: Icon(
@@ -79,7 +79,7 @@ class _LoginFormState extends State<LoginForm> {
               child: (isLoading)
                   ? circularProgress(context, size: 40)
                   : SignBtn(
-                      text: 'تسجيل دخول',
+                      text: 'login'.tr,
                       onClicked: () {
                         if (formKey.currentState.validate()) {
                           formKey.currentState.save();
@@ -106,7 +106,7 @@ class _LoginFormState extends State<LoginForm> {
                 onTap: () => Navigator.of(context)
                     .pushNamed(ForgetPasswordPage.routeName),
                 child: Text(
-                  'نسيت الرقم السرى ؟',
+                  'forget password'.tr,
                   style: TextStyle(
                       color: Theme.of(context).primaryColor,
                       fontWeight: FontWeight.w600),

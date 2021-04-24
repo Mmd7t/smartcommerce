@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smartcommerce/pages/registration/components/login_form.dart';
 import 'package:smartcommerce/pages/registration/components/signup_form.dart';
 import 'package:smartcommerce/pages/registration/components/social_btn.dart';
+import 'package:get/get.dart';
 
 enum RegistrationType { login, signUp }
 
@@ -98,7 +99,7 @@ class _RegistrationState extends State<Registration> {
             minWidth: MediaQuery.of(context).size.width * 0.35,
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
             child: Text(
-              'تسجيل دخول',
+              'login'.tr,
               style: Theme.of(context).textTheme.button.copyWith(
                     color: (_type == RegistrationType.login)
                         ? Colors.white
@@ -125,7 +126,7 @@ class _RegistrationState extends State<Registration> {
             minWidth: MediaQuery.of(context).size.width * 0.35,
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 12),
             child: Text(
-              'انشاء حساب',
+              'signup'.tr,
               style: Theme.of(context).textTheme.button.copyWith(
                     color: (_type == RegistrationType.signUp)
                         ? Colors.white

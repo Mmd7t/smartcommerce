@@ -86,6 +86,13 @@ class Messages extends Translations {
           'Pending': 'متوقفة',
           'Pending Payment': 'الدفع متوقف',
           'brands': 'الماركات',
+          'login': 'تسجيل دخول',
+          'signup': 'انشاء حساب',
+          'email': 'الايميل',
+          'password': 'الرقم السرى',
+          'forget password': 'نسيت الرقم السرى ؟',
+          'lastname': 'اسم العائلة',
+          'firstname': 'الاسم الأول',
         }
       };
 }
