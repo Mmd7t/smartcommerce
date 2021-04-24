@@ -9,13 +9,7 @@ import 'package:smartcommerce/widgets/custom_image.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
 class CategoriesSectorTwo extends StatelessWidget {
-  static const colors = [
-    Colors.indigo,
-    Colors.red,
-    Colors.teal,
-    Colors.deepPurple,
-    Colors.pink,
-  ];
+  static const radius = 10.0;
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -29,7 +23,8 @@ class CategoriesSectorTwo extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Center(
                   child: controller.subCategoriesListLoader() == true
-                      ? Container(
+                      ? AnimatedContainer(
+                          duration: const Duration(milliseconds: 500),
                           height: MediaQuery.of(context).size.height * 0.5,
                           child: Center(
                             child: circularDefaultProgress(context),
@@ -59,52 +54,43 @@ class CategoriesSectorTwo extends StatelessWidget {
                                 Get.toNamed(ProductsByBrands.routeName,
                                     arguments: ProductsType.category);
                               },
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: AnimatedContainer(
-                                  padding: const EdgeInsets.all(4),
-                                  duration: const Duration(milliseconds: 500),
-                                  width: size.width * 0.43,
-                                  height: size.width * 0.43,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    border: Border.all(
-                                        color: Colors.amber[700], width: 1.5),
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 500),
+                                width: size.width * 0.46,
+                                height: size.width * 0.46,
+                                child: Card(
+                                  elevation: 2.5,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(radius),
                                   ),
                                   child: AnimatedContainer(
                                     duration: const Duration(milliseconds: 500),
-                                    width: size.width * 0.43,
-                                    height: size.width * 0.43,
                                     decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: Colors.amber[700],
-                                        width: 1.5,
-                                      ),
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: cachedNetworkImageProvider(
-                                            controller
-                                                .subCategoriesList()[index]
-                                                .logo
-                                                .path),
-                                      ),
+                                      borderRadius:
+                                          BorderRadius.circular(radius),
                                     ),
                                     child: Stack(
                                       alignment: Alignment.bottomCenter,
                                       children: [
-                                        cachedNetworkImage(
+                                        Positioned.fill(
+                                          child: cachedNetworkImage(
                                             controller
                                                 .subCategoriesList()[index]
                                                 .logo
                                                 .path,
-                                            radius: 15.0),
+                                            radius: radius,
+                                          ),
+                                        ),
                                         Container(
-                                          height: 25,
+                                          height: 35,
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Theme.of(context).accentColor,
+                                            borderRadius: BorderRadius.vertical(
+                                                bottom:
+                                                    Radius.circular(radius)),
+                                          ),
                                           child: GridTileBar(
-                                            backgroundColor: Colors.black26,
                                             title: Text(
                                               controller
                                                   .subCategoriesList()[index]

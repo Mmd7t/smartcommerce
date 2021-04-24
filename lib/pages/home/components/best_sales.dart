@@ -27,7 +27,7 @@ class HomeBestSales extends StatelessWidget {
         ),
         Obx(
           () => (homeController.isFeaturedCatsLoading.value)
-              ? circularDefaultProgress(context)
+              ? circularDefaultProgress(context, size: 40.0)
               : Column(
                   children: List.generate(
                     homeController.featuredCategoriesList.length,

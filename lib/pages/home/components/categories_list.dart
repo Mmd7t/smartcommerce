@@ -19,13 +19,13 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return AspectRatio(
-      aspectRatio: 4 / 1.5,
+      aspectRatio: 4 / 1.6,
       child: Container(
         width: size.width,
         alignment: Alignment.center,
         child: Obx(
           () => categoryController.fetchingMainCategories.value
-              ? circularDefaultProgress(context)
+              ? circularDefaultProgress(context, size: 40.0)
               : ListView.builder(
                   itemCount: categoryController.categoriesParentList.length,
                   shrinkWrap: true,
@@ -44,31 +44,45 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
                           Get.toNamed(ProductsByBrands.routeName);
                         },
                         child: Container(
-                          width: size.width * 0.3,
+                          width: size.width * 0.22,
+                          alignment: Alignment.topCenter,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              CircleAvatar(
-                                maxRadius: size.width * 0.11,
-                                backgroundColor: Theme.of(context).primaryColor,
-                                backgroundImage:
-                                    GlobalImage.globalImageProvider(
+                              Expanded(
+                                flex: 2,
+                                child: Container(
+                                  width: size.width * 0.22,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Theme.of(context).primaryColor,
+                                    image: DecorationImage(
+                                      fit: BoxFit.cover,
+                                      image: GlobalImage.globalImageProvider(
                                         categoryController
                                             .categoriesParentList[index]
                                             .logo
-                                            .path),
+                                            .path,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                               const SizedBox(height: 5),
-                              Text(
-                                '${categoryController.categoriesParentList[index].name}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle1
-                                    .copyWith(
-                                        color: Theme.of(context).accentColor),
-                                maxLines: 3,
-                                softWrap: true,
-                                textAlign: TextAlign.center,
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  '${categoryController.categoriesParentList[index].name}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .subtitle1
+                                      .copyWith(
+                                          color: Theme.of(context).accentColor),
+                                  maxLines: 3,
+                                  softWrap: true,
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ],
                           ),

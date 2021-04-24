@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 
@@ -17,18 +16,17 @@ class EmptyCart extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SvgPicture.asset(
-                  "assets/images/no_data.svg",
-                  height: 200,
+                Image.asset(
+                  "assets/ic_clear_shopping_cart.png",
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  color: Theme.of(context).primaryColor,
                 ),
-                SizedBox(
-                  height: 10.0,
-                ),
+                const SizedBox(height: 35.0),
                 Text(
                   '${"emptyBag".tr}',
                   style: Theme.of(context)
                       .textTheme
-                      .title
+                      .headline5
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
               ],
@@ -36,16 +34,22 @@ class EmptyCart extends StatelessWidget {
           ),
           Container(
             width: MediaQuery.of(context).size.width * 0.95,
-            child: FlatButton(
+            child: TextButton(
               onPressed: () => Get.offAllNamed(MainPage.routeName),
+              style: TextButton.styleFrom(
+                backgroundColor: Theme.of(context).accentColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
               child: Text(
                 '${"continueShopping".tr}',
                 style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.w500),
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
-              color: Theme.of(context).accentColor,
             ),
           ),
         ],

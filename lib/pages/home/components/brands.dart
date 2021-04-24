@@ -19,64 +19,92 @@ class _HomeBrandsState extends State<HomeBrands> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 25),
-      width: size.width,
-      height: size.width * 0.35,
-      alignment: Alignment.center,
-      child: Obx(
-        () => (homeController.isBrandsLoading.value)
-            ? circularDefaultProgress(context)
-            : ListView.builder(
-                itemCount: homeController.brandsList.length,
-                shrinkWrap: true,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          controller.selectedBrandProduct.value =
-                              homeController.brandsList[index].id;
-                          controller.getBrandProducts();
-                        });
+    return Column(
+      children: [
+        const SizedBox(height: 15),
+        Container(
+          width: size.width * 0.8,
+          height: 50,
+          alignment: Alignment.center,
+          child: Text(
+            'brands'.tr,
+            style: Theme.of(context).textTheme.headline6.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).accentColor,
+                ),
+          ),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          width: size.width,
+          height: size.width * 0.35,
+          alignment: Alignment.center,
+          child: Obx(
+            () => (homeController.isBrandsLoading.value)
+                ? circularDefaultProgress(context, size: 40.0)
+                : ListView.builder(
+                    itemCount: homeController.brandsList.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              controller.selectedBrandProduct.value =
+                                  homeController.brandsList[index].id;
+                              controller.getBrandProducts();
+                            });
 
-                        Get.toNamed(ProductsByBrands.routeName,
-                            arguments: ProductsType.brand);
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Expanded(
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.amber[700],
-                                    width: 1.5,
-                                  ),
-                                  image: DecorationImage(
-                                    image: GlobalImage.globalImageProvider(
-                                        homeController
-                                            .brandsList[index].files[0]),
-                                    fit: BoxFit.fitWidth,
-                                    alignment: Alignment.center,
+                            Get.toNamed(ProductsByBrands.routeName,
+                                arguments: ProductsType.brand);
+                          },
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Expanded(
+                                child: AspectRatio(
+                                  aspectRatio: 1,
+                                  child: Card(
+                                    elevation: 2.5,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image:
+                                              GlobalImage.globalImageProvider(
+                                                  homeController
+                                                      .brandsList[index]
+                                                      .files[0]),
+                                          fit: BoxFit.fitWidth,
+                                          alignment: Alignment.center,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                              const SizedBox(height: 5),
+                              Text(
+                                homeController.brandsList[index].name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1
+                                    .copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context).accentColor,
+                                    ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 5),
-                          Text(homeController.brandsList[index].name),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-      ),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ),
+        const SizedBox(height: 15),
+      ],
     );
   }
 }

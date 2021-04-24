@@ -26,39 +26,36 @@ class OrdersPage extends StatelessWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Card(
-                            elevation: 2,
-                            color:
-                                Theme.of(context).accentColor.withOpacity(0.8),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(15)),
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Order No".tr +
-                                      ': ${controller.userOrdersList[index].id}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(color: Colors.white),
-                                ),
+                        Card(
+                          elevation: 2.5,
+                          color: Theme.of(context).accentColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "Order No".tr +
+                                    ': ${controller.userOrdersList[index].id}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(color: Colors.white),
                               ),
                             ),
                           ),
                         ),
                         Card(
-                          elevation: 2,
+                          elevation: 2.5,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                                bottom: Radius.circular(15)),
+                            borderRadius: BorderRadius.circular(8),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(12.0),
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 12,
+                              horizontal: 20,
+                            ),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -69,14 +66,20 @@ class OrdersPage extends StatelessWidget {
                                 const SizedBox(height: 10),
                                 Container(
                                   padding: const EdgeInsets.symmetric(
-                                      horizontal: 20, vertical: 5),
+                                      horizontal: 35, vertical: 5),
                                   decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                    color: Colors.amber[700],
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.16),
                                   ),
                                   child: Text(
                                     checkStatus(controller
                                         .userOrdersList[index].status),
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(height: 10),
@@ -105,11 +108,8 @@ class OrdersPage extends StatelessWidget {
                                   ],
                                 ),
                                 Divider(
-                                  color: Theme.of(context).primaryColor,
-                                  endIndent: 20,
-                                  indent: 20,
-                                  height: 30,
-                                ),
+                                    color: Theme.of(context).primaryColor,
+                                    height: 30),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -129,14 +129,31 @@ class OrdersPage extends StatelessWidget {
                                         Text('discount'.tr),
                                         const SizedBox(height: 8),
                                         Text(
-                                            '${controller.userOrdersList[index].discount.formatted}'),
+                                          '${controller.userOrdersList[index].discount.formatted}',
+                                        ),
                                       ],
                                     ),
                                   ],
                                 ),
                                 const SizedBox(height: 12),
-                                Text('Total'.tr +
-                                    ' : ${controller.userOrdersList[index].total.formatted}'),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 35, vertical: 8),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5),
+                                    color: Theme.of(context)
+                                        .accentColor
+                                        .withOpacity(0.12),
+                                  ),
+                                  child: Text(
+                                    'Total'.tr +
+                                        ' : ${controller.userOrdersList[index].total.formatted}',
+                                    style: TextStyle(
+                                      color: Theme.of(context).accentColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),

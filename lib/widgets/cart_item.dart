@@ -109,7 +109,7 @@ class _CartItemState extends State<CartItem> {
                                           "outOfStock".tr,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .title
+                                              .headline6
                                               .copyWith(
                                                   color: Theme.of(context)
                                                       .errorColor),
@@ -118,14 +118,12 @@ class _CartItemState extends State<CartItem> {
                                     cart.getCart(widget.cartId).name,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subhead
+                                        .subtitle1
                                         .copyWith(fontWeight: FontWeight.bold),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
+                                  const SizedBox(height: 5),
                                   Helper.getPrice(
                                     double.parse(cart
                                         .getCart(widget.cartId)
@@ -134,7 +132,7 @@ class _CartItemState extends State<CartItem> {
                                     context,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subhead
+                                        .subtitle1
                                         .copyWith(
                                             color:
                                                 Theme.of(context).accentColor)
@@ -186,14 +184,11 @@ class _CartItemState extends State<CartItem> {
                                             .toString(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .title
+                                            .headline6
                                             .copyWith(),
                                       ),
                                       IconButton(
-                                        icon: Icon(
-                                          Icons.add,
-                                          size: 18,
-                                        ),
+                                        icon: const Icon(Icons.add, size: 18),
                                         onPressed: cart.checkIfOutOfStock(
                                                 widget.cartId)
                                             ? () {

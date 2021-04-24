@@ -5,6 +5,8 @@ import 'package:smartcommerce/utils/constants.dart';
 
 class GlobalAppBar extends PreferredSize {
   final String title;
+  final bool isCartPage;
+  const GlobalAppBar({this.title = Constants.appName, this.isCartPage = false});
   @override
   Size get preferredSize => Size(double.infinity, kToolbarHeight);
 
@@ -12,20 +14,22 @@ class GlobalAppBar extends PreferredSize {
   Widget build(BuildContext context) {
     return AppBar(
       actions: [
-        IconButton(
-          icon: const Icon(Icons.shopping_cart_outlined),
-          onPressed: () {
-            Get.toNamed(CartScreen.routeName);
-          },
-        ),
+        (isCartPage)
+            ? const SizedBox()
+            : IconButton(
+                icon: const Icon(Icons.shopping_cart_outlined),
+                onPressed: () {
+                  Get.toNamed(CartScreen.routeName);
+                },
+              ),
       ],
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
+      title: Text(
+        title,
+        style: const TextStyle(
+          color: const Color(0xFF007460),
+          fontWeight: FontWeight.bold,
+        ),
       ),
-      centerTitle: true,
-      title: Text(title),
     );
   }
-
-  GlobalAppBar({this.title = Constants.appName});
 }

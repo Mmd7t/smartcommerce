@@ -47,7 +47,7 @@ cachedNetworkImage(String mediaUrl,
               fadeInDuration: Duration(seconds: 1),
               placeholder: (context, url) {
                 return Center(
-                  child: circularProgress(context),
+                  child: circularProgress(context, size: 40.0),
                 );
               },
               errorWidget: (context, url, error) {

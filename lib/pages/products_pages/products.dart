@@ -19,7 +19,7 @@ class ProductsByBrands extends StatelessWidget {
           if (type == ProductsType.category) ProductsCategories(),
           const SizedBox(height: 10),
 /*-----------------------------------  Section 2  -----------------------------------*/
-          ProductsSection2(),
+          ProductsSection2(type: type),
 /*------------------------------------  Products  -----------------------------------*/
           Expanded(child: ProductsData(type: type)),
         ],

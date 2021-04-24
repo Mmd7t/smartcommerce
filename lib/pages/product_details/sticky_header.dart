@@ -10,9 +10,13 @@ class StickyHeader extends StatelessWidget {
             Tab(icon: const Text("Description")),
             Tab(icon: const Text("Reviews")),
           ],
-          indicatorColor: Colors.white,
           unselectedLabelColor: Colors.grey,
-          labelColor: Colors.red,
+          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+          labelColor: Theme.of(context).primaryColor,
+          indicator: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Theme.of(context).primaryColor.withOpacity(0.2),
+          ),
         ),
       ),
       floating: true,
@@ -28,17 +32,25 @@ class MyDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: Colors.white,
-      child: tabBar,
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: tabBar,
+      ),
     );
   }
 
   @override
-  double get maxExtent => tabBar.preferredSize.height;
+  double get maxExtent => tabBar.preferredSize.height + 5;
 
   @override
-  double get minExtent => tabBar.preferredSize.height;
+  double get minExtent => tabBar.preferredSize.height + 5;
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {

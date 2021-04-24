@@ -29,7 +29,7 @@ class _SignupFormState extends State<SignupForm> {
 /*-----------------------------------  First Name  -----------------------------------*/
 /*------------------------------------------------------------------------------------*/
             GlobalTextField(
-              hint: 'الاسم الأول',
+              hint: 'firstname'.tr,
               prefixIcon: Icons.person_outline,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -49,7 +49,7 @@ class _SignupFormState extends State<SignupForm> {
 /*-----------------------------------  Last Name  ------------------------------------*/
 /*------------------------------------------------------------------------------------*/
             GlobalTextField(
-              hint: 'اسم العائلة',
+              hint: 'lastname'.tr,
               prefixIcon: Icons.person_outline,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -69,7 +69,7 @@ class _SignupFormState extends State<SignupForm> {
 /*-------------------------------------  Email  --------------------------------------*/
 /*------------------------------------------------------------------------------------*/
             GlobalTextField(
-              hint: 'الايميل',
+              hint: 'email'.tr,
               prefixIcon: Icons.email_outlined,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -91,7 +91,7 @@ class _SignupFormState extends State<SignupForm> {
 /*------------------------------------  Password  ------------------------------------*/
 /*------------------------------------------------------------------------------------*/
             GlobalTextField(
-              hint: 'الرقم السرى',
+              hint: 'password'.tr,
               prefixIcon: Icons.lock_outline,
               obscure: true,
               suffixIcon: Icon(
@@ -121,7 +121,7 @@ class _SignupFormState extends State<SignupForm> {
               child: (isLoading)
                   ? circularProgress(context, size: 40)
                   : SignBtn(
-                      text: 'تسجيل حساب',
+                      text: 'signup'.tr,
                       onClicked: () {
                         if (formKey.currentState.validate()) {
                           formKey.currentState.save();
