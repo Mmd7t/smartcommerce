@@ -119,15 +119,19 @@ class Brand {
         id: json["id"],
         slug: json["slug"],
         isActive: json["is_active"],
-        createdAt: (json["created_at"] != null)
-            ? DateTime.parse(json["created_at"])
-            : DateTime.now(),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: (json["created_at"] == null)
+            ? DateTime.now()
+            : DateTime.parse(json["created_at"]),
+        updatedAt: (json["updated_at"] == null)
+            ? DateTime.now()
+            : DateTime.parse(json["updated_at"]),
         name: json["name"],
         translations: List<BrandTranslation>.from(
             json["translations"].map((x) => BrandTranslation.fromJson(x))),
-        files: List<BaseImage>.from(
-            json["files"].map((x) => BaseImage.fromJson(x))),
+        files: json["files"] != null
+            ? List<BaseImage>.from(
+                json["files"].map((x) => BaseImage.fromJson(x)))
+            : List<BaseImage>(),
       );
 
   Map<String, dynamic> toJson() => {
