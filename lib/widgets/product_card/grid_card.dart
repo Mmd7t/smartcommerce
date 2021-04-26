@@ -3,9 +3,7 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
-
 import '../custom_image.dart';
-import '../global_image.dart';
 import '../progress.dart';
 
 class ProductGridItem extends StatelessWidget {

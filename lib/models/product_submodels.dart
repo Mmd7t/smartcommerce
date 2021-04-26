@@ -131,7 +131,7 @@ class Brand {
         files: json["files"] != null
             ? List<BaseImage>.from(
                 json["files"].map((x) => BaseImage.fromJson(x)))
-            : List<BaseImage>(),
+            : <BaseImage>[],
       );
 
   Map<String, dynamic> toJson() => {

@@ -6,7 +6,14 @@ class ReviewsPart extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     return (controller.productDetails.value.reviews == null)
-        ? const Text('Be the first one to review this product')
+        ? Center(
+            child: Text(
+            'Be the first one to review this product',
+            style: Theme.of(context).textTheme.headline5.copyWith(
+                color: Theme.of(context).accentColor,
+                fontWeight: FontWeight.bold),
+            textAlign: TextAlign.center,
+          ))
         : ListView.builder(
             itemCount: controller.productDetails.value.reviewsCount,
             itemBuilder: (context, index) {

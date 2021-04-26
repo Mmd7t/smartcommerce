@@ -167,12 +167,15 @@ class ProductDetailsModel {
             ? List<dynamic>.from(json["reviews"].map((x) => x))
             : null,
         attributes: List<dynamic>.from(json["attributes"].map((x) => x)),
-        relatedProducts:
-            List<dynamic>.from(json["related_products"].map((x) => x)),
-        upSellProducts:
-            List<dynamic>.from(json["up_sell_products"].map((x) => x)),
-        crossSellProducts:
-            List<dynamic>.from(json["cross_sell_products"].map((x) => x)),
+        relatedProducts: json["related_products"] != null
+            ? List<dynamic>.from(json["related_products"].map((x) => x))
+            : null,
+        upSellProducts: json["up_sell_products"] != null
+            ? List<dynamic>.from(json["up_sell_products"].map((x) => x))
+            : null,
+        crossSellProducts: json["cross_sell_products"] != null
+            ? List<dynamic>.from(json["cross_sell_products"].map((x) => x))
+            : null,
         options: List<dynamic>.from(json["options"].map((x) => x)),
         meta: Meta.fromJson(json["meta"]),
         files: List<BaseImage>.from(
