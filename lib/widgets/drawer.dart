@@ -4,6 +4,7 @@ import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/pages/favorite/favorite_page.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
+import 'package:smartcommerce/pages/settings/settings_page.dart';
 
 class MyDrawer extends StatelessWidget {
   final apiController = Get.find<AuthController>();
@@ -125,6 +126,16 @@ class MyDrawer extends StatelessWidget {
                 title: Text("privacy policy".tr),
                 leading: Icon(
                   Icons.privacy_tip_outlined,
+                  color: Theme.of(context).accentColor,
+                ),
+              ),
+              ListTile(
+                onTap: () {
+                  Get.toNamed(SettingsPage.routeName);
+                },
+                title: Text("settings".tr),
+                leading: Icon(
+                  Icons.settings,
                   color: Theme.of(context).accentColor,
                 ),
               ),

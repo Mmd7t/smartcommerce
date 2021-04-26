@@ -102,6 +102,9 @@ class Messages extends Translations {
           'call us': 'اتصل بنا',
           'common questions': 'الاسئلة الشائعة',
           'privacy policy': 'سياسة الخصوصية',
+          'settings': 'الاعدادات',
+          'change primary color': 'تغيير اللون الرئيسى',
+          'change accent color': 'تغيير اللون الثانوى',
         }
       };
 }

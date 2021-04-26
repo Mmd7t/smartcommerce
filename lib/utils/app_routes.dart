@@ -9,6 +9,7 @@ import 'package:smartcommerce/pages/orders/orders_page.dart';
 import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/pages/products_pages/products.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
+import 'package:smartcommerce/pages/settings/settings_page.dart';
 import 'package:smartcommerce/pages/user_review/user_reviews.dart';
 
 class AppPages {
@@ -56,6 +57,10 @@ class AppPages {
     GetPage(
       name: OrdersPage.routeName,
       page: () => OrdersPage(),
+    ),
+    GetPage(
+      name: SettingsPage.routeName,
+      page: () => SettingsPage(),
     ),
   ];
 }

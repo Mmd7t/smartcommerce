@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.white,
+      statusBarIconBrightness: Brightness.dark,
     ));
     return GetMaterialApp(
       title: 'Smart Commerce',
