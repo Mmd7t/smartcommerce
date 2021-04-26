@@ -13,6 +13,9 @@ class GlobalAppBar extends PreferredSize {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(18)),
+      ),
       actions: [
         (isCartPage)
             ? const SizedBox()

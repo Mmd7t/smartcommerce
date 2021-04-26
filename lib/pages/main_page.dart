@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartcommerce/widgets/drawer.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:smartcommerce/widgets/rounded_bottom_sheet.dart';
-
+import 'package:get/get.dart';
 import 'FlashSale_Page/FlashSalePage.dart';
 import 'categories/categories_page.dart';
 import 'home/home.dart';
@@ -48,10 +48,14 @@ class _MainPageState extends State<MainPage> {
         children: pages,
       ),
       extendBody: true,
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.all(5),
+      bottomNavigationBar: Card(
+        margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+        elevation: 3,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(12),
           child: BottomNavigationBar(
             elevation: 3,
             currentIndex: pageIndex,
@@ -67,17 +71,32 @@ class _MainPageState extends State<MainPage> {
                 IconThemeData(color: Theme.of(context).accentColor),
             selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
             unselectedItemColor: Colors.grey.shade600,
-            items: const [
+            items: [
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.home), label: 'Home'),
+                icon: const Icon(Icons.home_outlined),
+                activeIcon: const Icon(Icons.home),
+                label: 'home'.tr,
+              ),
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.person), label: 'me'),
+                icon: const Icon(Icons.person_outline),
+                activeIcon: const Icon(Icons.person),
+                label: 'me'.tr,
+              ),
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.category), label: 'Categories'),
+                icon: const Icon(Icons.category_outlined),
+                activeIcon: const Icon(Icons.category),
+                label: 'cats'.tr,
+              ),
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.tag), label: 'offers'),
+                icon: const Icon(Icons.local_offer_outlined),
+                activeIcon: const Icon(Icons.local_offer),
+                label: 'offers'.tr,
+              ),
               BottomNavigationBarItem(
-                  icon: const Icon(Icons.add), label: 'More'),
+                icon: const Icon(Icons.add_circle_outline),
+                activeIcon: const Icon(Icons.add_circle),
+                label: 'more'.tr,
+              ),
             ],
           ),
         ),

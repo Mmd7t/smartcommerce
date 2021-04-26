@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/pages/registration/components/sign_btn.dart';
@@ -15,6 +16,7 @@ class _SignupFormState extends State<SignupForm> {
   final formKey = GlobalKey<FormState>();
   RegisterModel userModel = RegisterModel();
   final authController = Get.find<AuthController>();
+  final appController = Get.find<AppController>();
   String email, fName, lName, pass;
   // login loading
   bool isLoading = false;
@@ -31,6 +33,8 @@ class _SignupFormState extends State<SignupForm> {
             GlobalTextField(
               hint: 'firstname'.tr,
               prefixIcon: Icons.person_outline,
+              textInputType: TextInputType.name,
+              textInputAction: TextInputAction.next,
               validator: (String value) {
                 if (value.isEmpty) {
                   return 'please enter first name';
@@ -50,6 +54,8 @@ class _SignupFormState extends State<SignupForm> {
 /*------------------------------------------------------------------------------------*/
             GlobalTextField(
               hint: 'lastname'.tr,
+              textInputType: TextInputType.name,
+              textInputAction: TextInputAction.next,
               prefixIcon: Icons.person_outline,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -70,6 +76,8 @@ class _SignupFormState extends State<SignupForm> {
 /*------------------------------------------------------------------------------------*/
             GlobalTextField(
               hint: 'email'.tr,
+              textInputType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
               prefixIcon: Icons.email_outlined,
               validator: (String value) {
                 if (value.isEmpty) {
@@ -90,28 +98,35 @@ class _SignupFormState extends State<SignupForm> {
 /*------------------------------------------------------------------------------------*/
 /*------------------------------------  Password  ------------------------------------*/
 /*------------------------------------------------------------------------------------*/
-            GlobalTextField(
-              hint: 'password'.tr,
-              prefixIcon: Icons.lock_outline,
-              obscure: true,
-              suffixIcon: Icon(
-                Icons.remove_red_eye_outlined,
-                color: Theme.of(context).primaryColor,
+            Obx(
+              () => GlobalTextField(
+                hint: 'password'.tr,
+                textInputType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.done,
+                prefixIcon: Icons.lock_outline,
+                obscure: appController.isObscure.value,
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.remove_red_eye_outlined),
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    appController.changeObscure();
+                  },
+                ),
+                validator: (String value) {
+                  if (value.isEmpty) {
+                    return 'please enter password';
+                  } else if (value.length <= 6) {
+                    return 'password must be al least 6 digits';
+                  } else {
+                    return null;
+                  }
+                },
+                onSaved: (value) {
+                  setState(() {
+                    pass = value;
+                  });
+                },
               ),
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'please enter password';
-                } else if (value.length <= 6) {
-                  return 'password must be al least 6 digits';
-                } else {
-                  return null;
-                }
-              },
-              onSaved: (value) {
-                setState(() {
-                  pass = value;
-                });
-              },
             ),
 /*------------------------------------------------------------------------------------*/
 /*------------------------------------  Sign Btn  ------------------------------------*/

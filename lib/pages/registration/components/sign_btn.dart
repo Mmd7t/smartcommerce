@@ -10,13 +10,7 @@ class SignBtn extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        gradient: RadialGradient(
-          colors: [
-            Theme.of(context).primaryColor,
-            Theme.of(context).accentColor,
-          ],
-          radius: 5,
-        ),
+        color: Theme.of(context).accentColor,
       ),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width * 0.9,

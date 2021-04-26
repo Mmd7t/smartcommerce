@@ -54,7 +54,7 @@ class FlashSaleItem extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: cachedNetworkImage(img),
+              child: cachedNetworkImage(img, boxFit: BoxFit.fitHeight),
             ),
           ),
           footer(
@@ -79,6 +79,26 @@ class FlashSaleItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Container(
+              height: 50,
+              alignment: Alignment.center,
+              child: AnimatedTextKit(
+                animatedTexts: [
+                  WavyAnimatedText(
+                    "${((double.parse(product.pivot.price.amount) / double.parse(product.price.amount)) * 100).ceil()}% OFF",
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(color: Colors.red),
+                  ),
+                ],
+                isRepeatingAnimation: true,
+                onTap: () {
+                  print("Tap Event");
+                },
+                repeatForever: true,
+              ),
+            ),
             const Divider(
                 endIndent: 20, indent: 20, height: 20, color: Colors.red),
             Column(
@@ -94,60 +114,59 @@ class FlashSaleItem extends StatelessWidget {
                     maxLines: 2,
                   ),
                 ),
-                SizedBox(
-                  height: 20.0,
-                  child: AnimatedTextKit(
-                    animatedTexts: [
-                      WavyAnimatedText(
-                        "${((double.parse(product.pivot.price.amount) / double.parse(product.price.amount)) * 100).ceil()}% OFF",
-                        textStyle: Theme.of(context)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      AutoSizeText(
+                        product.price.formatted,
+                        style: Theme.of(context)
                             .textTheme
                             .bodyText1
-                            .copyWith(color: Colors.red),
+                            .copyWith(decoration: TextDecoration.lineThrough),
+                        overflow: TextOverflow.clip,
+                        textDirection: TextDirection.rtl,
+                        maxLines: 1,
+                      ),
+                      AutoSizeText(
+                        product.pivot.price.formatted,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: Theme.of(context).accentColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                        overflow: TextOverflow.clip,
+                        textDirection: TextDirection.rtl,
+                        maxLines: 1,
                       ),
                     ],
-                    isRepeatingAnimation: true,
-                    onTap: () {
-                      print("Tap Event");
-                    },
-                    repeatForever: true,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    AutoSizeText(
-                      product.price.formatted,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .copyWith(decoration: TextDecoration.lineThrough),
-                      overflow: TextOverflow.clip,
-                      textDirection: TextDirection.rtl,
-                      maxLines: 1,
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: CountdownTimer(
+                    widgetBuilder: (_, CurrentRemainingTime time) {
+                      if (time == null) {
+                        return Text('Game over',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor));
+                      }
+                      return Text(
+                          '${"remaining".tr} ${time.days} ${"days".tr} ${time.hours}:${time.min}:${time.sec}',
+                          style:
+                              TextStyle(color: Theme.of(context).primaryColor));
+                    },
+                    endTime:
+                        product.pivot.endDate.toLocal().millisecondsSinceEpoch +
+                            1000 * 30,
+                    endWidget: Center(
+                      child: Text("time expired".tr),
                     ),
-                    AutoSizeText(
-                      product.pivot.price.formatted,
-                      style: Theme.of(context).textTheme.bodyText1,
-                      overflow: TextOverflow.clip,
-                      textDirection: TextDirection.rtl,
-                      maxLines: 1,
-                    ),
-                  ],
-                ),
-                CountdownTimer(
-                  widgetBuilder: (_, CurrentRemainingTime time) {
-                    if (time == null) {
-                      return Text('Game over');
-                    }
-                    return Text(
-                        '${"remaining".tr} ${time.days} ${"days".tr} ${time.hours}:${time.min}:${time.sec}');
-                  },
-                  endTime:
-                      product.pivot.endDate.toLocal().millisecondsSinceEpoch +
-                          1000 * 30,
-                  endWidget: Center(
-                    child: Text("time expired".tr),
                   ),
                 ),
               ],

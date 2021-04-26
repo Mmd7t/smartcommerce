@@ -8,6 +8,8 @@ class GlobalTextField extends StatelessWidget {
   final String label;
   final Function validator;
   final Function onSaved;
+  final TextInputType textInputType;
+  final TextInputAction textInputAction;
 
   const GlobalTextField({
     Key key,
@@ -18,12 +20,16 @@ class GlobalTextField extends StatelessWidget {
     this.suffixIcon,
     @required this.prefixIcon,
     this.label,
+    this.textInputType,
+    this.textInputAction,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       obscureText: obscure ?? false,
+      keyboardType: textInputType ?? TextInputType.text,
+      textInputAction: textInputAction ?? TextInputAction.done,
       decoration: InputDecoration(
         hintText: hint,
         labelText: label,

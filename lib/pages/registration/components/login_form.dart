@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/pages/registration/components/forget_password.dart';
@@ -16,6 +17,7 @@ class _LoginFormState extends State<LoginForm> {
   var email, pass;
   final formKey = GlobalKey<FormState>();
   final authController = Get.find<AuthController>();
+  final appController = Get.find<AppController>();
   // login loading
   bool isLoading = false;
   LoginModel loginModel;
@@ -35,6 +37,8 @@ class _LoginFormState extends State<LoginForm> {
             GlobalTextField(
               hint: 'email'.tr,
               prefixIcon: Icons.email_outlined,
+              textInputType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
               validator: (String value) {
                 if (value.isEmpty) {
                   return 'please enter email';
@@ -51,28 +55,35 @@ class _LoginFormState extends State<LoginForm> {
               },
             ),
             const SizedBox(height: 5),
-            GlobalTextField(
-              hint: 'password'.tr,
-              prefixIcon: Icons.lock_outline,
-              obscure: true,
-              suffixIcon: Icon(
-                Icons.remove_red_eye_outlined,
-                color: Theme.of(context).primaryColor,
+            Obx(
+              () => GlobalTextField(
+                hint: 'password'.tr,
+                textInputType: TextInputType.visiblePassword,
+                textInputAction: TextInputAction.done,
+                prefixIcon: Icons.lock_outline,
+                obscure: appController.isObscure.value,
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.remove_red_eye_outlined),
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () {
+                    appController.changeObscure();
+                  },
+                ),
+                validator: (String value) {
+                  if (value.isEmpty) {
+                    return 'please enter password';
+                  } else if (value.length < 6) {
+                    return 'password must be al least 6 digits';
+                  } else {
+                    return null;
+                  }
+                },
+                onSaved: (value) {
+                  setState(() {
+                    pass = value;
+                  });
+                },
               ),
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'please enter password';
-                } else if (value.length < 6) {
-                  return 'password must be al least 6 digits';
-                } else {
-                  return null;
-                }
-              },
-              onSaved: (value) {
-                setState(() {
-                  pass = value;
-                });
-              },
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),

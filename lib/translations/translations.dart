@@ -67,7 +67,7 @@ class Messages extends Translations {
           "priceTag": "ج.م",
           "cartScreenTitle": "عربة التسوق",
           "cartLoginMessage": "سجل دخول أولا لترى العربة",
-          "continueShopping": "أكلمل التسوق",
+          "continueShopping": "أكمل التسوق",
           "checkout": "مواصلة الطلب",
           "total": "الاجمالى",
           "emptyBag": "عربة التسوق فارغة",
@@ -93,6 +93,15 @@ class Messages extends Translations {
           'forget password': 'نسيت الرقم السرى ؟',
           'lastname': 'اسم العائلة',
           'firstname': 'الاسم الأول',
+          'home': 'الرئيسية',
+          'wishlist': 'المفضلة',
+          'offers': 'العروض',
+          'cats': 'الفئات',
+          'me': 'أنا',
+          'more': 'المزيد',
+          'call us': 'اتصل بنا',
+          'common questions': 'الاسئلة الشائعة',
+          'privacy policy': 'سياسة الخصوصية',
         }
       };
 }

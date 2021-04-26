@@ -163,7 +163,9 @@ class ProductDetailsModel {
             json["categories"].map((x) => Category.fromJson(x))),
         taxClass: TaxClass.fromJson(json["tax_class"]),
         tags: List<dynamic>.from(json["tags"].map((x) => x)),
-        reviews: List<dynamic>.from(json["reviews"].map((x) => x)),
+        reviews: json["reviews"] != null
+            ? List<dynamic>.from(json["reviews"].map((x) => x))
+            : null,
         attributes: List<dynamic>.from(json["attributes"].map((x) => x)),
         relatedProducts:
             List<dynamic>.from(json["related_products"].map((x) => x)),

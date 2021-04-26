@@ -3,53 +3,31 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
-
 import '../custom_image.dart';
-import '../global_image.dart';
 import '../progress.dart';
 
-class ProductGridItem extends StatelessWidget {
+class ProductListItem extends StatelessWidget {
   final ProductData data;
-  ProductGridItem(this.data);
-  static const double radius = 5;
+  ProductListItem(this.data);
   final AuthController controller = Get.put(AuthController());
   final CartController cart = Get.put(CartController());
-
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 2.5,
-      child: child(
-        context: context,
-        img: "${data.baseImage}",
-      ),
-    );
-  }
-
-/*-----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------  Child Function  -------------------------------------------*/
-/*-----------------------------------------------------------------------------------------------------*/
-  child({context, img}) {
-    return Container(
-      padding: const EdgeInsets.all(10).copyWith(top: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      margin: const EdgeInsets.all(5),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          header(context),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Hero(
-                tag: 'img',
-                child: cachedNetworkImage(img, boxFit: BoxFit.fitHeight),
-              ),
-            ),
-          ),
-          footer(
-            name: "${data.name}",
+          leading(context: context, img: data.baseImage),
+          const SizedBox(width: 10),
+          title(
+            name: data.name,
             context: context,
-            price: "${data.formattedPrice.formatted}",
+            price: data.formattedPrice.formatted,
           ),
+          trailing(context),
+          const SizedBox(width: 5),
         ],
       ),
     );
@@ -58,43 +36,33 @@ class ProductGridItem extends StatelessWidget {
 /*-----------------------------------------------------------------------------------------------------*/
 /*----------------------------------------  Footer Function  ------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
-  footer({name, context, price}) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
+  title({name, context, price}) {
+    return Expanded(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              child: Text(
-                name,
-                style: Theme.of(context).textTheme.bodyText1,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-            ),
-            const Divider(
-                endIndent: 20, indent: 20, height: 12, color: Colors.red),
+            Text(name),
+            const SizedBox(height: 10),
             Text(
-              '$price',
-              style: Theme.of(context).textTheme.subtitle2.copyWith(
-                    color: Theme.of(context).accentColor,
-                    fontWeight: FontWeight.bold,
-                  ),
+              price,
+              style: TextStyle(
+                color: Theme.of(context).accentColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
-      ],
+      ),
     );
   }
 
 /*-----------------------------------------------------------------------------------------------------*/
 /*----------------------------------------  Header Function  ------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
-  header(context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  trailing(context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Hero(
           tag: 'favBtn',
@@ -139,6 +107,22 @@ class ProductGridItem extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+/*-----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------  Child Function  -------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------------*/
+  leading({context, img}) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        child: Hero(
+          tag: 'img',
+          child: cachedNetworkImage(img,
+              boxFit: BoxFit.fitHeight, height: 120.0, width: 100.0),
+        ),
+      ),
     );
   }
 }

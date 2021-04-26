@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/utils/constants.dart';
-import 'package:smartcommerce/widgets/grid_to_view_changer.dart';
+import 'package:smartcommerce/widgets/grid_to_list_changer.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
 class ProductsSection2 extends StatelessWidget {
