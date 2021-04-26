@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
@@ -15,30 +16,45 @@ class ProductsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(data.length);
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 5,
-        mainAxisSpacing: 5,
-        childAspectRatio: 3 / 4.2,
+    return AnimationLimiter(
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 5,
+          childAspectRatio: 3 / 4.2,
+        ),
+        itemCount: data.length,
+        itemBuilder: (context, index) {
+          return AnimationConfiguration.staggeredGrid(
+            columnCount: 2,
+            position: index,
+            delay: const Duration(milliseconds: 150),
+            duration: const Duration(milliseconds: 500),
+            child: SlideAnimation(
+              verticalOffset: 50.0,
+              child: FadeInAnimation(
+                duration: const Duration(milliseconds: 500),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(ProductsGrid.radius),
+                  child: InkWell(
+                    onTap: () {
+                      print(data[index].id);
+                      print(Get.put(AuthController()).apiToken.value);
+                      Get.put(ProductsController())
+                          .getProductDetails(data[index].id);
+                      Get.toNamed(ProductDetails.routeName);
+                    },
+                    borderRadius: BorderRadius.circular(ProductsGrid.radius),
+                    splashColor: Theme.of(context).accentColor,
+                    child: ProductGridItem(data[index]),
+                  ),
+                ),
+              ),
+            ),
+          );
+        },
       ),
-      itemCount: data.length,
-      itemBuilder: (context, index) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(ProductsGrid.radius),
-          child: InkWell(
-            onTap: () {
-              print(data[index].id);
-              print(Get.put(AuthController()).apiToken.value);
-              Get.put(ProductsController()).getProductDetails(data[index].id);
-              Get.toNamed(ProductDetails.routeName);
-            },
-            borderRadius: BorderRadius.circular(ProductsGrid.radius),
-            splashColor: Theme.of(context).accentColor,
-            child: ProductGridItem(data[index]),
-          ),
-        );
-      },
     );
   }
 }

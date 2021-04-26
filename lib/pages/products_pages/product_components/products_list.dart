@@ -19,9 +19,12 @@ class ProductsList extends StatelessWidget {
         itemBuilder: (context, index) {
           return AnimationConfiguration.staggeredList(
             position: index,
+            delay: const Duration(milliseconds: 150),
+            duration: const Duration(milliseconds: 500),
             child: SlideAnimation(
               verticalOffset: 50.0,
               child: FadeInAnimation(
+                duration: const Duration(milliseconds: 500),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(15),
                   splashColor: Theme.of(context).primaryColor,
