@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 
 class SignBtn extends StatelessWidget {
   final String text;
   final Function onClicked;
-
-  const SignBtn({Key key, this.text, this.onClicked}) : super(key: key);
+  final AppController appController = Get.find<AppController>();
+  SignBtn({Key key, this.text, this.onClicked}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Theme.of(context).accentColor,
+        color: Color(appController.accentColor.value),
       ),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width * 0.9,

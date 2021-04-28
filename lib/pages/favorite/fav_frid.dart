@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
@@ -9,7 +10,7 @@ import 'fav_grid_item.dart';
 
 class FavGrid extends StatelessWidget {
   static const double radius = 10;
-
+  final AppController appController = Get.find<AppController>();
   final List<Wishlist> data;
   FavGrid(this.data);
 
@@ -35,7 +36,7 @@ class FavGrid extends StatelessWidget {
               Get.toNamed(ProductDetails.routeName);
             },
             borderRadius: BorderRadius.circular(FavGrid.radius),
-            splashColor: Theme.of(context).accentColor,
+            splashColor: Color(appController.accentColor.value),
             child: FavGridItem(data[index]),
           ),
         );

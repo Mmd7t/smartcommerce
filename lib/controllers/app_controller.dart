@@ -23,7 +23,6 @@ class AppController extends GetxController with ColorsPrefs, ThemePrefs {
     bool val = await checkPrimaryColor();
     if (val) {
       primaryColor.value = await getPrimaryColor();
-      Theme.of(context).copyWith(primaryColor: Color(primaryColor.value));
     } else {
       primaryColor.value = 0xFFFFA000;
     }
@@ -33,7 +32,6 @@ class AppController extends GetxController with ColorsPrefs, ThemePrefs {
     bool val = await checkAccentColor();
     if (val) {
       accentColor.value = await getAccentColor();
-      Theme.of(context).copyWith(accentColor: Color(accentColor.value));
     } else {
       accentColor.value = 0xFF007460;
     }
@@ -50,8 +48,6 @@ class AppController extends GetxController with ColorsPrefs, ThemePrefs {
   changePrimaryColor(int value, context) {
     primaryColor.value = value;
     setPrimaryColor(value);
-    Theme.of(context).copyWith(primaryColor: Color(primaryColor.value));
-    print(Theme.of(context).primaryColor);
   }
 
   changeAccentColor(int value) {

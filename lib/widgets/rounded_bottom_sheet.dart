@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 
 roundedBorderBottomSheet(context) {
+  final AppController appController = Get.find<AppController>();
   return showModalBottomSheet(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
@@ -25,13 +28,13 @@ roundedBorderBottomSheet(context) {
               width: MediaQuery.of(context).size.width * 0.8,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Theme.of(context).primaryColor.withOpacity(0.1),
+                color: Color(appController.primaryColor.value).withOpacity(0.1),
               ),
               child: Text(
                 "المزيد",
                 style: TextStyle(
                   fontSize: Theme.of(context).textTheme.headline6.fontSize,
-                  color: Theme.of(context).primaryColor,
+                  color: Color(appController.primaryColor.value),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -41,7 +44,7 @@ roundedBorderBottomSheet(context) {
               title: Text(
                 'خدمة العملاء',
                 style: TextStyle(
-                  color: Theme.of(context).accentColor,
+                  color: Color(appController.accentColor.value),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -49,14 +52,14 @@ roundedBorderBottomSheet(context) {
               leading: Image.asset(
                 'assets/delivery.png',
                 width: MediaQuery.of(context).size.width * 0.1,
-                color: Theme.of(context).primaryColor,
+                color: Color(appController.primaryColor.value),
               ),
             ),
             ListTile(
               title: Text(
                 'دفع اونلاين',
                 style: TextStyle(
-                  color: Theme.of(context).accentColor,
+                  color: Color(appController.accentColor.value),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -64,14 +67,14 @@ roundedBorderBottomSheet(context) {
               leading: Image.asset(
                 'assets/delivery.png',
                 width: MediaQuery.of(context).size.width * 0.1,
-                color: Theme.of(context).primaryColor,
+                color: Color(appController.primaryColor.value),
               ),
             ),
             ListTile(
               title: Text(
                 'الجودة و الدقة',
                 style: TextStyle(
-                  color: Theme.of(context).accentColor,
+                  color: Color(appController.accentColor.value),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -79,14 +82,14 @@ roundedBorderBottomSheet(context) {
               leading: Image.asset(
                 'assets/delivery.png',
                 width: MediaQuery.of(context).size.width * 0.1,
-                color: Theme.of(context).primaryColor,
+                color: Color(appController.primaryColor.value),
               ),
             ),
             ListTile(
               title: Text(
                 'شحن سريع',
                 style: TextStyle(
-                  color: Theme.of(context).accentColor,
+                  color: Color(appController.accentColor.value),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -94,7 +97,7 @@ roundedBorderBottomSheet(context) {
               leading: Image.asset(
                 'assets/delivery.png',
                 width: MediaQuery.of(context).size.width * 0.1,
-                color: Theme.of(context).primaryColor,
+                color: Color(appController.primaryColor.value),
               ),
             ),
           ],

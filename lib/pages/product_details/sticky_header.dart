@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 
 class StickyHeader extends StatelessWidget {
+  final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     return SliverPersistentHeader(
@@ -12,10 +15,10 @@ class StickyHeader extends StatelessWidget {
           ],
           unselectedLabelColor: Colors.grey,
           labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-          labelColor: Theme.of(context).primaryColor,
+          labelColor: Color(appController.primaryColor.value),
           indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: Theme.of(context).primaryColor.withOpacity(0.2),
+            color: Color(appController.primaryColor.value).withOpacity(0.2),
           ),
         ),
       ),

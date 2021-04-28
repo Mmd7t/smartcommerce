@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
@@ -12,7 +13,7 @@ class ProductsGrid extends StatelessWidget {
 
   final List<ProductData> data;
   ProductsGrid(this.data);
-
+  final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     print(data.length);
@@ -46,7 +47,7 @@ class ProductsGrid extends StatelessWidget {
                       Get.toNamed(ProductDetails.routeName);
                     },
                     borderRadius: BorderRadius.circular(ProductsGrid.radius),
-                    splashColor: Theme.of(context).accentColor,
+                    splashColor: Color(appController.accentColor.value),
                     child: ProductGridItem(data[index]),
                   ),
                 ),

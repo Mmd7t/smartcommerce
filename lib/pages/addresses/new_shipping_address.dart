@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/address_provider.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/models/address.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 
@@ -12,6 +13,7 @@ class NewShippingAddress extends StatefulWidget {
 }
 
 class _NewShippingAddressState extends State<NewShippingAddress> {
+  final AppController appController = Get.find<AppController>();
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
   final _codeController = TextEditingController();
@@ -213,9 +215,9 @@ class _NewShippingAddressState extends State<NewShippingAddress> {
                       child: ElevatedButton(
                         child: Text("save".tr),
                         style: ElevatedButton.styleFrom(
-                          textStyle:
-                              TextStyle(color: Theme.of(context).primaryColor),
-                          primary: Theme.of(context).accentColor,
+                          textStyle: TextStyle(
+                              color: Color(appController.primaryColor.value)),
+                          primary: Color(appController.accentColor.value),
                         ),
                         onPressed: _saveForm,
                       ),

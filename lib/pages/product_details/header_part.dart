@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
@@ -13,6 +14,7 @@ class HeaderPart extends StatefulWidget {
 class _HeaderPartState extends State<HeaderPart> {
   int currentIndex = 0;
   final controller = Get.find<ProductsController>();
+  final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -61,7 +63,7 @@ class _HeaderPartState extends State<HeaderPart> {
                     style: Theme.of(context).textTheme.subtitle1.copyWith(
                           height: 1.3,
                           fontWeight: FontWeight.bold,
-                          color: Theme.of(context).accentColor,
+                          color: Color(appController.accentColor.value),
                         ),
                   ),
                 ),
@@ -76,12 +78,12 @@ class _HeaderPartState extends State<HeaderPart> {
                       '${controller.productDetails.value.reviewsCount}',
                     ),
                     IconButton(
-                      splashColor: Theme.of(context).accentColor,
+                      splashColor: Color(appController.accentColor.value),
                       splashRadius: 25,
                       icon: Icon(
                         Icons.star,
                         size: 30,
-                        color: Theme.of(context).primaryColor,
+                        color: Color(appController.primaryColor.value),
                       ),
                       onPressed: () {},
                     ),
@@ -96,13 +98,13 @@ class _HeaderPartState extends State<HeaderPart> {
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Theme.of(context).accentColor),
+            border: Border.all(color: Color(appController.accentColor.value)),
           ),
           child: Text(
             'الماركة : ' + "${controller.productDetails.value.brand.name}",
             style: Theme.of(context).textTheme.subtitle2.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).accentColor,
+                  color: Color(appController.accentColor.value),
                 ),
           ),
         ),

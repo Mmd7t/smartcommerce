@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/pages/registration/components/login_form.dart';
 import 'package:smartcommerce/pages/registration/components/signup_form.dart';
 import 'package:smartcommerce/pages/registration/components/social_btn.dart';
@@ -15,7 +16,7 @@ class Registration extends StatefulWidget {
 
 class _RegistrationState extends State<Registration> {
   var _type = RegistrationType.signUp;
-
+  final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -113,7 +114,7 @@ class _RegistrationState extends State<Registration> {
               ),
             ),
             color: (_type == RegistrationType.login)
-                ? Theme.of(context).accentColor
+                ? Color(appController.accentColor.value)
                 : Colors.grey.shade300,
             onPressed: () {
               setState(() {
@@ -140,7 +141,7 @@ class _RegistrationState extends State<Registration> {
               ),
             ),
             color: (_type == RegistrationType.signUp)
-                ? Theme.of(context).accentColor
+                ? Color(appController.accentColor.value)
                 : Colors.grey.shade300,
             onPressed: () {
               setState(() {

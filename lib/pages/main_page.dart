@@ -56,55 +56,57 @@ class _MainPageState extends State<MainPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: BottomNavigationBar(
-            elevation: 3,
-            currentIndex: pageIndex,
-            onTap: (value) {
-              if (value != 4) {
-                pageController.jumpToPage(value);
-              } else {
-                roundedBorderBottomSheet(context);
-              }
-            },
-            selectedItemColor: Theme.of(context).primaryColor,
-            selectedIconTheme:
-                IconThemeData(color: Theme.of(context).accentColor),
-            selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
-            unselectedItemColor: Colors.grey.shade600,
-            items: [
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                icon: const Icon(Icons.home_outlined),
-                activeIcon: const Icon(Icons.home),
-                label: 'home'.tr,
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                icon: const Icon(Icons.person_outline),
-                activeIcon: const Icon(Icons.person),
-                label: 'me'.tr,
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                icon: const Icon(Icons.category_outlined),
-                activeIcon: const Icon(Icons.category),
-                label: 'cats'.tr,
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                icon: const Icon(Icons.local_offer_outlined),
-                activeIcon: const Icon(Icons.local_offer),
-                label: 'offers'.tr,
-              ),
-              BottomNavigationBarItem(
-                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                icon: const Icon(Icons.add_circle_outline),
-                activeIcon: const Icon(Icons.add_circle),
-                label: 'more'.tr,
-              ),
-            ],
+        child: Obx(
+          () => ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: BottomNavigationBar(
+              elevation: 3,
+              currentIndex: pageIndex,
+              onTap: (value) {
+                if (value != 4) {
+                  pageController.jumpToPage(value);
+                } else {
+                  roundedBorderBottomSheet(context);
+                }
+              },
+              selectedItemColor: Color(appController.primaryColor.value),
+              selectedIconTheme:
+                  IconThemeData(color: Color(appController.accentColor.value)),
+              selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
+              unselectedItemColor: Colors.grey.shade600,
+              items: [
+                BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  icon: const Icon(Icons.home_outlined),
+                  activeIcon: const Icon(Icons.home),
+                  label: 'home'.tr,
+                ),
+                BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  icon: const Icon(Icons.person_outline),
+                  activeIcon: const Icon(Icons.person),
+                  label: 'me'.tr,
+                ),
+                BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  icon: const Icon(Icons.category_outlined),
+                  activeIcon: const Icon(Icons.category),
+                  label: 'cats'.tr,
+                ),
+                BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  icon: const Icon(Icons.local_offer_outlined),
+                  activeIcon: const Icon(Icons.local_offer),
+                  label: 'offers'.tr,
+                ),
+                BottomNavigationBarItem(
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  icon: const Icon(Icons.add_circle_outline),
+                  activeIcon: const Icon(Icons.add_circle),
+                  label: 'more'.tr,
+                ),
+              ],
+            ),
           ),
         ),
       ),

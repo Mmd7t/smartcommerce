@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
@@ -25,20 +26,21 @@ class FavoritePage extends StatelessWidget {
 }
 
 empty(BuildContext context) {
+  final AppController appController = Get.find<AppController>();
   return Center(
     child: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           Icons.favorite,
-          color: Theme.of(context).primaryColor.withOpacity(0.3),
+          color: Color(appController.primaryColor.value).withOpacity(0.3),
           size: 200,
         ),
         const SizedBox(height: 10),
         Text('اضف هنا منتجاتك المفضلة'),
         const SizedBox(height: 10),
         MaterialButton(
-          color: Theme.of(context).accentColor,
+          color: Color(appController.accentColor.value),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           onPressed: () =>

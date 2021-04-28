@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
@@ -15,6 +16,7 @@ class Sliders extends StatefulWidget {
 
 class _SlidersState extends State<Sliders> {
   final homeController = Get.find<HomeController>();
+  final AppController appController = Get.find<AppController>();
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,8 @@ class _SlidersState extends State<Sliders> {
                                         .textTheme
                                         .headline5
                                         .copyWith(
-                                      color: Theme.of(context).accentColor,
+                                      color: Color(
+                                          appController.accentColor.value),
                                       fontWeight: FontWeight.bold,
                                       shadows: const [
                                         Shadow(
@@ -87,7 +90,8 @@ class _SlidersState extends State<Sliders> {
                                           .textTheme
                                           .headline6
                                           .copyWith(
-                                        color: Theme.of(context).accentColor,
+                                        color: Color(
+                                            appController.accentColor.value),
                                         fontWeight: FontWeight.bold,
                                         shadows: const [
                                           Shadow(

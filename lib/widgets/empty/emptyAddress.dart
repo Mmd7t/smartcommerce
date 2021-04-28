@@ -1,7 +1,9 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 
 class EmptyAddress extends StatelessWidget {
+  final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -10,7 +12,7 @@ class EmptyAddress extends StatelessWidget {
         Icon(
           Icons.location_off,
           size: 100,
-          color: Theme.of(context).accentColor,
+          color: Color(appController.accentColor.value),
         ),
         Text("emptyAddress".tr)
       ],

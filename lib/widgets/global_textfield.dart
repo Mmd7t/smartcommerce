@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 
 class GlobalTextField extends StatelessWidget {
   final bool obscure;
@@ -26,21 +28,26 @@ class GlobalTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: obscure ?? false,
-      keyboardType: textInputType ?? TextInputType.text,
-      textInputAction: textInputAction ?? TextInputAction.done,
-      decoration: InputDecoration(
-        hintText: hint,
-        labelText: label,
-        hintStyle: const TextStyle(color: Colors.grey),
-        prefixIcon: Icon(prefixIcon, color: Theme.of(context).primaryColor),
-        suffixIcon: suffixIcon ?? const SizedBox(),
+    final AppController appController = Get.find<AppController>();
+    return Obx(
+      () => TextFormField(
+        obscureText: obscure ?? false,
+        keyboardType: textInputType ?? TextInputType.text,
+        textInputAction: textInputAction ?? TextInputAction.done,
+        decoration: InputDecoration(
+          hintText: hint,
+          labelText: label,
+          fillColor: Color(appController.primaryColor.value).withOpacity(0.15),
+          hintStyle: const TextStyle(color: Colors.grey),
+          prefixIcon:
+              Icon(prefixIcon, color: Color(appController.primaryColor.value)),
+          suffixIcon: suffixIcon ?? const SizedBox(),
+        ),
+        validator: (value) {
+          return validator(value);
+        },
+        onSaved: (newValue) => onSaved(newValue),
       ),
-      validator: (value) {
-        return validator(value);
-      },
-      onSaved: (newValue) => onSaved(newValue),
     );
   }
 }

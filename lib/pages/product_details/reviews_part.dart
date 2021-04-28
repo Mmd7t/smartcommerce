@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 
 class ReviewsPart extends GetView<ProductsController> {
+  final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     return (controller.productDetails.value.reviews == null)
@@ -10,7 +12,7 @@ class ReviewsPart extends GetView<ProductsController> {
             child: Text(
             'Be the first one to review this product',
             style: Theme.of(context).textTheme.headline5.copyWith(
-                color: Theme.of(context).accentColor,
+                color: Color(appController.accentColor.value),
                 fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ))
@@ -33,11 +35,12 @@ class ReviewsPart extends GetView<ProductsController> {
                     children: [
                       ListTile(
                         leading: CircleAvatar(
-                            backgroundColor: Theme.of(context).primaryColor),
+                            backgroundColor:
+                                Color(appController.primaryColor.value)),
                         title: const Text("Reviewer Name"),
                       ),
                       Divider(
-                        color: Theme.of(context).accentColor,
+                        color: Color(appController.accentColor.value),
                         height: 10,
                         endIndent: 20,
                         indent: 20,

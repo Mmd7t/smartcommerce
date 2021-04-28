@@ -107,7 +107,7 @@ class _SignupFormState extends State<SignupForm> {
                 obscure: appController.isObscure.value,
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.remove_red_eye_outlined),
-                  color: Theme.of(context).primaryColor,
+                  color: Color(appController.primaryColor.value),
                   onPressed: () {
                     appController.changeObscure();
                   },

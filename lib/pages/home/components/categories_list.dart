@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/pages/products_pages/products.dart';
@@ -14,6 +15,7 @@ class HomeCategoriesList extends StatefulWidget {
 class _HomeCategoriesListState extends State<HomeCategoriesList> {
   final categoryController = Get.find<CategoryController>();
   ProductsController controller = Get.put(ProductsController());
+  final AppController appController = Get.find<AppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,8 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
                                   width: size.width * 0.22,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
-                                    color: Theme.of(context).primaryColor,
+                                    color:
+                                        Color(appController.primaryColor.value),
                                     image: DecorationImage(
                                       fit: BoxFit.cover,
                                       image: GlobalImage.globalImageProvider(
@@ -78,7 +81,8 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
                                       .textTheme
                                       .subtitle1
                                       .copyWith(
-                                          color: Theme.of(context).accentColor),
+                                          color: Color(
+                                              appController.accentColor.value)),
                                   maxLines: 3,
                                   softWrap: true,
                                   textAlign: TextAlign.center,

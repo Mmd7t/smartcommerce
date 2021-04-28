@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/address_provider.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/utils/helper/help.dart';
 import 'package:smartcommerce/widgets/empty/emptyAddress.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
@@ -10,7 +11,7 @@ import 'new_shipping_address.dart';
 
 class MyAddressScreen extends GetView<AddressController> {
   static const String routeName = 'MyAddressScreen';
-
+  final AppController appController = Get.find<AppController>();
   final selective;
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class MyAddressScreen extends GetView<AddressController> {
                                 padding: EdgeInsets.only(right: 20),
                                 child: Icon(
                                   Icons.delete,
-                                  color: Theme.of(context).accentColor,
+                                  color: Color(appController.accentColor.value),
                                   size: 40,
                                 ),
                               ),
@@ -112,8 +113,9 @@ class MyAddressScreen extends GetView<AddressController> {
               child: ElevatedButton(
                 child: Text("addShippingAddress".tr),
                 style: ElevatedButton.styleFrom(
-                  textStyle: TextStyle(color: Theme.of(context).primaryColor),
-                  primary: Theme.of(context).accentColor,
+                  textStyle:
+                      TextStyle(color: Color(appController.primaryColor.value)),
+                  primary: Color(appController.accentColor.value),
                 ),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => NewShippingAddress())),

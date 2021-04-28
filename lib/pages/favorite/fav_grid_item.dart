@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
@@ -11,6 +12,7 @@ class FavGridItem extends StatelessWidget {
   final AuthController controller = Get.put(AuthController());
   static const double radius = 10;
   final CartController cart = Get.put(CartController());
+  final AppController appController = Get.find<AppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +144,7 @@ class FavGridItem extends StatelessWidget {
           ],
           color: Theme.of(context).scaffoldBackgroundColor,
           border: Border.all(
-            color: Theme.of(context).primaryColor,
+            color: Color(appController.primaryColor.value),
             width: 1.2,
           ),
           borderRadius: BorderRadius.circular(radius),

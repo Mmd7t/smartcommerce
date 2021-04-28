@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/pages/main_page.dart';
@@ -21,6 +22,7 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> {
   CartController cartController = Get.put(CartController());
   AuthController user = Get.put(AuthController());
+  final AppController appController = Get.find<AppController>();
   @override
   void initState() {
     Timer(Duration(milliseconds: 100), () {
@@ -54,13 +56,13 @@ class _CartScreenState extends State<CartScreen> {
                   child: Text(
                     'continueShopping'.tr,
                     style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Color(appController.primaryColor.value),
                         fontSize: 20.0,
                         fontWeight: FontWeight.w500),
                   ),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(
-                        Theme.of(context).accentColor),
+                        Color(appController.accentColor.value)),
                   ),
                 ),
               ),
@@ -127,8 +129,8 @@ class _CartScreenState extends State<CartScreen> {
                                         0.95,
                                     child: TextButton(
                                       style: TextButton.styleFrom(
-                                        backgroundColor:
-                                            Theme.of(context).accentColor,
+                                        backgroundColor: Color(
+                                            appController.accentColor.value),
                                       ),
                                       onPressed: cartController.isValidating()
                                           ? null
@@ -144,8 +146,8 @@ class _CartScreenState extends State<CartScreen> {
                                       child: Text(
                                         '${"checkout".tr} (${cartController.itemsCount})',
                                         style: TextStyle(
-                                            color:
-                                                Theme.of(context).primaryColor,
+                                            color: Color(appController
+                                                .primaryColor.value),
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.w500),
                                       ),

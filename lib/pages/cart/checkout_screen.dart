@@ -92,7 +92,7 @@
 //                                 ),
 //                                 context,
 //                                 style: TextStyle(
-//                                     color: Theme.of(context).accentColor),
+//                                     color: Color(appController.accentColor.value)),
 //                               ),
 //                             ],
 //                           ),
@@ -207,11 +207,11 @@
 //                                   : Text(
 //                                       '${S.confirm(context)}',
 //                                       style: TextStyle(
-//                                           color: Theme.of(context).primaryColor,
+//                                           color: Color(appController.primaryColor.value),
 //                                           fontSize: 20.0,
 //                                           fontWeight: FontWeight.w500),
 //                                     ),
-//                               color: Theme.of(context).accentColor,
+//                               color: Color(appController.accentColor.value),
 //                             ),
 //                           ),
 //                         ],

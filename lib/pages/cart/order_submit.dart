@@ -26,7 +26,7 @@
 //       child: Scaffold(
 //         appBar: AppBar(
 //           leading: IconButton(
-//             color: Theme.of(context).accentColor,
+//             color: Color(appController.accentColor.value),
 //             icon: Icon(Icons.arrow_back),
 //             onPressed: () => Navigator.of(context).pushAndRemoveUntil(
 //                 MaterialPageRoute(builder: (_) => Home()), (route) => false),
@@ -45,7 +45,7 @@
 //                   children: <Widget>[
 //                     Icon(
 //                       Icons.check_circle_outline,
-//                       color: Theme.of(context).accentColor,
+//                       color: Color(appController.accentColor.value),
 //                       size: 80.0,
 //                     ),
 //                     SizedBox(
@@ -120,8 +120,8 @@
 //                   S.continueShopping(context),
 //                   style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500),
 //                 ),
-//                 color: Theme.of(context).accentColor,
-//                 textColor: Theme.of(context).primaryColor,
+//                 color: Color(appController.accentColor.value),
+//                 textColor: Color(appController.primaryColor.value),
 //               ),
 //             ),
 //           ],
@@ -176,7 +176,7 @@
 //           widget.subTitle,
 //           context,
 //           style:
-//               widget.textStyle.copyWith(color: Theme.of(context).accentColor),
+//               widget.textStyle.copyWith(color: Color(appController.accentColor.value)),
 //         ),
 //       ],
 //     );

@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/index.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
@@ -16,6 +17,7 @@ class FlashSaleItem extends StatelessWidget {
   static const double radius = 8;
   final AuthController controller = Get.put(AuthController());
   final CartController cart = Get.put(CartController());
+  final AppController appController = Get.find<AppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class FlashSaleItem extends StatelessWidget {
       borderRadius: BorderRadius.circular(radius),
       child: InkWell(
         borderRadius: BorderRadius.circular(radius),
-        splashColor: Theme.of(context).accentColor,
+        splashColor: Color(appController.accentColor.value),
         // onTap: () =>
         //     Navigator.of(context).pushNamed(ProductDetails.routeName),
         child: Card(
@@ -132,7 +134,7 @@ class FlashSaleItem extends StatelessWidget {
                       AutoSizeText(
                         product.pivot.price.formatted,
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: Theme.of(context).accentColor,
+                              color: Color(appController.accentColor.value),
                               fontWeight: FontWeight.bold,
                             ),
                         overflow: TextOverflow.clip,
@@ -146,7 +148,8 @@ class FlashSaleItem extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(0.1),
+                    color: Color(appController.primaryColor.value)
+                        .withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: CountdownTimer(
@@ -154,12 +157,13 @@ class FlashSaleItem extends StatelessWidget {
                       if (time == null) {
                         return Text('Game over',
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor));
+                                color:
+                                    Color(appController.primaryColor.value)));
                       }
                       return Text(
                           '${"remaining".tr} ${time.days} ${"days".tr} ${time.hours}:${time.min}:${time.sec}',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor));
+                          style: TextStyle(
+                              color: Color(appController.primaryColor.value)));
                     },
                     endTime:
                         product.pivot.endDate.toLocal().millisecondsSinceEpoch +

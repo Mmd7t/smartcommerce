@@ -10,9 +10,7 @@ class AppTheme {
     appBarTheme: commonTheme.appBarTheme.copyWith(
       backgroundColor: Colors.white,
     ),
-    inputDecorationTheme: commonTheme.inputDecorationTheme.copyWith(
-      fillColor: Colors.amber[700].withOpacity(0.15),
-    ),
+    inputDecorationTheme: commonTheme.inputDecorationTheme,
   );
 
   static ThemeData darkTheme = ThemeData.dark().copyWith(
@@ -24,9 +22,7 @@ class AppTheme {
     appBarTheme: commonTheme.appBarTheme.copyWith(
       backgroundColor: const Color(0xFF2B2B2B),
     ),
-    inputDecorationTheme: commonTheme.inputDecorationTheme.copyWith(
-      fillColor: Colors.amber[700].withOpacity(0.15),
-    ),
+    inputDecorationTheme: commonTheme.inputDecorationTheme,
   );
 
   static ThemeData commonTheme = ThemeData(
@@ -35,7 +31,7 @@ class AppTheme {
     appBarTheme: AppBarTheme(
       centerTitle: true,
       elevation: 3,
-      iconTheme: IconThemeData(color: Colors.amber[700]),
+      // iconTheme: IconThemeData(color: Colors.amber[700]),
     ),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: const EdgeInsets.symmetric(vertical: 10),

@@ -64,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
                 obscure: appController.isObscure.value,
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.remove_red_eye_outlined),
-                  color: Theme.of(context).primaryColor,
+                  color: Color(appController.primaryColor.value),
                   onPressed: () {
                     appController.changeObscure();
                   },
@@ -119,7 +119,7 @@ class _LoginFormState extends State<LoginForm> {
                 child: Text(
                   'forget password'.tr,
                   style: TextStyle(
-                      color: Theme.of(context).primaryColor,
+                      color: Color(appController.primaryColor.value),
                       fontWeight: FontWeight.w600),
                 ),
               ),

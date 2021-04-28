@@ -28,8 +28,8 @@ class ProfilePage extends StatelessWidget {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       border: Border.all(
-                          color:
-                              Theme.of(context).primaryColor.withOpacity(0.4),
+                          color: Color(appController.primaryColor.value)
+                              .withOpacity(0.4),
                           width: 3),
                     ),
                     child: Container(
@@ -37,13 +37,13 @@ class ProfilePage extends StatelessWidget {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                            color:
-                                Theme.of(context).primaryColor.withOpacity(0.5),
+                            color: Color(appController.primaryColor.value)
+                                .withOpacity(0.5),
                             width: 3),
                       ),
                       child: CircleAvatar(
                         radius: 50,
-                        backgroundColor: Theme.of(context).accentColor,
+                        backgroundColor: Color(appController.accentColor.value),
                         // backgroundImage: NetworkImage(persons[8]),
                       ),
                     ),
@@ -69,7 +69,7 @@ class ProfilePage extends StatelessWidget {
                     child: Text(
                       controller.userProfileModel.value.email,
                       style: Theme.of(context).textTheme.subtitle1.copyWith(
-                            color: Theme.of(context).primaryColor,
+                            color: Color(appController.primaryColor.value),
                             fontWeight: FontWeight.bold,
                           ),
                     ),
@@ -103,7 +103,7 @@ class ProfilePage extends StatelessWidget {
                             vertical: 5, horizontal: 15),
                         leading: Icon(
                           Icons.person_outline,
-                          color: Theme.of(context).primaryColor,
+                          color: Color(appController.primaryColor.value),
                         ),
                         title: Text(
                           index == 0
@@ -114,13 +114,13 @@ class ProfilePage extends StatelessWidget {
                                       ? "التقييمات".tr
                                       : "".tr,
                           style: TextStyle(
-                            color: Theme.of(context).accentColor,
+                            color: Color(appController.accentColor.value),
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         trailing: Icon(
                           Icons.arrow_forward_ios_outlined,
-                          color: Theme.of(context).primaryColor,
+                          color: Color(appController.primaryColor.value),
                         ),
                       ),
                     ),

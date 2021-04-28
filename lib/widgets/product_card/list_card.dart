@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
@@ -11,6 +12,7 @@ class ProductListItem extends StatelessWidget {
   ProductListItem(this.data);
   final AuthController controller = Get.put(AuthController());
   final CartController cart = Get.put(CartController());
+  final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -47,7 +49,7 @@ class ProductListItem extends StatelessWidget {
             Text(
               price,
               style: TextStyle(
-                color: Theme.of(context).accentColor,
+                color: Color(appController.accentColor.value),
                 fontWeight: FontWeight.bold,
               ),
             ),

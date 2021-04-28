@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 
 circularProgress(BuildContext context, {double size = 70.0, Color color}) {
+  final AppController appController = Get.find<AppController>();
   return Center(
     child: SpinKitWave(
       type: SpinKitWaveType.center,
@@ -10,7 +12,8 @@ circularProgress(BuildContext context, {double size = 70.0, Color color}) {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
-            color: color == null ? Theme.of(context).accentColor : color,
+            color:
+                color == null ? Color(appController.accentColor.value) : color,
           ),
         );
       },
@@ -29,9 +32,10 @@ circularMainProgress({Color color}) {
 
 circularDefaultProgress(BuildContext context,
     {double size = 70.0, Color color}) {
+  final AppController appController = Get.find<AppController>();
   return Center(
     child: SpinKitChasingDots(
-      color: color == null ? Theme.of(context).primaryColor : color,
+      color: color == null ? Color(appController.primaryColor.value) : color,
       size: size,
     ),
   );

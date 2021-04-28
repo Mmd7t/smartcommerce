@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
@@ -12,6 +13,7 @@ class ProductGridItem extends StatelessWidget {
   static const double radius = 5;
   final AuthController controller = Get.put(AuthController());
   final CartController cart = Get.put(CartController());
+  final AppController appController = Get.find<AppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class ProductGridItem extends StatelessWidget {
             Text(
               '$price',
               style: Theme.of(context).textTheme.subtitle2.copyWith(
-                    color: Theme.of(context).accentColor,
+                    color: Color(appController.accentColor.value),
                     fontWeight: FontWeight.bold,
                   ),
             ),

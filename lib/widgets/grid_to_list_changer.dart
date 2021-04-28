@@ -12,7 +12,7 @@ class GridToListChanger extends StatelessWidget {
         color:
             Theme.of(context).inputDecorationTheme.fillColor.withOpacity(0.2),
         border: Border.all(
-          color: Theme.of(context).accentColor,
+          color: Color(appController.accentColor.value),
           width: 2,
         ),
         shape: BoxShape.circle,
@@ -21,11 +21,11 @@ class GridToListChanger extends StatelessWidget {
         () => IconButton(
           padding: const EdgeInsets.all(0.0),
           splashRadius: Material.defaultSplashRadius - 5,
-          splashColor: Theme.of(context).primaryColor,
+          splashColor: Color(appController.primaryColor.value),
           icon: (appController.isGrid.value)
               ? const Icon(Icons.list_rounded)
               : const Icon(Icons.grid_on_outlined),
-          color: Theme.of(context).accentColor,
+          color: Color(appController.accentColor.value),
           onPressed: () {
             appController.changeView();
           },

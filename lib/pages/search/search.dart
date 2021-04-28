@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/search_controller.dart';
 import 'package:smartcommerce/widgets/empty/empty_product_details.dart';
 import 'package:smartcommerce/widgets/product_card/grid_card.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
 class Search extends SearchDelegate {
+  final AppController appController = Get.find<AppController>();
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
         icon: Icon(
           Icons.clear,
-          color: Theme.of(context).accentColor,
+          color: Color(appController.accentColor.value),
         ),
         onPressed: () {
           query = "";
@@ -27,7 +29,7 @@ class Search extends SearchDelegate {
       icon: Icon(
         Icons.arrow_back_ios,
       ),
-      color: Theme.of(context).accentColor,
+      color: Color(appController.accentColor.value),
       onPressed: () {
         close(context, null);
       },
@@ -68,7 +70,7 @@ class Search extends SearchDelegate {
               },
               leading: Icon(
                 Icons.history,
-                color: Theme.of(context).accentColor,
+                color: Color(appController.accentColor.value),
               ),
               title: Text(app.searchHistory[index]),
             );

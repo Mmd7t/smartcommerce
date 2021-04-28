@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/pages/products_pages/products.dart';
@@ -8,6 +9,7 @@ import 'package:smartcommerce/widgets/progress.dart';
 
 class HomeBestSales extends StatelessWidget {
   final homeController = Get.find<HomeController>();
+  final AppController appController = Get.find<AppController>();
   static const radius = 10.0;
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class HomeBestSales extends StatelessWidget {
             style: TextStyle(
               fontSize: Theme.of(context).textTheme.headline5.fontSize,
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).accentColor,
+              color: Color(appController.accentColor.value),
             ),
             textAlign: TextAlign.center,
           ),

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
 
 class AuthFirstScreen extends StatelessWidget {
+  final AppController appController = Get.find<AppController>();
   final String message;
   AuthFirstScreen({this.message = ""});
   @override
@@ -32,10 +34,11 @@ class AuthFirstScreen extends StatelessWidget {
           ElevatedButton(
               child: Text(
                 "signIn".tr.toString().toUpperCase(),
-                style: TextStyle(color: Theme.of(context).primaryColor),
+                style:
+                    TextStyle(color: Color(appController.primaryColor.value)),
               ),
               style: ElevatedButton.styleFrom(
-                  primary: Theme.of(context).accentColor),
+                  primary: Color(appController.accentColor.value)),
               onPressed: () {
                 Get.toNamed(Registration.routeName);
               })

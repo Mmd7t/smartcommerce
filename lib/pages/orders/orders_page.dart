@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/orders_controller.dart';
 import 'package:smartcommerce/models/user_orders_model.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
@@ -10,6 +11,7 @@ class OrdersPage extends StatelessWidget {
   static const String routeName = 'ordersPage';
 
   final controller = Get.find<OrdersController>();
+  final AppController appController = Get.find<AppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class OrdersPage extends StatelessWidget {
                     children: [
                       Card(
                         elevation: 2.5,
-                        color: Theme.of(context).accentColor,
+                        color: Color(appController.accentColor.value),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -76,7 +78,8 @@ class OrdersPage extends StatelessWidget {
                                   checkStatus(
                                       controller.userOrdersList[index].status),
                                   style: TextStyle(
-                                    color: Theme.of(context).primaryColor,
+                                    color:
+                                        Color(appController.primaryColor.value),
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -107,7 +110,8 @@ class OrdersPage extends StatelessWidget {
                                 ],
                               ),
                               Divider(
-                                  color: Theme.of(context).primaryColor,
+                                  color:
+                                      Color(appController.primaryColor.value),
                                   height: 30),
                               Row(
                                 mainAxisAlignment:
@@ -148,7 +152,8 @@ class OrdersPage extends StatelessWidget {
                                   'Total'.tr +
                                       ' : ${controller.userOrdersList[index].total.formatted}',
                                   style: TextStyle(
-                                    color: Theme.of(context).accentColor,
+                                    color:
+                                        Color(appController.accentColor.value),
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/pages/products_pages/products.dart';
@@ -15,6 +16,7 @@ class HomeBrands extends StatefulWidget {
 class _HomeBrandsState extends State<HomeBrands> {
   final homeController = Get.find<HomeController>();
   ProductsController controller = Get.put(ProductsController());
+  final AppController appController = Get.find<AppController>();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class _HomeBrandsState extends State<HomeBrands> {
             'brands'.tr,
             style: Theme.of(context).textTheme.headline6.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).accentColor,
+                  color: Color(appController.accentColor.value),
                 ),
           ),
         ),
@@ -92,7 +94,8 @@ class _HomeBrandsState extends State<HomeBrands> {
                                     .subtitle1
                                     .copyWith(
                                       fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).accentColor,
+                                      color: Color(
+                                          appController.accentColor.value),
                                     ),
                               ),
                             ],

@@ -17,7 +17,7 @@ class _SettingsPageState extends State<SettingsPage>
   Color primaryPickerColor = Colors.white;
   Color accentPickerColor = Colors.white;
 
-  AppController controller = Get.find<AppController>();
+  AppController appController = Get.find<AppController>();
 
   // @override
   // initState() {
@@ -44,126 +44,126 @@ class _SettingsPageState extends State<SettingsPage>
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            child: ListTile(
-              onTap: () {
-                print(index);
-                if (index == 0) {
-                  // Get.toNamed(OrdersPage.routeName);
-                } else if (index == 1) {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        titlePadding: const EdgeInsets.all(0.0),
-                        contentPadding: const EdgeInsets.all(0.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        content: SingleChildScrollView(
-                          child: ColorPicker(
-                            pickerColor: primaryPickerColor,
-                            onColorChanged: (value) {
-                              setState(() {
-                                primaryPickerColor = value;
-                              });
-                            },
-                            pickerAreaBorderRadius: BorderRadius.circular(15),
+            child: Obx(
+              () => ListTile(
+                onTap: () {
+                  print(index);
+                  if (index == 0) {
+                    // Get.toNamed(OrdersPage.routeName);
+                  } else if (index == 1) {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          titlePadding: const EdgeInsets.all(0.0),
+                          contentPadding: const EdgeInsets.all(0.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                        ),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                controller.changePrimaryColor(
-                                    primaryPickerColor.value, context);
-                                Theme.of(context)
-                                    .copyWith(primaryColor: primaryPickerColor);
-                                Get.back();
+                          content: SingleChildScrollView(
+                            child: ColorPicker(
+                              pickerColor: primaryPickerColor,
+                              onColorChanged: (value) {
+                                setState(() {
+                                  primaryPickerColor = value;
+                                });
                               },
-                              child: Text('Done')),
-                        ],
-                      );
-                    },
-                  );
-                } else if (index == 2) {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        titlePadding: const EdgeInsets.all(0.0),
-                        contentPadding: const EdgeInsets.all(0.0),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        content: SingleChildScrollView(
-                          child: ColorPicker(
-                            pickerColor: accentPickerColor,
-                            onColorChanged: (value) {
-                              setState(() {
-                                accentPickerColor = value;
-                              });
-                            },
-                            pickerAreaBorderRadius: BorderRadius.circular(15),
+                              pickerAreaBorderRadius: BorderRadius.circular(15),
+                            ),
                           ),
-                        ),
-                        actions: [
-                          TextButton(
-                              onPressed: () {
-                                controller
-                                    .changeAccentColor(accentPickerColor.value);
-                                Get.back();
-                              },
-                              child: Text('Done')),
-                        ],
-                      );
-                    },
-                  );
-                } else {
-                  // Get.toNamed(UserReviews.routeName);
-                }
-              },
-              contentPadding:
-                  const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-              leading: Icon(
-                index == 0
-                    ? Icons.language
-                    : index == 1
-                        ? Icons.colorize
-                        : index == 2
-                            ? Icons.palette
-                            : Icons.brightness_3,
-                color: Theme.of(context).primaryColor,
-              ),
-              title: Text(
-                index == 0
-                    ? "language".tr
-                    : index == 1
-                        ? "change primary color".tr
-                        : index == 2
-                            ? "change accent color".tr
-                            : "theme".tr,
-                style: TextStyle(
-                  color: Theme.of(context).accentColor,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              trailing: (index == 3)
-                  ? Switch(
-                      value: controller.isDark.value,
-                      onChanged: (value) {
-                        controller.changeTheme(value);
-                        // if (val) {
-                        //   // changeStatusColor(Colors.black);
-                        // } else {
-                        //   // changeStatusColor(Colors.white);
-                        // }
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  appController.changePrimaryColor(
+                                      primaryPickerColor.value, context);
+                                  Get.back();
+                                },
+                                child: Text('Done')),
+                          ],
+                        );
                       },
-                    )
-                  : Icon(
-                      Icons.arrow_forward_ios_outlined,
-                      color: Theme.of(context).primaryColor,
-                    ),
+                    );
+                  } else if (index == 2) {
+                    showDialog(
+                      context: context,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          titlePadding: const EdgeInsets.all(0.0),
+                          contentPadding: const EdgeInsets.all(0.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          content: SingleChildScrollView(
+                            child: ColorPicker(
+                              pickerColor: accentPickerColor,
+                              onColorChanged: (value) {
+                                setState(() {
+                                  accentPickerColor = value;
+                                });
+                              },
+                              pickerAreaBorderRadius: BorderRadius.circular(15),
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                                onPressed: () {
+                                  appController.changeAccentColor(
+                                      accentPickerColor.value);
+                                  Get.back();
+                                },
+                                child: Text('Done')),
+                          ],
+                        );
+                      },
+                    );
+                  } else {
+                    // Get.toNamed(UserReviews.routeName);
+                  }
+                },
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                leading: Icon(
+                  index == 0
+                      ? Icons.language
+                      : index == 1
+                          ? Icons.colorize
+                          : index == 2
+                              ? Icons.palette
+                              : Icons.brightness_3,
+                  color: Color(appController.primaryColor.value),
+                ),
+                title: Text(
+                  index == 0
+                      ? "language".tr
+                      : index == 1
+                          ? "change primary color".tr
+                          : index == 2
+                              ? "change accent color".tr
+                              : "theme".tr,
+                  style: TextStyle(
+                    color: Color(appController.accentColor.value),
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                trailing: (index == 3)
+                    ? Switch(
+                        value: appController.isDark.value,
+                        onChanged: (value) {
+                          appController.changeTheme(value);
+                          // if (val) {
+                          //   // changeStatusColor(Colors.black);
+                          // } else {
+                          //   // changeStatusColor(Colors.white);
+                          // }
+                        },
+                      )
+                    : Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        color: Color(appController.primaryColor.value),
+                      ),
+              ),
             ),
           ),
         ),

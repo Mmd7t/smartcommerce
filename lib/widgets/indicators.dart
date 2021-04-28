@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 
 class Indicators extends StatelessWidget {
   final int cindex;
@@ -7,6 +9,7 @@ class Indicators extends StatelessWidget {
   Indicators({Key key, this.cindex, this.length}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final AppController appController = Get.find<AppController>();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
@@ -18,8 +21,8 @@ class Indicators extends StatelessWidget {
           height: (index == cindex) ? 5 : 8,
           decoration: BoxDecoration(
             color: (index == cindex)
-                ? Theme.of(context).primaryColor
-                : Theme.of(context).accentColor,
+                ? Color(appController.primaryColor.value)
+                : Color(appController.accentColor.value),
             borderRadius: BorderRadius.circular(100),
             border: (index == cindex)
                 ? Border.fromBorderSide(BorderSide.none)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 
@@ -12,6 +13,7 @@ class _ProductsCategoriesState extends State<ProductsCategories> {
   int choiceIndex;
   final categoryController = Get.put(CategoryController());
   final productController = Get.put(ProductsController());
+  final AppController appController = Get.find<AppController>();
 
   @override
   void initState() {
@@ -64,16 +66,17 @@ class _ProductsCategoriesState extends State<ProductsCategories> {
                   selected: choiceIndex == index,
                   side: (choiceIndex == index)
                       ? BorderSide(
-                          color: Theme.of(context).accentColor, width: 1.5)
+                          color: Color(appController.accentColor.value),
+                          width: 1.5)
                       : BorderSide.none,
-                  selectedColor: Theme.of(context).accentColor,
+                  selectedColor: Color(appController.accentColor.value),
                   backgroundColor:
-                      Theme.of(context).primaryColor.withOpacity(0.15),
+                      Color(appController.primaryColor.value).withOpacity(0.15),
                   labelStyle: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: (choiceIndex == index)
                         ? Colors.white
-                        : Theme.of(context).primaryColor,
+                        : Color(appController.primaryColor.value),
                   ),
                   labelPadding:
                       const EdgeInsets.symmetric(horizontal: 6, vertical: 2),

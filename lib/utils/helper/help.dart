@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:toast/toast.dart';
 
 class Helper {
@@ -19,20 +20,22 @@ class Helper {
   }
 
   static confirmDelete(String message, BuildContext context) {
+    final AppController appController = Get.find<AppController>();
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: Theme.of(context).accentColor.withOpacity(0.8),
+        backgroundColor:
+            Color(appController.accentColor.value).withOpacity(0.8),
         title: Text(
           "areYouSure".tr,
           style: TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: Color(appController.primaryColor.value),
           ),
         ),
         content: Text(
           message,
           style: TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: Color(appController.primaryColor.value),
           ),
         ),
         actions: [
@@ -40,14 +43,16 @@ class Helper {
             onPressed: () => Navigator.of(context).pop(false),
             child: Text("no".tr),
             style: TextButton.styleFrom(
-              textStyle: TextStyle(color: Theme.of(context).primaryColor),
+              textStyle:
+                  TextStyle(color: Color(appController.primaryColor.value)),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             child: Text("yes".tr),
             style: TextButton.styleFrom(
-              textStyle: TextStyle(color: Theme.of(context).primaryColor),
+              textStyle:
+                  TextStyle(color: Color(appController.primaryColor.value)),
             ),
           ),
         ],

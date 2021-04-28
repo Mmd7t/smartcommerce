@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
@@ -20,6 +21,7 @@ class CartItem extends StatefulWidget {
 class _CartItemState extends State<CartItem> {
   CartController cart = Get.put(CartController());
   AuthController user = Get.put(AuthController());
+  final AppController appController = Get.find<AppController>();
   @override
   void initState() {
     super.initState();
@@ -43,12 +45,13 @@ class _CartItemState extends State<CartItem> {
               child: Dismissible(
                 key: ValueKey(widget.cartId),
                 background: Container(
-                  color: Theme.of(context).accentColor.withOpacity(0.3),
+                  color:
+                      Color(appController.accentColor.value).withOpacity(0.3),
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.only(right: 20),
                   child: Icon(
                     Icons.delete,
-                    color: Theme.of(context).accentColor,
+                    color: Color(appController.accentColor.value),
                     size: 40,
                   ),
                 ),
@@ -134,8 +137,8 @@ class _CartItemState extends State<CartItem> {
                                         .textTheme
                                         .subtitle1
                                         .copyWith(
-                                            color:
-                                                Theme.of(context).accentColor)
+                                            color: Color(appController
+                                                .accentColor.value))
                                         .copyWith(
                                           fontWeight: FontWeight.bold,
                                         ),
