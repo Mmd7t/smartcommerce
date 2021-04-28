@@ -9,8 +9,7 @@ class GridToListChanger extends StatelessWidget {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       decoration: BoxDecoration(
-        color:
-            Theme.of(context).inputDecorationTheme.fillColor.withOpacity(0.2),
+        color: Color(appController.primaryColor.value).withOpacity(0.2),
         border: Border.all(
           color: Color(appController.accentColor.value),
           width: 2,
