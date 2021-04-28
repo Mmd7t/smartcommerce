@@ -50,7 +50,7 @@ class AppController extends GetxController with ColorsPrefs, ThemePrefs {
   changePrimaryColor(int value, context) {
     primaryColor.value = value;
     setPrimaryColor(value);
-    Theme.of(context).copyWith(primaryColor: Color(value));
+    Theme.of(context).copyWith(primaryColor: Color(primaryColor.value));
     print(Theme.of(context).primaryColor);
   }
 

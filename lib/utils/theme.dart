@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppTheme {
-  static final lightTheme = ThemeData(
+  static ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: commonTheme.primaryColor,
     accentColor: commonTheme.accentColor,
     scaffoldBackgroundColor: Colors.white,
@@ -15,7 +15,7 @@ class AppTheme {
     ),
   );
 
-  static final darkTheme = ThemeData(
+  static ThemeData darkTheme = ThemeData.dark().copyWith(
     primaryColor: commonTheme.primaryColor,
     accentColor: commonTheme.accentColor,
     scaffoldBackgroundColor: const Color(0xFF242424),
@@ -29,7 +29,7 @@ class AppTheme {
     ),
   );
 
-  static final commonTheme = ThemeData(
+  static ThemeData commonTheme = ThemeData(
     primaryColor: Colors.amber[700],
     accentColor: const Color(0xFF007460),
     appBarTheme: AppBarTheme(
