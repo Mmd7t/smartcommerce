@@ -109,7 +109,7 @@ class _NewShippingAddressState extends State<NewShippingAddress> {
                             },
                             onSaved: (val) => _phoneNumber = '+2${val.trim()}',
                           ),
-                          SizedBox(height: 20.0),
+                          const SizedBox(height: 20.0),
                           //city
                           TextFormField(
                             decoration: InputDecoration(
@@ -132,13 +132,14 @@ class _NewShippingAddressState extends State<NewShippingAddress> {
                             },
                             onSaved: (val) => _city = val,
                           ),
-                          SizedBox(height: 20.0),
+                          const SizedBox(height: 20.0),
 
                           //addressLine
                           TextFormField(
                             decoration: InputDecoration(
                               labelText: "addressLine".tr,
-                              labelStyle: TextStyle(color: Colors.black45),
+                              labelStyle:
+                                  const TextStyle(color: Colors.black45),
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(color: Colors.black45),
                               ),
@@ -155,7 +156,7 @@ class _NewShippingAddressState extends State<NewShippingAddress> {
                             },
                             onSaved: (val) => _addressLine = val,
                           ),
-                          SizedBox(height: 20.0),
+                          const SizedBox(height: 20.0),
 
                           //houseNumber
                           TextFormField(
@@ -178,7 +179,7 @@ class _NewShippingAddressState extends State<NewShippingAddress> {
                             },
                             onSaved: (val) => _houseNumber = val,
                           ),
-                          SizedBox(height: 20.0),
+                          const SizedBox(height: 20.0),
 
                           //Zip Code
                           TextFormField(

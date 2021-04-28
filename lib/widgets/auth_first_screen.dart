@@ -6,7 +6,6 @@ import 'package:smartcommerce/pages/registration/registration.dart';
 class AuthFirstScreen extends StatelessWidget {
   final String message;
   AuthFirstScreen({this.message = ""});
-
   @override
   Widget build(BuildContext context) {
     return Container(

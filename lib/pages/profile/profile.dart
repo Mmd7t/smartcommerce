@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/orders_controller.dart';
 import 'package:smartcommerce/pages/addresses/user_address.dart';
@@ -8,6 +9,7 @@ import 'package:smartcommerce/pages/user_review/user_reviews.dart';
 
 class ProfilePage extends StatelessWidget {
   static const String routeName = 'profilePage';
+  final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
     return GetX(

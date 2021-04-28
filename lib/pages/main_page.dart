@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/widgets/drawer.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:smartcommerce/widgets/rounded_bottom_sheet.dart';
@@ -18,6 +19,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final AppController appController = Get.find<AppController>();
   final List<Widget> pages = [
     Home(),
     ProfilePage(),
@@ -73,26 +75,31 @@ class _MainPageState extends State<MainPage> {
             unselectedItemColor: Colors.grey.shade600,
             items: [
               BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 icon: const Icon(Icons.home_outlined),
                 activeIcon: const Icon(Icons.home),
                 label: 'home'.tr,
               ),
               BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 icon: const Icon(Icons.person_outline),
                 activeIcon: const Icon(Icons.person),
                 label: 'me'.tr,
               ),
               BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 icon: const Icon(Icons.category_outlined),
                 activeIcon: const Icon(Icons.category),
                 label: 'cats'.tr,
               ),
               BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 icon: const Icon(Icons.local_offer_outlined),
                 activeIcon: const Icon(Icons.local_offer),
                 label: 'offers'.tr,
               ),
               BottomNavigationBarItem(
+                backgroundColor: Theme.of(context).scaffoldBackgroundColor,
                 icon: const Icon(Icons.add_circle_outline),
                 activeIcon: const Icon(Icons.add_circle),
                 label: 'more'.tr,

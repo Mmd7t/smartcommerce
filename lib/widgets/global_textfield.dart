@@ -11,7 +11,7 @@ class GlobalTextField extends StatelessWidget {
   final TextInputType textInputType;
   final TextInputAction textInputAction;
 
-  const GlobalTextField({
+  GlobalTextField({
     Key key,
     this.obscure,
     this.hint,

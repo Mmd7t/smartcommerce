@@ -35,36 +35,38 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   _unAuthCart() {
-    return Scaffold(
-      appBar: GlobalAppBar(title: "cartScreenTitle".tr, isCartPage: true),
-      body: Stack(
-        children: <Widget>[
-          AuthFirstScreen(
-            message: "cartLoginMessage".tr,
-          ),
-          Positioned(
-            bottom: 1,
-            left: 1,
-            right: 1,
-            child: Container(
-              width: MediaQuery.of(context).size.width * 0.95,
-              child: TextButton(
-                onPressed: () => Get.offAllNamed(MainPage.routeName),
-                child: Text(
-                  'continueShopping'.tr,
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w500),
-                ),
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all(Theme.of(context).accentColor),
+    return Obx(
+      () => Scaffold(
+        appBar: GlobalAppBar(title: "cartScreenTitle".tr, isCartPage: true),
+        body: Stack(
+          children: <Widget>[
+            AuthFirstScreen(
+              message: "cartLoginMessage".tr,
+            ),
+            Positioned(
+              bottom: 1,
+              left: 1,
+              right: 1,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                child: TextButton(
+                  onPressed: () => Get.offAllNamed(MainPage.routeName),
+                  child: Text(
+                    'continueShopping'.tr,
+                    style: TextStyle(
+                        color: Theme.of(context).primaryColor,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Theme.of(context).accentColor),
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

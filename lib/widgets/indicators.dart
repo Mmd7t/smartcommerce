@@ -4,7 +4,7 @@ class Indicators extends StatelessWidget {
   final int cindex;
   final int length;
 
-  const Indicators({Key key, this.cindex, this.length}) : super(key: key);
+  Indicators({Key key, this.cindex, this.length}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(

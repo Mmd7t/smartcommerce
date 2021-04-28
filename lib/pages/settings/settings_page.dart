@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart'
+    hide useWhiteForeground;
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:get/get.dart';
 
-class SettingsPage extends StatelessWidget {
+class SettingsPage extends StatefulWidget {
   static const String routeName = 'settingsPage';
+
+  @override
+  _SettingsPageState createState() => _SettingsPageState();
+}
+
+class _SettingsPageState extends State<SettingsPage>
+    with WidgetsBindingObserver {
+  Color primaryPickerColor = Colors.white;
+  Color accentPickerColor = Colors.white;
+
+  AppController controller = Get.find<AppController>();
+
+  // @override
+  // initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addObserver(this);
+  // }
+
+  // @override
+  // dispose() {
+  //   WidgetsBinding.instance.removeObserver(this);
+  //   super.dispose();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +50,75 @@ class SettingsPage extends StatelessWidget {
                 if (index == 0) {
                   // Get.toNamed(OrdersPage.routeName);
                 } else if (index == 1) {
-                  // Get.toNamed(MyAddressScreen.routeName);
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        titlePadding: const EdgeInsets.all(0.0),
+                        contentPadding: const EdgeInsets.all(0.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        content: SingleChildScrollView(
+                          child: ColorPicker(
+                            pickerColor: primaryPickerColor,
+                            onColorChanged: (value) {
+                              setState(() {
+                                primaryPickerColor = value;
+                              });
+                            },
+                            pickerAreaBorderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                controller.changePrimaryColor(
+                                    primaryPickerColor.value, context);
+                                Theme.of(context)
+                                    .copyWith(primaryColor: primaryPickerColor);
+                                Get.back();
+                              },
+                              child: Text('Done')),
+                        ],
+                      );
+                    },
+                  );
                 } else if (index == 2) {
-                  // Get.toNamed(UserReviews.routeName);
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        titlePadding: const EdgeInsets.all(0.0),
+                        contentPadding: const EdgeInsets.all(0.0),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        content: SingleChildScrollView(
+                          child: ColorPicker(
+                            pickerColor: accentPickerColor,
+                            onColorChanged: (value) {
+                              setState(() {
+                                accentPickerColor = value;
+                              });
+                            },
+                            pickerAreaBorderRadius: BorderRadius.circular(15),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                              onPressed: () {
+                                controller
+                                    .changeAccentColor(accentPickerColor.value);
+                                Get.back();
+                              },
+                              child: Text('Done')),
+                        ],
+                      );
+                    },
+                  );
                 } else {
                   // Get.toNamed(UserReviews.routeName);
                 }
@@ -55,14 +148,41 @@ class SettingsPage extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              trailing: Icon(
-                Icons.arrow_forward_ios_outlined,
-                color: Theme.of(context).primaryColor,
-              ),
+              trailing: (index == 3)
+                  ? Switch(
+                      value: controller.isDark.value,
+                      onChanged: (value) {
+                        controller.changeTheme(value);
+                        // if (val) {
+                        //   // changeStatusColor(Colors.black);
+                        // } else {
+                        //   // changeStatusColor(Colors.white);
+                        // }
+                      },
+                    )
+                  : Icon(
+                      Icons.arrow_forward_ios_outlined,
+                      color: Theme.of(context).primaryColor,
+                    ),
             ),
           ),
         ),
       ),
     );
   }
+
+  // changeStatusColor(Color color) async {
+  //   try {
+  //     await FlutterStatusbarcolor.setStatusBarColor(color, animate: true);
+  //     if (useWhiteForeground(color)) {
+  //       FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
+  //       FlutterStatusbarcolor.setNavigationBarWhiteForeground(true);
+  //     } else {
+  //       FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
+  //       FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+  //     }
+  //   } on PlatformException catch (e) {
+  //     debugPrint(e.toString());
+  //   }
+  // }
 }
