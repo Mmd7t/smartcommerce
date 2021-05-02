@@ -2,17 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
+import 'package:smartcommerce/pages/product_details/components/cross_sales_part.dart';
+import 'package:smartcommerce/pages/product_details/components/related_sales_part.dart';
+import 'package:smartcommerce/pages/product_details/components/upsales_part.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:smartcommerce/widgets/progress.dart';
-import 'description_part.dart';
-import 'header_part.dart';
-import 'reviews_part.dart';
-import 'sticky_header.dart';
+import 'components/description_part.dart';
+import 'components/header_part.dart';
+import 'components/reviews_part.dart';
+import 'components/sticky_header.dart';
 
 class ProductDetails extends StatelessWidget {
   static const String routeName = 'productDetails';
   final contoller = Get.find<ProductsController>();
-  final pages = [DescriptionPart(), ReviewsPart()];
+  final pages = [
+    DescriptionPart(),
+    ReviewsPart(),
+    CrossSalesPart(),
+    UpSalesPart(),
+    RelatedSalesPart(),
+  ];
   final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
@@ -23,7 +32,7 @@ class ProductDetails extends StatelessWidget {
             : Scaffold(
                 appBar: GlobalAppBar(),
                 body: DefaultTabController(
-                  length: 2,
+                  length: 5,
                   child: NestedScrollView(
                     physics: NeverScrollableScrollPhysics(),
                     headerSliverBuilder: (context, isScolled) {

@@ -26,12 +26,39 @@ class ProductsController extends GetxController {
   RxInt selectedCategoryProduct = RxInt(0);
   RxInt selectedCategory = RxInt(0);
   RxMap<int, CategoryProducts> categoryProducts = <int, CategoryProducts>{}.obs;
-
+//
+//
+//
+//
+//
+//
+//
 /*------------------------------  Product Details  ------------------------------*/
   RxInt selectedProductDetails = RxInt(0);
   Rx<ProductDetailsModel> productDetails = ProductDetailsModel().obs;
   RxBool loadingProductDetails = RxBool(false);
 
+/*------------------------------  Up Sales Products  ------------------------------*/
+  RxInt selectedUpSaleProduct = RxInt(0);
+  RxList<ProductData> upSaleProduct = <ProductData>[].obs;
+  RxBool loadingUpSaleProduct = RxBool(false);
+
+/*------------------------------  Cross Sales Products  ------------------------------*/
+  RxInt selectedCrossSaleProduct = RxInt(0);
+  RxList<ProductData> crossSaleProduct = <ProductData>[].obs;
+  RxBool loadingCrossSaleProduct = RxBool(false);
+
+/*------------------------------  Related Sales Products  ------------------------------*/
+  RxInt selectedRelatedSaleProduct = RxInt(0);
+  RxList<ProductData> relatedSaleProduct = <ProductData>[].obs;
+  RxBool loadingRelatedSaleProduct = RxBool(false);
+//
+//
+//
+//
+//
+//
+//
   setSelectedProductDetails(int value) {
     selectedProductDetails = value.obs;
   }
@@ -106,5 +133,45 @@ class ProductsController extends GetxController {
       productDetails = data.obs;
     }
     loadingProductDetails.value = false;
+  }
+
+  getUpSaleProducts(int id) async {
+    loadingUpSaleProduct.value = true;
+    selectedUpSaleProduct.value = id;
+    print(selectedUpSaleProduct.value);
+    List<ProductData> data = await client.getUpSalesProducts(id);
+    if (data != null) {
+      print('Up sale Products is hereeeeeeeeeeeeeeeeeeeee');
+      upSaleProduct = data.obs;
+    }
+    loadingUpSaleProduct.value = false;
+  }
+
+  getCrossSaleProducts(int id) async {
+    loadingCrossSaleProduct.value = true;
+    selectedCrossSaleProduct.value = id;
+    print(
+        'selectedCrossSaleProduct' + selectedCrossSaleProduct.value.toString());
+    print(id);
+    List<ProductData> data = await client.getCrossSalesProducts(id);
+    if (data != null) {
+      print('Cross sale Products is hereeeeeeeeeeeeeeeeeeeee');
+      crossSaleProduct = data.obs;
+    }
+    loadingCrossSaleProduct.value = false;
+  }
+
+  getRelatedSaleProducts(int id) async {
+    loadingRelatedSaleProduct.value = true;
+    selectedRelatedSaleProduct.value = id;
+    print('selectedRelatedSaleProduct' +
+        selectedRelatedSaleProduct.value.toString());
+    print('iddddddddddddd $id');
+    List<ProductData> data = await client.getRelatedSalesProducts(id);
+    if (data != null) {
+      print('Related sale Products is hereeeeeeeeeeeeeeeeeeeee');
+      relatedSaleProduct = data.obs;
+    }
+    loadingRelatedSaleProduct.value = false;
   }
 }

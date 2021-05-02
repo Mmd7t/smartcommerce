@@ -39,10 +39,7 @@ class ProductGridItem extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Hero(
-                tag: 'img',
-                child: cachedNetworkImage(img, boxFit: BoxFit.fitHeight),
-              ),
+              child: cachedNetworkImage(img, boxFit: BoxFit.fitHeight),
             ),
           ),
           footer(
@@ -96,46 +93,39 @@ class ProductGridItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Hero(
-          tag: 'favBtn',
-          child: Obx(
-            () => IconButton(
-              icon: controller.wishListProcessList.contains(data.id) == true
-                  ? circularDefaultProgress(context,
-                      size: 15, color: Colors.red)
-                  : Icon(
-                      controller.inFav(data.id) == true
-                          ? Icons.favorite
-                          : Icons.favorite_border,
-                      color: Colors.red,
-                    ),
-              onPressed: () {
-                controller.lookUpFav(data.id);
-              },
-            ),
+        Obx(
+          () => IconButton(
+            icon: controller.wishListProcessList.contains(data.id) == true
+                ? circularDefaultProgress(context, size: 15, color: Colors.red)
+                : Icon(
+                    controller.inFav(data.id) == true
+                        ? Icons.favorite
+                        : Icons.favorite_border,
+                    color: Colors.red,
+                  ),
+            onPressed: () {
+              controller.lookUpFav(data.id);
+            },
           ),
         ),
-        Hero(
-          tag: 'cartBtn',
-          child: Obx(
-            () => IconButton(
-              icon: cart.cartProcessList.contains(data.id) == true
-                  ? circularDefaultProgress(context,
-                      size: 15, color: Colors.amber[700])
-                  : Icon(
-                      cart.checkInCart(data.id) == true
-                          ? Icons.shopping_cart
-                          : Icons.shopping_cart_outlined,
-                      color: Colors.amber[700],
-                    ),
-              onPressed: () async {
-                if (cart.checkInCart(data.id)) {
-                  cart.removeItem(data.id);
-                } else {
-                  cart.fromProductSmall(data);
-                }
-              },
-            ),
+        Obx(
+          () => IconButton(
+            icon: cart.cartProcessList.contains(data.id) == true
+                ? circularDefaultProgress(context,
+                    size: 15, color: Colors.amber[700])
+                : Icon(
+                    cart.checkInCart(data.id) == true
+                        ? Icons.shopping_cart
+                        : Icons.shopping_cart_outlined,
+                    color: Colors.amber[700],
+                  ),
+            onPressed: () async {
+              if (cart.checkInCart(data.id)) {
+                cart.removeItem(data.id);
+              } else {
+                cart.fromProductSmall(data);
+              }
+            },
           ),
         ),
       ],

@@ -44,6 +44,12 @@ class ProductsGrid extends StatelessWidget {
                       print(Get.put(AuthController()).apiToken.value);
                       Get.put(ProductsController())
                           .getProductDetails(data[index].id);
+                      Get.put(ProductsController())
+                          .getUpSaleProducts(data[index].id);
+                      Get.put(ProductsController())
+                          .getCrossSaleProducts(data[index].id);
+                      Get.put(ProductsController())
+                          .getRelatedSaleProducts(data[index].id);
                       Get.toNamed(ProductDetails.routeName);
                     },
                     borderRadius: BorderRadius.circular(ProductsGrid.radius),

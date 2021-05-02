@@ -8,18 +8,7 @@ import 'translations/translations.dart';
 
 main() => runApp(MyApp());
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  // @override
-  // void initState() {
-  //   super.initState();
-
-  // }
-
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(AppController()).getPrimaryColorFromPrefs(context);

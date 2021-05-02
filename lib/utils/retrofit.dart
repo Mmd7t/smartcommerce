@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:smartcommerce/models/auth_model.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
@@ -8,8 +7,10 @@ import 'package:smartcommerce/models/categories_model.dart';
 import 'package:smartcommerce/models/categories_parent_model.dart';
 import 'package:smartcommerce/models/featured_cats_products_model.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
+import 'package:smartcommerce/models/product_data.dart';
 import 'package:smartcommerce/models/product_details_model.dart';
 import 'package:smartcommerce/models/review.dart';
+import 'package:smartcommerce/models/reviews_products_model.dart';
 import 'package:smartcommerce/models/search.dart';
 import 'package:smartcommerce/models/sliders_model.dart';
 import 'package:smartcommerce/models/two_banners_model.dart';
@@ -144,6 +145,30 @@ abstract class RestClient {
   @POST("user/orders")
   Future<List<UserOrdersModel>> getUserOrders(
       @Field("api_token") String apiToken);
+
+  /*--------------------------------------------------------------------------*/
+  /*---------------------------  Up Sales Products  --------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @GET("upsell/product/{id}")
+  Future<List<ProductData>> getUpSalesProducts(@Path("id") int id);
+
+  /*--------------------------------------------------------------------------*/
+  /*-------------------------  Cross Sales Products  -------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @GET("cross/product/{id}")
+  Future<List<ProductData>> getCrossSalesProducts(@Path("id") int id);
+
+  /*--------------------------------------------------------------------------*/
+  /*------------------------  Related Sales Products  ------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @GET("related/product/{id}")
+  Future<List<ProductData>> getRelatedSalesProducts(@Path("id") int id);
+
+  /*--------------------------------------------------------------------------*/
+  /*---------------------------  Reviews Products  ---------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @GET("reviews/product/{id}")
+  Future<List<ReviewsProductsModel>> getReviewsProducts(@Path("id") int id);
 
   /*--------------------------------------------------------------------------*/
   /*------------------------------  User Orders  -----------------------------*/

@@ -166,7 +166,9 @@ class ProductDetailsModel {
         reviews: json["reviews"] != null
             ? List<dynamic>.from(json["reviews"].map((x) => x))
             : null,
-        attributes: List<dynamic>.from(json["attributes"].map((x) => x)),
+        attributes: (json["attributes"] != null)
+            ? List<dynamic>.from(json["attributes"].map((x) => x))
+            : null,
         relatedProducts: json["related_products"] != null
             ? List<dynamic>.from(json["related_products"].map((x) => x))
             : null,

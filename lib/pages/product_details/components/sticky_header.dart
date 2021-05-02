@@ -6,24 +6,31 @@ class StickyHeader extends StatelessWidget {
   final AppController appController = Get.find<AppController>();
   @override
   Widget build(BuildContext context) {
-    return SliverPersistentHeader(
-      delegate: MyDelegate(
-        TabBar(
-          tabs: const [
-            Tab(icon: const Text("Description")),
-            Tab(icon: const Text("Reviews")),
-          ],
-          unselectedLabelColor: Colors.grey,
-          labelStyle: const TextStyle(fontWeight: FontWeight.bold),
-          labelColor: Color(appController.primaryColor.value),
-          indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Color(appController.primaryColor.value).withOpacity(0.2),
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: SliverPersistentHeader(
+        delegate: MyDelegate(
+          TabBar(
+            isScrollable: true,
+            tabs: const [
+              Tab(icon: const Text("Description")),
+              Tab(icon: const Text("Reviews")),
+              Tab(icon: const Text("Cross Sales")),
+              Tab(icon: const Text("Up Sales")),
+              Tab(icon: const Text("Related Sales")),
+            ],
+            unselectedLabelColor: Colors.grey,
+            labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+            labelColor: Color(appController.primaryColor.value),
+            indicator: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Color(appController.primaryColor.value).withOpacity(0.2),
+            ),
           ),
         ),
+        floating: true,
+        pinned: true,
       ),
-      floating: true,
-      pinned: true,
     );
   }
 }
