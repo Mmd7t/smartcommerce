@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/controllers/static_pages_controller.dart';
 import 'package:smartcommerce/pages/favorite/favorite_page.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
 import 'package:smartcommerce/pages/settings/settings_page.dart';
+import 'package:smartcommerce/pages/static_pages/static_page.dart';
 
 class MyDrawer extends StatelessWidget {
   final controller = Get.find<AuthController>();
   final AppController appController = Get.find<AppController>();
+  final staticPagesController = Get.find<StaticPagesController>();
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -97,36 +100,22 @@ class MyDrawer extends StatelessWidget {
                   color: Color(appController.accentColor.value),
                 ),
               ),
-              ListTile(
-                onTap: () {},
-                title: Text("more".tr),
-                leading: Icon(
-                  Icons.add,
-                  color: Color(appController.accentColor.value),
-                ),
-              ),
-              ListTile(
-                onTap: () {},
-                title: Text("call us".tr),
-                leading: Icon(
-                  Icons.call_outlined,
-                  color: Color(appController.accentColor.value),
-                ),
-              ),
-              ListTile(
-                onTap: () {},
-                title: Text("common questions".tr),
-                leading: Icon(
-                  Icons.chat_outlined,
-                  color: Color(appController.accentColor.value),
-                ),
-              ),
-              ListTile(
-                onTap: () {},
-                title: Text("privacy policy".tr),
-                leading: Icon(
-                  Icons.privacy_tip_outlined,
-                  color: Color(appController.accentColor.value),
+              Obx(
+                () => ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: staticPagesController.staticPagesList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () {
+                        Get.toNamed(StaticPage.routeName,
+                            arguments:
+                                staticPagesController.staticPagesList[index]);
+                      },
+                      title: Text(
+                          staticPagesController.staticPagesList[index].name),
+                    );
+                  },
                 ),
               ),
               ListTile(

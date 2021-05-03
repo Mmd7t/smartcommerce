@@ -6,6 +6,7 @@ import 'package:smartcommerce/pages/home/components/sliders.dart';
 import 'package:smartcommerce/pages/search/search.dart';
 
 import 'components/brands.dart';
+import 'components/recently_added.dart';
 import 'components/two_banners.dart';
 
 class Home extends StatelessWidget {
@@ -36,6 +37,7 @@ class Home extends StatelessWidget {
         HomeCategoriesList(),
         Sliders(),
         HomeBrands(),
+        RecentlyAdded(),
         TwoBanners(),
         HomeBestSales(),
       ],

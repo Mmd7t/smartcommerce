@@ -10,6 +10,7 @@ import 'package:smartcommerce/controllers/flashsale_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/controllers/search_controller.dart';
+import 'package:smartcommerce/controllers/static_pages_controller.dart';
 import 'package:smartcommerce/utils/constants.dart';
 
 class OnBoardingPage extends StatefulWidget {
@@ -44,6 +45,8 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     home.getSliders();
     home.getBrands();
     home.getTwoBanners();
+    home.getRecentlyAddedProducts();
+    Get.put(StaticPagesController(), permanent: true).getStaticPages();
     Get.put(AddressController(), permanent: true).initDB();
     Get.put(FlashSaleController(), permanent: true).getFlashSaleProducts();
     Get.put(ProductsController(), permanent: true);

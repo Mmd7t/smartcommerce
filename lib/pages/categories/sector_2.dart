@@ -53,7 +53,7 @@ class CategoriesSectorTwo extends StatelessWidget {
                                 productsController
                                     .getSelectedCategoryProducts();
 
-                                Get.toNamed(ProductsByBrands.routeName,
+                                Get.toNamed(ProductsPage.routeName,
                                     arguments: ProductsType.category);
                               },
                               child: AnimatedContainer(

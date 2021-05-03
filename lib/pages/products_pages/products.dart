@@ -6,7 +6,7 @@ import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'product_components/products_data.dart';
 import 'product_components/section2.dart';
 
-class ProductsByBrands extends StatelessWidget {
+class ProductsPage extends StatelessWidget {
   static const String routeName = 'Products';
   @override
   Widget build(BuildContext context) {

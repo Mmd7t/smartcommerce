@@ -43,7 +43,7 @@ class _HomeCategoriesListState extends State<HomeCategoriesList> {
                                     .categoriesParentList[index].id;
                             controller.getFeaturedCatsProducts();
                           });
-                          Get.toNamed(ProductsByBrands.routeName);
+                          Get.toNamed(ProductsPage.routeName);
                         },
                         child: Container(
                           width: size.width * 0.22,

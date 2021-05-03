@@ -5,10 +5,12 @@ import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/models/brands_model.dart';
 import 'package:smartcommerce/models/categories_model.dart';
 import 'package:smartcommerce/models/categories_parent_model.dart';
+import 'package:smartcommerce/models/static_pages_model.dart';
 import 'package:smartcommerce/models/featured_cats_products_model.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
 import 'package:smartcommerce/models/product_data.dart';
 import 'package:smartcommerce/models/product_details_model.dart';
+import 'package:smartcommerce/models/recently_added_model.dart';
 import 'package:smartcommerce/models/review.dart';
 import 'package:smartcommerce/models/reviews_products_model.dart';
 import 'package:smartcommerce/models/search.dart';
@@ -17,7 +19,6 @@ import 'package:smartcommerce/models/two_banners_model.dart';
 import 'package:smartcommerce/models/user_orders_model.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
-
 part 'retrofit.g.dart';
 
 @RestApi(baseUrl: Constants.baseUrl)
@@ -168,7 +169,21 @@ abstract class RestClient {
   /*---------------------------  Reviews Products  ---------------------------*/
   /*--------------------------------------------------------------------------*/
   @GET("reviews/product/{id}")
-  Future<List<ReviewsProductsModel>> getReviewsProducts(@Path("id") int id);
+  Future<ReviewsProductsModel> getReviewsProducts(@Path("id") int id);
+
+  /*--------------------------------------------------------------------------*/
+  /*---------------------------  Reviews Products  ---------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @GET("new/products/{id}")
+  Future<RecentlyAddedModel> getRecentlyAddedProducts(
+      @Header("Authorization") String token,
+      @Path("api_token") String apiToken);
+
+  /*--------------------------------------------------------------------------*/
+  /*----------------------------  Who Are We Page  ---------------------------*/
+  /*--------------------------------------------------------------------------*/
+  @GET("pages")
+  Future<List<StaticPagesModel>> getStaticPages();
 
   /*--------------------------------------------------------------------------*/
   /*------------------------------  User Orders  -----------------------------*/

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/utils/pref/colors.dart';
 import 'package:smartcommerce/utils/pref/theme_prefs.dart';

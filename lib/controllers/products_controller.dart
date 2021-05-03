@@ -5,6 +5,7 @@ import 'package:smartcommerce/models/category_products.dart';
 import 'package:smartcommerce/models/featured_cats_products_model.dart';
 import 'package:smartcommerce/models/product_data.dart';
 import 'package:smartcommerce/models/product_details_model.dart';
+import 'package:smartcommerce/models/reviews_products_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 
@@ -21,7 +22,6 @@ class ProductsController extends GetxController {
   Rx<FeaturedCatsProductsModel> featuredCatsProducts =
       FeaturedCatsProductsModel().obs;
   RxBool loadingFeaturedCatsProducts = RxBool(false);
-
 /*------------------------------  Brand Products  -------------------------------*/
   RxInt selectedCategoryProduct = RxInt(0);
   RxInt selectedCategory = RxInt(0);
@@ -52,6 +52,11 @@ class ProductsController extends GetxController {
   RxInt selectedRelatedSaleProduct = RxInt(0);
   RxList<ProductData> relatedSaleProduct = <ProductData>[].obs;
   RxBool loadingRelatedSaleProduct = RxBool(false);
+
+/*------------------------------  Related Sales Products  ------------------------------*/
+  RxInt selectedReviewsProduct = RxInt(0);
+  Rx<ReviewsProductsModel> reviewsProduct = ReviewsProductsModel().obs;
+  RxBool loadingReviewsProduct = RxBool(false);
 //
 //
 //
@@ -142,7 +147,7 @@ class ProductsController extends GetxController {
     List<ProductData> data = await client.getUpSalesProducts(id);
     if (data != null) {
       print('Up sale Products is hereeeeeeeeeeeeeeeeeeeee');
-      upSaleProduct = data.obs;
+      upSaleProduct.value = data;
     }
     loadingUpSaleProduct.value = false;
   }
@@ -156,7 +161,7 @@ class ProductsController extends GetxController {
     List<ProductData> data = await client.getCrossSalesProducts(id);
     if (data != null) {
       print('Cross sale Products is hereeeeeeeeeeeeeeeeeeeee');
-      crossSaleProduct = data.obs;
+      crossSaleProduct.value = data;
     }
     loadingCrossSaleProduct.value = false;
   }
@@ -170,8 +175,21 @@ class ProductsController extends GetxController {
     List<ProductData> data = await client.getRelatedSalesProducts(id);
     if (data != null) {
       print('Related sale Products is hereeeeeeeeeeeeeeeeeeeee');
-      relatedSaleProduct = data.obs;
+      relatedSaleProduct.value = data;
     }
     loadingRelatedSaleProduct.value = false;
+  }
+
+  getReviewsProducts(int id) async {
+    loadingReviewsProduct.value = true;
+    selectedReviewsProduct.value = id;
+    print('selectedReviewsProduct' + selectedReviewsProduct.value.toString());
+    print('iddddddddddddd $id');
+    ReviewsProductsModel data = await client.getReviewsProducts(id);
+    if (data != null) {
+      print('Reviews Products is hereeeeeeeeeeeeeeeeeeeee');
+      reviewsProduct.value = data;
+    }
+    loadingReviewsProduct.value = false;
   }
 }

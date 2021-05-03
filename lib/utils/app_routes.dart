@@ -10,6 +10,7 @@ import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/pages/products_pages/products.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
 import 'package:smartcommerce/pages/settings/settings_page.dart';
+import 'package:smartcommerce/pages/static_pages/static_page.dart';
 import 'package:smartcommerce/pages/user_review/user_reviews.dart';
 
 class AppPages {
@@ -43,8 +44,8 @@ class AppPages {
       page: () => NewShippingAddress(),
     ),
     GetPage(
-      name: ProductsByBrands.routeName,
-      page: () => ProductsByBrands(),
+      name: ProductsPage.routeName,
+      page: () => ProductsPage(),
     ),
     GetPage(
       name: FavoritePage.routeName,
@@ -61,6 +62,10 @@ class AppPages {
     GetPage(
       name: SettingsPage.routeName,
       page: () => SettingsPage(),
+    ),
+    GetPage(
+      name: StaticPage.routeName,
+      page: () => StaticPage(),
     ),
   ];
 }

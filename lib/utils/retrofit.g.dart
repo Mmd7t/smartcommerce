@@ -436,12 +436,50 @@ class _RestClient implements RestClient {
   }
 
   @override
-  Future<List<ReviewsProductsModel>> getReviewsProducts(id) async {
+  Future<ReviewsProductsModel> getReviewsProducts(id) async {
     ArgumentError.checkNotNull(id, 'id');
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<List<dynamic>>('reviews/product/$id',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'reviews/product/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ReviewsProductsModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<RecentlyAddedModel> getRecentlyAddedProducts(token, apiToken) async {
+    ArgumentError.checkNotNull(token, 'token');
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'new/products/{id}',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{r'Authorization': token},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = RecentlyAddedModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<List<StaticPagesModel>> getStaticPages() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<List<dynamic>>('pages',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -450,8 +488,8 @@ class _RestClient implements RestClient {
             baseUrl: baseUrl),
         data: _data);
     var value = _result.data
-        .map((dynamic i) =>
-            ReviewsProductsModel.fromJson(i as Map<String, dynamic>))
+        .map(
+            (dynamic i) => StaticPagesModel.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
   }

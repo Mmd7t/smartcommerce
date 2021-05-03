@@ -44,7 +44,7 @@ class HomeBestSales extends StatelessWidget {
                           controller.selectedFeaturedCatsProducts.value =
                               homeController.featuredCategoriesList[index].id;
                           controller.getFeaturedCatsProducts();
-                          Get.toNamed(ProductsByBrands.routeName);
+                          Get.toNamed(ProductsPage.routeName);
                         },
                         child: Card(
                           elevation: 5,

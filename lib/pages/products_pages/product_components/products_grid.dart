@@ -50,6 +50,8 @@ class ProductsGrid extends StatelessWidget {
                           .getCrossSaleProducts(data[index].id);
                       Get.put(ProductsController())
                           .getRelatedSaleProducts(data[index].id);
+                      Get.put(ProductsController())
+                          .getReviewsProducts(data[index].id);
                       Get.toNamed(ProductDetails.routeName);
                     },
                     borderRadius: BorderRadius.circular(ProductsGrid.radius),

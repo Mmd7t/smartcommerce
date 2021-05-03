@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
+import 'package:smartcommerce/controllers/home_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/widgets/grid_to_list_changer.dart';
@@ -11,6 +12,7 @@ class ProductsSection2 extends StatelessWidget {
   ProductsSection2({this.type});
   final ProductsController controller = Get.put(ProductsController());
   final AppController appController = Get.find<AppController>();
+  final HomeController homeController = Get.find<HomeController>();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -60,21 +62,40 @@ class ProductsSection2 extends StatelessWidget {
                                 ),
                               ),
                       )
-                    : Obx(
-                        () => controller.loadingFeaturedCatsProducts.value ==
-                                true
-                            ? circularDefaultProgress(context,
-                                size: 25,
-                                color: Color(appController.primaryColor.value))
-                            : Text(
-                                '${controller.featuredCatsProducts.value.products.data.length} عنصر',
-                                style: TextStyle(
-                                  color:
-                                      Color(appController.primaryColor.value),
-                                  fontWeight: FontWeight.w900,
-                                ),
-                              ),
-                      ),
+                    : (type == ProductsType.recently)
+                        ? Obx(
+                            () => homeController.isRecentlyAddedLoading.value ==
+                                    true
+                                ? circularDefaultProgress(context,
+                                    size: 25,
+                                    color:
+                                        Color(appController.primaryColor.value))
+                                : Text(
+                                    '${homeController.recentlyAddedModel.value.products.data.length} عنصر',
+                                    style: TextStyle(
+                                      color: Color(
+                                          appController.primaryColor.value),
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                          )
+                        : Obx(
+                            () => controller
+                                        .loadingFeaturedCatsProducts.value ==
+                                    true
+                                ? circularDefaultProgress(context,
+                                    size: 25,
+                                    color:
+                                        Color(appController.primaryColor.value))
+                                : Text(
+                                    '${controller.featuredCatsProducts.value.products.data.length} عنصر',
+                                    style: TextStyle(
+                                      color: Color(
+                                          appController.primaryColor.value),
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                          ),
           ),
         ],
       ),

@@ -105,6 +105,9 @@ class Messages extends Translations {
           'settings': 'الاعدادات',
           'change primary color': 'تغيير اللون الرئيسى',
           'change accent color': 'تغيير اللون الثانوى',
+          'recentlyAdded': 'منتجات مضافة حديثا',
+          'Show More': 'المزيد',
+          'Type your Review': 'قيم المنتج',
         }
       };
 }

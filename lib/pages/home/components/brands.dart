@@ -59,7 +59,7 @@ class _HomeBrandsState extends State<HomeBrands> {
                               controller.getBrandProducts();
                             });
 
-                            Get.toNamed(ProductsByBrands.routeName,
+                            Get.toNamed(ProductsPage.routeName,
                                 arguments: ProductsType.brand);
                           },
                           child: Column(
