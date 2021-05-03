@@ -37,6 +37,7 @@ dependencies:
   flutter_staggered_animations: ^1.0.0
   flutter_colorpicker: ^0.4.0
   flutter_statusbarcolor_ns: ^0.3.0-nullsafety
+  fluttertoast: ^8.0.6
 
 
 dev_dependencies:

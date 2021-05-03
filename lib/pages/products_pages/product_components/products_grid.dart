@@ -52,7 +52,7 @@ class ProductsGrid extends StatelessWidget {
                           .getRelatedSaleProducts(data[index].id);
                       Get.put(ProductsController())
                           .getReviewsProducts(data[index].id);
-                      Get.toNamed(ProductDetails.routeName);
+                      Get.to(ProductDetails(id: data[index].id));
                     },
                     borderRadius: BorderRadius.circular(ProductsGrid.radius),
                     splashColor: Color(appController.accentColor.value),

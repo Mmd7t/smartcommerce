@@ -20,7 +20,7 @@ class GlobalTextField extends StatelessWidget {
     this.validator,
     this.onSaved,
     this.suffixIcon,
-    @required this.prefixIcon,
+    this.prefixIcon,
     this.label,
     this.textInputType,
     this.textInputAction,
@@ -35,12 +35,14 @@ class GlobalTextField extends StatelessWidget {
         keyboardType: textInputType ?? TextInputType.text,
         textInputAction: textInputAction ?? TextInputAction.done,
         decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(10),
           hintText: hint,
           labelText: label,
           fillColor: Color(appController.primaryColor.value).withOpacity(0.15),
           hintStyle: const TextStyle(color: Colors.grey),
-          prefixIcon:
-              Icon(prefixIcon, color: Color(appController.primaryColor.value)),
+          prefixIcon: (prefixIcon != null)
+              ? Icon(prefixIcon, color: Color(appController.primaryColor.value))
+              : null,
           suffixIcon: suffixIcon ?? const SizedBox(),
         ),
         validator: (value) {

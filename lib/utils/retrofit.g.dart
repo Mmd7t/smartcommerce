@@ -493,4 +493,26 @@ class _RestClient implements RestClient {
         .toList();
     return value;
   }
+
+  @override
+  Future<ReviewResponseModel> addReview(id, apiToken, rating, comment) async {
+    ArgumentError.checkNotNull(id, 'id');
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    ArgumentError.checkNotNull(rating, 'rating');
+    ArgumentError.checkNotNull(comment, 'comment');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'api_token': apiToken, 'rating': rating, 'comment': comment};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('review/store/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ReviewResponseModel.fromJson(_result.data);
+    return value;
+  }
 }

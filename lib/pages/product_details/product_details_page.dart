@@ -14,17 +14,21 @@ import 'components/sticky_header.dart';
 
 class ProductDetails extends StatelessWidget {
   static const String routeName = 'productDetails';
+  final int id;
   final contoller = Get.find<ProductsController>();
-  final pages = [
-    DescriptionPart(),
-    ReviewsPart(),
-    CrossSalesPart(),
-    UpSalesPart(),
-    RelatedSalesPart(),
-  ];
+
   final AppController appController = Get.find<AppController>();
+
+  ProductDetails({Key key, this.id}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final pages = [
+      DescriptionPart(),
+      ReviewsPart(id),
+      CrossSalesPart(),
+      UpSalesPart(),
+      RelatedSalesPart(),
+    ];
     return Material(
       child: Obx(
         () => (contoller.loadingProductDetails.value)

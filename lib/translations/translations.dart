@@ -107,7 +107,9 @@ class Messages extends Translations {
           'change accent color': 'تغيير اللون الثانوى',
           'recentlyAdded': 'منتجات مضافة حديثا',
           'Show More': 'المزيد',
-          'Type your Review': 'قيم المنتج',
+          'rate this product': 'قيم هذا المنتج',
+          'type your comment': 'اكتب تعليقك',
+          'Review Added Successfully': 'تم اضافة تقييمك بنجاح',
         }
       };
 }

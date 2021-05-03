@@ -237,3 +237,12 @@ class ProductDetailsModel {
         "files": List<dynamic>.from(files.map((x) => x.toJson())),
       };
 }
+
+class ReviewResponseModel {
+  String message;
+  ReviewResponseModel(this.message);
+
+  ReviewResponseModel.fromJson(Map json) {
+    message = json['message'];
+  }
+}

@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:retrofit/dio.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/models/category_products.dart';
 import 'package:smartcommerce/models/featured_cats_products_model.dart';
@@ -8,6 +11,8 @@ import 'package:smartcommerce/models/product_details_model.dart';
 import 'package:smartcommerce/models/reviews_products_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
+
+import 'auth_controller.dart';
 
 class ProductsController extends GetxController {
   final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
@@ -54,13 +59,14 @@ class ProductsController extends GetxController {
   RxBool loadingRelatedSaleProduct = RxBool(false);
 
 /*------------------------------  Related Sales Products  ------------------------------*/
-  RxInt selectedReviewsProduct = RxInt(0);
-  Rx<ReviewsProductsModel> reviewsProduct = ReviewsProductsModel().obs;
-  RxBool loadingReviewsProduct = RxBool(false);
+  RxInt selectedReviewsOnProduct = RxInt(0);
+  Rx<ReviewsProductsModel> reviewsOnProduct = ReviewsProductsModel().obs;
+  RxBool loadingReviewsOnProduct = RxBool(false);
 //
 //
 //
 //
+
 //
 //
 //
@@ -181,15 +187,32 @@ class ProductsController extends GetxController {
   }
 
   getReviewsProducts(int id) async {
-    loadingReviewsProduct.value = true;
-    selectedReviewsProduct.value = id;
-    print('selectedReviewsProduct' + selectedReviewsProduct.value.toString());
+    loadingReviewsOnProduct.value = true;
+    selectedReviewsOnProduct.value = id;
+    print('selectedReviewsProduct' + selectedReviewsOnProduct.value.toString());
     print('iddddddddddddd $id');
     ReviewsProductsModel data = await client.getReviewsProducts(id);
     if (data != null) {
       print('Reviews Products is hereeeeeeeeeeeeeeeeeeeee');
-      reviewsProduct.value = data;
+      reviewsOnProduct.value = data;
     }
-    loadingReviewsProduct.value = false;
+    loadingReviewsOnProduct.value = false;
+  }
+
+  AuthController authController = AuthController();
+
+  addReview(int id, String rate, String comment) async {
+    await authController.getToken();
+    if (authController.apiToken != null) {
+      ReviewResponseModel response = await client.addReview(
+          id, authController.apiToken.value, rate, comment);
+      if (response != null && response.message == 'review stored ') {
+        Fluttertoast.showToast(msg: 'Review Added Successfully'.tr);
+      } else {
+        throw Exception();
+      }
+    } else {
+      print('Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+    }
   }
 }
