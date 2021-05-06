@@ -5,6 +5,7 @@ import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/pages/product_details/components/cross_sales_part.dart';
 import 'package:smartcommerce/pages/product_details/components/related_sales_part.dart';
 import 'package:smartcommerce/pages/product_details/components/upsales_part.dart';
+import 'package:smartcommerce/widgets/check_existance.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 import 'components/description_part.dart';
@@ -88,7 +89,7 @@ class ProductDetails extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         color: Color(appController.accentColor.value),
-                        onPressed: () {},
+                        onPressed: (checkExisting()) ? () {} : null,
                         height: 50,
                         minWidth: MediaQuery.of(context).size.width * 0.5,
                       ),
