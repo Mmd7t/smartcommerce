@@ -1,9 +1,13 @@
+import 'package:fcm_config/fcm_config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
+import 'package:smartcommerce/controllers/auth_controller.dart';
+import 'package:smartcommerce/controllers/notification_controller.dart';
 import 'package:smartcommerce/widgets/drawer.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:smartcommerce/widgets/rounded_bottom_sheet.dart';
-import 'package:get/get.dart';
+
 import 'FlashSale_Page/FlashSalePage.dart';
 import 'categories/categories_page.dart';
 import 'home/home.dart';
@@ -19,6 +23,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
   final AppController appController = Get.find<AppController>();
   final List<Widget> pages = [
     Home(),
@@ -36,6 +42,35 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     pageIndex = widget.initial;
     pageController = PageController(initialPage: widget.initial);
+
+    Get.put(NotificationController()).getUserNotification();
+
+    firebaseMessaging.setAutoInitEnabled(true);
+    firebaseMessaging.setForegroundNotificationPresentationOptions(
+        alert: true, badge: true, sound: true);
+    FirebaseMessaging.onMessage.listen((message) {
+      saveMessage(message);
+    });
+    firebaseMessaging.requestPermission(
+        sound: true,
+        badge: true,
+        alert: true,
+        criticalAlert: true,
+        announcement: true,
+        provisional: true);
+    getToken();
+    super.initState();
+  }
+
+  getToken() async {
+    String token = await firebaseMessaging.getToken();
+    Get.put(AuthController()).updateToken(token);
+    print(token);
+  }
+
+  saveMessage(msg) async {
+    Get.put(NotificationController()).addNotification(msg);
+    return;
   }
 
   @override

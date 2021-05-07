@@ -23,7 +23,7 @@ class UserProfileModel {
     this.savedCoupons,
     this.lastLogin,
     this.reviewsCount,
-    this.wishlist,
+    this.wishList,
   });
 
   int id;
@@ -35,7 +35,7 @@ class UserProfileModel {
   int savedCoupons;
   DateTime lastLogin;
   int reviewsCount;
-  List<Wishlist> wishlist;
+  List<Wishlist> wishList;
 
   factory UserProfileModel.fromJson(Map<String, dynamic> json) =>
       UserProfileModel(
@@ -48,7 +48,7 @@ class UserProfileModel {
         savedCoupons: json["saved_coupons"],
         lastLogin: DateTime.parse(json["last_login"]),
         reviewsCount: json["reviews_count"],
-        wishlist: List<Wishlist>.from(
+        wishList: List<Wishlist>.from(
             json["wishlist"].map((x) => Wishlist.fromJson(x))),
       );
 
@@ -62,7 +62,7 @@ class UserProfileModel {
         "saved_coupons": savedCoupons,
         "last_login": lastLogin.toIso8601String(),
         "reviews_count": reviewsCount,
-        "wishlist": List<dynamic>.from(wishlist.map((x) => x.toJson())),
+        "wishlist": List<dynamic>.from(wishList.map((x) => x.toJson())),
       };
 }
 

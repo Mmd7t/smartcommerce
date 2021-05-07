@@ -3,7 +3,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
-import 'package:smartcommerce/widgets/global_textfield.dart';
 
 class ReviewsPart extends StatefulWidget {
   final int id;
@@ -60,56 +59,57 @@ class _ReviewsPartState extends State<ReviewsPart> {
                 indent: 50,
                 color: Color(appController.primaryColor.value),
               ),
-              ListView.builder(
-                shrinkWrap: true,
-                itemCount: controller.reviewsOnProduct.value.data.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 5),
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
+              if (controller.reviewsOnProduct.value.data != null)
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: controller.reviewsOnProduct.value.data.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Column(
-                        children: [
-                          ListTile(
-                            leading: CircleAvatar(
-                              backgroundColor:
-                                  Color(appController.primaryColor.value),
-                              child:
-                                  const Icon(Icons.person, color: Colors.grey),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor:
+                                    Color(appController.primaryColor.value),
+                                child: const Icon(Icons.person,
+                                    color: Colors.grey),
+                              ),
+                              title: Text(controller.reviewsOnProduct.value
+                                  .data[index].reviewerName),
+                              subtitle: Text(
+                                controller
+                                    .reviewsOnProduct.value.data[index].comment,
+                                textAlign: TextAlign.justify,
+                                style: TextStyle(height: 1.3),
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(Icons.star, color: Colors.amber),
+                                  const SizedBox(width: 3),
+                                  Text(controller
+                                      .reviewsOnProduct.value.data[index].rating
+                                      .toString()),
+                                ],
+                              ),
                             ),
-                            title: Text(controller.reviewsOnProduct.value
-                                .data[index].reviewerName),
-                            subtitle: Text(
-                              controller
-                                  .reviewsOnProduct.value.data[index].comment,
-                              textAlign: TextAlign.justify,
-                              style: TextStyle(height: 1.3),
-                            ),
-                            trailing: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(Icons.star, color: Colors.amber),
-                                const SizedBox(width: 3),
-                                Text(controller
-                                    .reviewsOnProduct.value.data[index].rating
-                                    .toString()),
-                              ],
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              ),
+                    );
+                  },
+                ),
             ],
           );
   }

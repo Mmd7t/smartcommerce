@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,9 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
+import 'package:smartcommerce/pages/product_details/product_details_page.dart';
 import 'package:smartcommerce/widgets/custom_image.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
@@ -47,24 +50,34 @@ class FlashSaleItem extends StatelessWidget {
 /*----------------------------------------  Child Function  -------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
   child({context, img}) {
-    return Container(
-      padding: const EdgeInsets.all(10).copyWith(top: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          header(context),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: cachedNetworkImage(img, boxFit: BoxFit.fitHeight),
+    return InkWell(
+      onTap: () {
+        Get.put(ProductsController()).getProductDetails(product.id);
+        Get.put(ProductsController()).getUpSaleProducts(product.id);
+        Get.put(ProductsController()).getCrossSaleProducts(product.id);
+        Get.put(ProductsController()).getRelatedSaleProducts(product.id);
+        Get.put(ProductsController()).getReviewsProducts(product.id);
+        Get.to(ProductDetails(id: product.id));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10).copyWith(top: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            header(context),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: cachedNetworkImage(img, boxFit: BoxFit.fitHeight),
+              ),
             ),
-          ),
-          footer(
-              name: "${product.name}",
-              context: context,
-              price: "${product.price.formatted}",
-              product: product),
-        ],
+            footer(
+                name: "${product.name}",
+                context: context,
+                price: "${product.price.formatted}",
+                product: product),
+          ],
+        ),
       ),
     );
   }
@@ -87,7 +100,7 @@ class FlashSaleItem extends StatelessWidget {
               child: AnimatedTextKit(
                 animatedTexts: [
                   WavyAnimatedText(
-                    "${((double.parse(product.pivot.price.amount) / double.parse(product.price.amount)) * 100).ceil()}% OFF",
+                    "${(((double.parse(product.price.amount) - double.parse(product.sellingPrice.amount)) / double.parse(product.price.amount)) * 100).ceil()}% OFF",
                     textStyle: Theme.of(context)
                         .textTheme
                         .bodyText1
@@ -132,7 +145,7 @@ class FlashSaleItem extends StatelessWidget {
                         maxLines: 1,
                       ),
                       AutoSizeText(
-                        product.pivot.price.formatted,
+                        product.sellingPrice.formatted,
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               color: Color(appController.accentColor.value),
                               fontWeight: FontWeight.bold,

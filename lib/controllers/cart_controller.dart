@@ -1,25 +1,37 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:fcm_config/fcm_config.dart';
 import 'package:get/get.dart';
+import 'package:retrofit/dio.dart';
+import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/models/address.dart';
 import 'package:smartcommerce/models/cart.dart';
 import 'package:smartcommerce/models/cupon.dart';
 import 'package:smartcommerce/models/flashsale_products_model.dart';
+import 'package:smartcommerce/models/mini_product.dart';
 import 'package:smartcommerce/models/product_data.dart';
 import 'package:smartcommerce/models/product_details_model.dart';
 import 'package:smartcommerce/models/user_profile_model.dart';
 import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/db/cart_db.dart';
+import 'package:smartcommerce/utils/helper/auth_alert.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 
 class CartController extends GetxController {
-  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
+  RestClient client = RestClient(
+      Dio(BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
 
   CartDB db;
   RxList<Cart> _cartData = <Cart>[].obs;
   RxBool sendingOrder = RxBool(false);
   RxList<int> cartProcessList = RxList([]);
+
+  updateClient() {
+    client = RestClient(Dio(
+        BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
+    clearAll();
+  }
 
   updateCartData() {
     _cartData.forEach((element) {
@@ -27,31 +39,42 @@ class CartController extends GetxController {
     });
   }
 
+  Future<Coupon> verifyCoupon(String code) async {
+    Coupon coupon = await client.getCouponData(code);
+
+    return coupon;
+  }
+
   bool isValidating() {
     bool ret = false;
     for (int index = 0; index < _cartData.length; index++) {
       ret = _cartData[index].checking;
+      if (ret == true) {
+        return ret;
+      }
     }
     return ret;
   }
 
   Future checkIsAvailability(int id) async {
     cartProcessList.add(id);
+    update();
     int index =
         _cartData.indexOf(_cartData.firstWhere((element) => element.id == id));
     if (_cartData[index].checking == true) {
       return;
     }
     _cartData[index].checking = true;
-    final ProductDetailsModel data = await client.getProductDetails(id);
-    if (_cartData.where((element) => element.id == id).toList().isEmpty) {
-      return;
-    }
-    _cartData[index] = Cart.fromProductData(data);
+    update();
+
+    final MiniProduct data = await client.getProductCartValid(id);
+
+    _cartData[index].updatePrices(data);
     db.updateSelectedCart(_cartData[index]);
-    Future.delayed(Duration(seconds: 3));
     _cartData[index].checking = false;
+
     cartProcessList.remove(id);
+    update();
 
     return;
   }
@@ -93,76 +116,115 @@ class CartController extends GetxController {
   }
 
   void fromProductSmall(ProductData product) async {
-    cartProcessList.add(product.id);
+    if (Get.put(AuthController()).apiToken != null) {
+      cartProcessList.add(product.id);
+      var _checkItem =
+          _cartData.where((element) => element.id == product.id).toList();
 
-    var _checkItem =
-        _cartData.where((element) => element.id == product.id).toList();
+      if (_checkItem.isNotEmpty) {
+        updateCount(product.id);
+        cartProcessList.remove(product.id);
 
-    if (_checkItem.isNotEmpty) {
-      updateCount(product.id);
+        return;
+      } else {
+        _cartData.add(
+          Cart.fromProductSmall(product),
+        );
+        ProductDetailsModel data = await client.getProductDetails(product.id);
+
+        updateItem(
+          Cart.fromProductData(data),
+        );
+        db.addCart(_cartData.firstWhere((element) => element.id == product.id));
+      }
       cartProcessList.remove(product.id);
-
-      return;
     } else {
-      _cartData.add(
-        Cart.fromProductSmall(product),
-      );
-      ProductDetailsModel data = await client.getProductDetails(product.id);
-
-      updateItem(
-        Cart.fromProductData(data),
-      );
-      db.addCart(_cartData.firstWhere((element) => element.id == product.id));
+      showAuthAlertDialog();
     }
-    cartProcessList.remove(product.id);
+  }
+
+  void fromProduct(ProductDetailsModel product) async {
+    if (Get.put(AuthController()).apiToken != null) {
+      cartProcessList.add(product.id);
+      var _checkItem =
+          _cartData.where((element) => element.id == product.id).toList();
+
+      if (_checkItem.isNotEmpty) {
+        updateCount(product.id);
+        cartProcessList.remove(product.id);
+
+        return;
+      } else {
+        _cartData.add(
+          Cart.fromProduct(product),
+        );
+        ProductDetailsModel data = await client.getProductDetails(product.id);
+
+        updateItem(
+          Cart.fromProductData(data),
+        );
+        db.addCart(_cartData.firstWhere((element) => element.id == product.id));
+      }
+      cartProcessList.remove(product.id);
+    } else {
+      showAuthAlertDialog();
+    }
   }
 
   void fromProductFlashSale(FlashProduct product) async {
-    cartProcessList.add(product.id);
+    if (Get.put(AuthController()).apiToken != null) {
+      cartProcessList.add(product.id);
 
-    var _checkItem =
-        _cartData.where((element) => element.id == product.id).toList();
+      var _checkItem =
+          _cartData.where((element) => element.id == product.id).toList();
 
-    if (_checkItem.isNotEmpty) {
-      updateCount(product.id);
+      if (_checkItem.isNotEmpty) {
+        updateCount(product.id);
+        cartProcessList.remove(product.id);
+
+        return;
+      } else {
+        _cartData.add(
+          Cart.fromFlashSale(product),
+        );
+        print(_cartData.length);
+        ProductDetailsModel data = await client.getProductDetails(product.id);
+
+        updateItem(
+          Cart.fromProductData(data),
+        );
+        db.addCart(_cartData.firstWhere((element) => element.id == product.id));
+      }
       cartProcessList.remove(product.id);
-
-      return;
     } else {
-      _cartData.add(
-        Cart.fromFlashSale(product),
-      );
-      print(_cartData.length);
-      ProductDetailsModel data = await client.getProductDetails(product.id);
-
-      updateItem(
-        Cart.fromProductData(data),
-      );
-      db.addCart(_cartData.firstWhere((element) => element.id == product.id));
+      showAuthAlertDialog();
     }
-    cartProcessList.remove(product.id);
   }
 
   addFromFav(Wishlist product) async {
-    cartProcessList.add(product.id);
+    if (Get.put(AuthController()).apiToken != null) {
+      cartProcessList.add(product.id);
 
-    if (checkInCart(product.id)) {
-      updateCount(product.id);
+      if (checkInCart(product.id)) {
+        updateCount(product.id);
+        cartProcessList.remove(product.id);
+
+        return;
+      } else {
+        _cartData.add(Cart.fromWishList(product));
+
+        ProductDetailsModel data = await client.getProductDetails(product.id);
+
+        updateItem(
+          Cart.fromProductData(data),
+        );
+        db.addCart(_cartData.firstWhere((element) => element.id == product.id));
+      }
+
       cartProcessList.remove(product.id);
-
-      return;
     } else {
-      _cartData.add(Cart.fromWishList(product));
-
-      ProductDetailsModel data = await client.getProductDetails(product.id);
-
-      updateItem(
-        Cart.fromProductData(data),
-      );
-      db.addCart(_cartData.firstWhere((element) => element.id == product.id));
+      showAuthAlertDialog();
     }
-
-    cartProcessList.remove(product.id);
   }
 
   void updateItem(Cart item) {
@@ -206,7 +268,8 @@ class CartController extends GetxController {
 
   void updateCount(int id, {bool plus = true}) {
     int index = _cartData.indexWhere((element) => element.id == id);
-    if (_cartData[index].manageStock == false) {
+    if (_cartData[index].manageStock == false ||
+        _cartData[index].cartQuantity < _cartData[index].stockQuantity) {
       if (plus == true) {
         _cartData[index].cartQuantity++;
         db.updateSelectedCart(_cartData[index]);
@@ -219,76 +282,80 @@ class CartController extends GetxController {
           db.updateSelectedCart(_cartData[index]);
         }
       }
-    } else {
-      if (_cartData[index].cartQuantity < _cartData[index].stockQuantity) {
-        if (plus == true) {
-          _cartData[index].cartQuantity++;
-          db.updateSelectedCart(_cartData[index]);
-        } else {
-          if (_cartData[index].cartQuantity == 1) {
-            removeItem(id);
-            db.deleteSelectedCart(id);
-          } else {
-            _cartData[index].cartQuantity--;
-            db.updateSelectedCart(_cartData[index]);
-          }
-        }
-      }
     }
+    update();
   }
 
-  Future<bool> sendOrder(
-    Address address,
-    Coupon coupon,
-    UserProfileModel userData,
-    double shippingCost,
-    double total,
-  ) async {
+  Future<bool> sendOrder(Address address, Coupon coupon,
+      UserProfileModel userData, double shippingCost, double total) async {
+    bool ret = false;
+    Map<String, dynamic> data;
     sendingOrder.value = true;
-    Map data = {
+    data = {
       "customer_id": userData.id.toString(),
       "customer_email": userData.email,
-      "billing[first_name]": userData.firstName,
-      "billing[last_name]": userData.lastName,
       "customer_phone": address.phoneNumber,
-      "billing[address_1]": address.addressLine,
-      "billing[city]": address.city,
-      "billing[zip]": address.zipCode,
-      "billing[country]": "EG",
-      "billing[state]": address.city,
+      "billing_address_1": address.addressLine,
+      "shipping_address_1": address.addressLine,
+      "billing_city": address.city,
+      "shipping_city": address.city,
+      "billing_zip": address.zipCode,
+      "shipping_zip": address.zipCode,
+      "billing_state": address.city,
+      "shipping_state": address.city,
       "payment_method": "cod",
-      "shipping_method": "local_pickup",
-      "ship_to_different_address": "0",
-      "terms_and_conditions": "1",
       "shipping_cost": shippingCost.toString(),
       "sub_total": totalPrice.toString(),
       "total": total.toString(),
+      "locale": Get.locale.languageCode,
     };
 
-    if (coupon.id != 0) {
+    if (coupon != null) {
       data["coupon_id"] = coupon.id.toString();
       data["discount"] = coupon.valueAmount.toString();
     } else {
       data["discount"] = "0";
     }
-
+    List<int> ids = [];
+    List<String> prices = [];
+    List<int> quantitys = [];
+    List<String> totals = [];
     for (int index = 0; index < _cartData.length; index++) {
-      data["products[${index.toString()}][id]"] =
-          _cartData[index].id.toString();
-      data["products[${index.toString()}][unit_price]"] =
-          _cartData[index].sellingPrice.toString();
-      data["products[${index.toString()}][qty]"] =
-          _cartData[index].cartQuantity.toString();
-      data["products[${index.toString()}][total]"] =
-          (_cartData[index].cartQuantity *
-                  double.parse(_cartData[index].sellingPrice.amount))
-              .toString();
+      // data["products_ids[${index.toString()}]"] = _cartData[index].id;
+      // data["products_price[${index.toString()}]"] =
+      //     _cartData[index].sellingPrice.amount;
+      // data["products_qty[${index.toString()}]"] = _cartData[index].cartQuantity;
+      // data["products_total[${index.toString()}]"] =
+      //     (_cartData[index].cartQuantity *
+      //             double.parse(_cartData[index].sellingPrice.amount))
+      //         .toString();
+
+      ids.add(_cartData[index].id);
+      prices.add(
+          _cartData[index].sellingPrice.inCurrentCurrency.amount.toString());
+      quantitys.add(_cartData[index].cartQuantity);
+      totals.add((_cartData[index].cartQuantity *
+              double.parse(_cartData[index].sellingPrice.amount))
+          .toString());
     }
 
-    /// Map response = await sendOrderAPI(data);
+    data["products_ids[]"] = ids;
+    data["products_price[]"] = prices;
+    data["products_qty[]"] = quantitys;
+    data["products_total[]"] = totals;
+    data["api_token"] = Get.put(AuthController()).apiToken.value;
+    data["mobile_token"] = await FirebaseMessaging.instance.getToken();
+
+    HttpResponse response = await client.orderConfirmation(data);
+    if (response != null) {
+      if (response.data.containsKey("success")) {
+        ret = true;
+      }
+    }
+
     sendingOrder.value = false;
 
-    ///  return response.containsKey("success");
+    return ret;
   }
 
   void removeItem(int cartID) {
@@ -313,6 +380,7 @@ class CartController extends GetxController {
     }
     db.updateSelectedCart(_cartData[cartItem]);
     cartProcessList.remove(cart.id);
+    update();
   }
 
   void clearAll() {

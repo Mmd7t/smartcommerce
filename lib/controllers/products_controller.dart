@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:retrofit/dio.dart';
 import 'package:smartcommerce/models/brand_products_model.dart';
 import 'package:smartcommerce/models/category_products.dart';
 import 'package:smartcommerce/models/featured_cats_products_model.dart';
@@ -15,7 +13,8 @@ import 'package:smartcommerce/utils/retrofit.dart';
 import 'auth_controller.dart';
 
 class ProductsController extends GetxController {
-  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
+  RestClient client = RestClient(
+      Dio(BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
 
 /*------------------------------  Brand Products  -------------------------------*/
   RxInt selectedBrandProduct = RxInt(0);
@@ -70,6 +69,16 @@ class ProductsController extends GetxController {
 //
 //
 //
+
+  updateClient() {
+    categoryProducts.clear();
+    relatedSaleProduct.clear();
+    crossSaleProduct.clear();
+    upSaleProduct.clear();
+    client = RestClient(Dio(
+        BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
+  }
+
   setSelectedProductDetails(int value) {
     selectedProductDetails = value.obs;
   }
@@ -199,9 +208,8 @@ class ProductsController extends GetxController {
     loadingReviewsOnProduct.value = false;
   }
 
-  AuthController authController = AuthController();
-
   addReview(int id, String rate, String comment) async {
+    AuthController authController = Get.put(AuthController());
     await authController.getToken();
     if (authController.apiToken != null) {
       ReviewResponseModel response = await client.addReview(

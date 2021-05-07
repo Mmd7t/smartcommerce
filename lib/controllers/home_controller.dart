@@ -12,7 +12,8 @@ import 'package:smartcommerce/utils/retrofit.dart';
 import 'auth_controller.dart';
 
 class HomeController extends GetxController {
-  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
+  RestClient client = RestClient(
+      Dio(BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
   RxList<CategoriesModel> featuredCategoriesList = <CategoriesModel>[].obs;
 
   RxList<SlidersModel> slidersList = <SlidersModel>[].obs;
@@ -28,10 +29,16 @@ class HomeController extends GetxController {
   RxBool isTwoBannersLoading = false.obs;
   RxBool isRecentlyAddedLoading = false.obs;
 
+  updateClient() {
+    client = RestClient(Dio(
+        BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
+  }
+
   getFeaturedCategories() async {
     isFeaturedCatsLoading.value = true;
     List<CategoriesModel> listOfCats =
         await client.getHomeCategoriesList(Constants.basicAuth);
+    featuredCategoriesList.clear();
     featuredCategoriesList.addAll(listOfCats);
     isFeaturedCatsLoading.value = false;
   }
@@ -40,6 +47,7 @@ class HomeController extends GetxController {
     isSlidersLoading.value = true;
     List<SlidersModel> listOfSliders =
         await client.getSlidersList(Constants.basicAuth);
+    slidersList.clear();
     slidersList.addAll(listOfSliders);
     isSlidersLoading.value = false;
   }
@@ -48,6 +56,7 @@ class HomeController extends GetxController {
     isBrandsLoading.value = true;
     List<BrandsModel> listOfBrands =
         await client.getBrandsList(Constants.basicAuth);
+    brandsList.clear();
     brandsList.addAll(listOfBrands);
     isBrandsLoading.value = false;
   }
@@ -64,15 +73,14 @@ class HomeController extends GetxController {
 
   getRecentlyAddedProducts() async {
     await authController.getToken();
-    if (authController.apiToken != null) {
-      isRecentlyAddedLoading.value = true;
-      RecentlyAddedModel recentlyAdded = await client.getRecentlyAddedProducts(
-          Constants.basicAuth, authController.apiToken.value);
+    isRecentlyAddedLoading.value = true;
+    try {
+      RecentlyAddedModel recentlyAdded =
+          await client.getRecentlyAddedProducts(Constants.basicAuth, " ");
       recentlyAddedModel = recentlyAdded.obs;
-      print('recentlyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy');
-      isRecentlyAddedLoading.value = false;
-    } else {
-      print('Errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr');
+    } catch (e) {
+      print(e);
     }
+    isRecentlyAddedLoading.value = false;
   }
 }

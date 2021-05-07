@@ -9,7 +9,8 @@ part of 'retrofit.dart';
 class _RestClient implements RestClient {
   _RestClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'https://market.smartcommerce.me/ar/api/';
+    _dio.interceptors
+        .add(PrettyDioLogger(requestBody: true, requestHeader: true));
   }
 
   final Dio _dio;
@@ -49,6 +50,34 @@ class _RestClient implements RestClient {
         options: RequestOptions(
             method: 'POST',
             headers: <String, dynamic>{r'Authorization': token},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = AuthResponseModel.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<AuthResponseModel> socialLogin(
+      firstName, lastName, email, gender) async {
+    ArgumentError.checkNotNull(firstName, 'firstName');
+    ArgumentError.checkNotNull(lastName, 'lastName');
+    ArgumentError.checkNotNull(email, 'email');
+    ArgumentError.checkNotNull(gender, 'gender');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {
+      'first_name': firstName,
+      'last_name': lastName,
+      'email': email,
+      'gender': gender
+    };
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('sociallogin',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
             extra: _extra,
             baseUrl: baseUrl),
         data: _data);
@@ -178,6 +207,27 @@ class _RestClient implements RestClient {
             CategoriesParentModel.fromJson(i as Map<String, dynamic>))
         .toList();
     return value;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> updateToken(token, apiToken) async {
+    ArgumentError.checkNotNull(token, 'token');
+    ArgumentError.checkNotNull(apiToken, 'apiToken');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = {'token': token, 'api_token': apiToken};
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request('mobiletoken',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
   }
 
   @override
@@ -355,6 +405,24 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<MiniProduct> getProductCartValid(id) async {
+    ArgumentError.checkNotNull(id, 'id');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('mini/product/$id',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = MiniProduct.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<List<UserOrdersModel>> getUserOrders(apiToken) async {
     ArgumentError.checkNotNull(apiToken, 'apiToken');
     const _extra = <String, dynamic>{};
@@ -475,6 +543,24 @@ class _RestClient implements RestClient {
   }
 
   @override
+  Future<Coupon> getCouponData(coupon) async {
+    ArgumentError.checkNotNull(coupon, 'coupon');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('coupon/$coupon',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = Coupon.fromJson(_result.data);
+    return value;
+  }
+
+  @override
   Future<List<StaticPagesModel>> getStaticPages() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -491,6 +577,23 @@ class _RestClient implements RestClient {
         .map(
             (dynamic i) => StaticPagesModel.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<ShippingFee> loadingShippingCost() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>('shippingcost',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = ShippingFee.fromJson(_result.data);
     return value;
   }
 
@@ -514,5 +617,25 @@ class _RestClient implements RestClient {
         data: _data);
     final value = ReviewResponseModel.fromJson(_result.data);
     return value;
+  }
+
+  @override
+  Future<HttpResponse<dynamic>> orderConfirmation(data) async {
+    ArgumentError.checkNotNull(data, 'data');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(data ?? <String, dynamic>{});
+    final _result = await _dio.request('order/store',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = _result.data;
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
   }
 }

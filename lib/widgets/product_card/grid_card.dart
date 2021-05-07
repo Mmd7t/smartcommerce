@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/cart_controller.dart';
+import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
+import 'package:smartcommerce/pages/product_details/product_details_page.dart';
+
 import '../custom_image.dart';
 import '../progress.dart';
 
@@ -30,24 +33,34 @@ class ProductGridItem extends StatelessWidget {
 /*----------------------------------------  Child Function  -------------------------------------------*/
 /*-----------------------------------------------------------------------------------------------------*/
   child({context, img}) {
-    return Container(
-      padding: const EdgeInsets.all(10).copyWith(top: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          header(context),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: cachedNetworkImage(img, boxFit: BoxFit.fitHeight),
+    return InkWell(
+      onTap: () {
+        Get.put(ProductsController()).getProductDetails(data.id);
+        Get.put(ProductsController()).getUpSaleProducts(data.id);
+        Get.put(ProductsController()).getCrossSaleProducts(data.id);
+        Get.put(ProductsController()).getRelatedSaleProducts(data.id);
+        Get.put(ProductsController()).getReviewsProducts(data.id);
+        Get.to(ProductDetails(id: data.id));
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10).copyWith(top: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            header(context),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: cachedNetworkImage(img, boxFit: BoxFit.fitHeight),
+              ),
             ),
-          ),
-          footer(
-            name: "${data.name}",
-            context: context,
-            price: "${data.formattedPrice.formatted}",
-          ),
-        ],
+            footer(
+              name: "${data.name}",
+              context: context,
+              price: "${data.formattedPrice.formatted}",
+            ),
+          ],
+        ),
       ),
     );
   }

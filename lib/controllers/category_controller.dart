@@ -6,7 +6,8 @@ import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 
 class CategoryController extends GetxController {
-  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
+  RestClient client = RestClient(
+      Dio(BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
 
   RxMap<int, SubCategory> subCategories = <int, SubCategory>{}.obs;
 
@@ -16,6 +17,13 @@ class CategoryController extends GetxController {
   RxBool fetchingMainCategories = RxBool(false);
 
   RxInt selectedSubCategories = RxInt(0);
+
+  updateClient() {
+    client = RestClient(Dio(
+        BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
+    subCategories.clear();
+    categoriesParentList.clear();
+  }
 
   void getSelectedSubCategories() async {
     if (subCategories[selectedSubCategories.value] != null &&

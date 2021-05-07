@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart'
     hide useWhiteForeground;
-import 'package:smartcommerce/controllers/app_controller.dart';
-import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
+import 'package:smartcommerce/utils/constants.dart';
+import 'package:smartcommerce/utils/helper/language_set_helper.dart';
+import 'package:smartcommerce/widgets/drop_field.dart';
+import 'package:smartcommerce/widgets/global_appbar.dart';
 
 class SettingsPage extends StatefulWidget {
   static const String routeName = 'settingsPage';
@@ -49,7 +52,7 @@ class _SettingsPageState extends State<SettingsPage>
                 onTap: () {
                   print(index);
                   if (index == 0) {
-                    // Get.toNamed(OrdersPage.routeName);
+                    LanguageHelper.changeLanguage();
                   } else if (index == 1) {
                     showDialog(
                       context: context,
@@ -118,9 +121,9 @@ class _SettingsPageState extends State<SettingsPage>
                         );
                       },
                     );
-                  } else {
+                  } else if (index == 4) {
                     // Get.toNamed(UserReviews.routeName);
-                  }
+                  } else {}
                 },
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
@@ -141,7 +144,9 @@ class _SettingsPageState extends State<SettingsPage>
                           ? "change primary color".tr
                           : index == 2
                               ? "change accent color".tr
-                              : "theme".tr,
+                              : index == 3
+                                  ? "theme".tr
+                                  : "base url".tr,
                   style: TextStyle(
                     color: Color(appController.accentColor.value),
                     fontWeight: FontWeight.w600,
@@ -166,7 +171,45 @@ class _SettingsPageState extends State<SettingsPage>
               ),
             ),
           ),
-        ),
+        )..add(
+            Card(
+              elevation: 2.5,
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.data_usage_rounded,
+                    color: Color(appController.primaryColor.value),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 12.0),
+                      child: DropDownFormField(
+                        onChanged: (String value) {
+                          Get.put(AppController()).updateUrl(value);
+                        },
+                        titleText: "base url".tr,
+                        value: Get.put(AppController()).endUrl.value,
+                        dataSource: Constants.baseUrls,
+                        context: context,
+                      ),
+                    ),
+                  ),
+                ],
+                // title: Text(
+                //   "base url".tr,
+                //   style: TextStyle(
+                //     color: Color(appController.accentColor.value),
+                //     fontWeight: FontWeight.w600,
+                //   ),
+                // ),
+              ),
+            ),
+          ),
       ),
     );
   }

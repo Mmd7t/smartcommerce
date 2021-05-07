@@ -42,45 +42,51 @@ class _RecentlyAddedState extends State<RecentlyAdded> {
             child: Obx(
               () => (homeController.isRecentlyAddedLoading.value)
                   ? circularDefaultProgress(context, size: 40.0)
-                  : ListView.builder(
-                      itemCount: 4,
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        if (index == 3) {
-                          return Container(
-                            width: size.width * 0.4,
-                            child: InkWell(
-                              onTap: () {
-                                Get.toNamed(ProductsPage.routeName,
-                                    arguments: ProductsType.recently);
-                              },
-                              child: Card(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 50),
-                                color: Theme.of(context).primaryColor,
-                                child: Center(
-                                    child: Directionality(
-                                  textDirection: TextDirection.ltr,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Icon(Icons.arrow_back_ios_rounded),
-                                      Text('Show More'.tr),
-                                    ],
+                  : homeController.recentlyAddedModel.value.products == null
+                      ? Container()
+                      : ListView.builder(
+                          itemCount: 4,
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            if (index == 3) {
+                              return Container(
+                                width: size.width * 0.4,
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.toNamed(ProductsPage.routeName,
+                                        arguments: ProductsType.recently);
+                                  },
+                                  child: Card(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 50),
+                                    color: Theme.of(context).primaryColor,
+                                    child: Center(
+                                        child: Directionality(
+                                      textDirection: TextDirection.ltr,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.arrow_back_ios_rounded),
+                                          Text('Show More'.tr),
+                                        ],
+                                      ),
+                                    )),
                                   ),
-                                )),
-                              ),
-                            ),
-                          );
-                        }
-                        return Container(
-                          width: size.width * 0.5,
-                          child: ProductGridItem(homeController
-                              .recentlyAddedModel.value.products.data[index]),
-                        );
-                      },
-                    ),
+                                ),
+                              );
+                            }
+                            return Container(
+                              width: size.width * 0.5,
+                              child: ProductGridItem(homeController
+                                  .recentlyAddedModel
+                                  .value
+                                  .products
+                                  .data[index]),
+                            );
+                          },
+                        ),
             ),
           ),
         ),

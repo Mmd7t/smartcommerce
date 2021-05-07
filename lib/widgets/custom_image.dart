@@ -13,6 +13,7 @@ cachedNetworkImage(String mediaUrl,
     radius: 0.0,
     topOnly: false,
     boxFit: BoxFit.cover}) {
+  mediaUrl = mediaUrl ?? "";
   if (!mediaUrl.contains("https") && mediaUrl.contains("http")) {
     mediaUrl = mediaUrl.replaceAll("http", "https");
   } else if (!mediaUrl.contains("https") || mediaUrl != "") {

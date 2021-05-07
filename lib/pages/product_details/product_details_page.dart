@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
+import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/pages/product_details/components/cross_sales_part.dart';
 import 'package:smartcommerce/pages/product_details/components/related_sales_part.dart';
 import 'package:smartcommerce/pages/product_details/components/upsales_part.dart';
+import 'package:smartcommerce/utils/helper/default_helper.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:smartcommerce/widgets/progress.dart';
+
 import 'components/description_part.dart';
 import 'components/header_part.dart';
 import 'components/reviews_part.dart';
@@ -80,17 +83,32 @@ class ProductDetails extends StatelessWidget {
                         ),
                       ),
                       /*----------------------------------  Add to Cart  ------------------------------------*/
-                      MaterialButton(
-                        child: const Text("Add to Cart"),
-                        elevation: 0,
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                      GetX(
+                        init: CartController(),
+                        builder: (CartController cartController) =>
+                            MaterialButton(
+                          child: Text(cartController.checkInCart(
+                                  contoller.productDetails.value.id)
+                              ? "In Cart".tr
+                              : "Add to Cart".tr),
+                          elevation: 0,
+                          textColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          color: Color(appController.accentColor.value),
+                          onPressed: () {
+                            if (cartController.checkInCart(
+                                contoller.productDetails.value.id)) {
+                              Helper.showToast("Already In Cart".tr, context);
+                            } else {
+                              cartController
+                                  .fromProduct(contoller.productDetails.value);
+                            }
+                          },
+                          height: 50,
+                          minWidth: MediaQuery.of(context).size.width * 0.5,
                         ),
-                        color: Color(appController.accentColor.value),
-                        onPressed: () {},
-                        height: 50,
-                        minWidth: MediaQuery.of(context).size.width * 0.5,
                       ),
                     ],
                   ),

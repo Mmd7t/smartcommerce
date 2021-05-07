@@ -41,10 +41,11 @@ circularDefaultProgress(BuildContext context,
   );
 }
 
-linearProgress() {
+linearProgress({Color color = Colors.black54}) {
   return LinearProgressIndicator(
+    backgroundColor: Get.theme.accentColor,
     valueColor: AlwaysStoppedAnimation(
-      Colors.black54,
+      color,
     ),
   );
 }

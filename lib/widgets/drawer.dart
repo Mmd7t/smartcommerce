@@ -107,6 +107,10 @@ class MyDrawer extends StatelessWidget {
                   itemCount: staticPagesController.staticPagesList.length,
                   itemBuilder: (context, index) {
                     return ListTile(
+                      leading: Icon(
+                        Icons.pages,
+                        color: Get.theme.primaryColor,
+                      ),
                       onTap: () {
                         Get.toNamed(StaticPage.routeName,
                             arguments:
@@ -147,7 +151,7 @@ class MyDrawer extends StatelessWidget {
                     )
                   : ListTile(
                       onTap: () {
-                        Get.put(AuthController()).logOut();
+                        Get.put(AuthController()).logOut(true);
                       },
                       title: Text("logout".tr),
                       leading: Icon(

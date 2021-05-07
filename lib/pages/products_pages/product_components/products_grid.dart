@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
-import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/models/product_data.dart';
 import 'package:smartcommerce/pages/product_details/product_details_page.dart';
@@ -40,8 +39,6 @@ class ProductsGrid extends StatelessWidget {
                   borderRadius: BorderRadius.circular(ProductsGrid.radius),
                   child: InkWell(
                     onTap: () {
-                      print(data[index].id);
-                      print(Get.put(AuthController()).apiToken.value);
                       Get.put(ProductsController())
                           .getProductDetails(data[index].id);
                       Get.put(ProductsController())

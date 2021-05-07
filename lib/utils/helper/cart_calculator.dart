@@ -14,6 +14,15 @@ class Calculator {
       freeShippingCoupon: freeShippingCoupon,
       freeSippingEnabled: freeSippingEnabled,
     );
+    print(discount);
+    print(freeShippingMinimum);
+    print(freeShippingCoupon);
+    print(freeSippingEnabled);
+    print(percentageDiscount);
+    print(shipping);
+    print(total);
+    print(total + shipping - discount);
+
     if (percentageDiscount) {
       return total + shipping - ((total * discount) / 100);
     } else {
@@ -27,14 +36,10 @@ class Calculator {
       double freeShippingMinimum = 0.0,
       bool freeSippingEnabled = false,
       bool freeShippingCoupon = false}) {
-    if (freeSippingEnabled == true) {
-      if (freeShippingCoupon == true) {
-        return 0.0;
-      } else if (total >= freeShippingMinimum) {
-        return 0.0;
-      } else {
-        return nonFreeShipping;
-      }
+    if (freeSippingEnabled == true && total >= freeShippingMinimum) {
+      return 0.0;
+    } else if (freeShippingCoupon == true) {
+      return 0.0;
     } else {
       return nonFreeShipping;
     }

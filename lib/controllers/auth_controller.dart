@@ -9,12 +9,15 @@ import 'package:smartcommerce/models/user_profile_model.dart';
 import 'package:smartcommerce/pages/main_page.dart';
 import 'package:smartcommerce/pages/registration/registration.dart';
 import 'package:smartcommerce/utils/constants.dart';
+import 'package:smartcommerce/utils/helper/auth_alert.dart';
+import 'package:smartcommerce/utils/pref/notification_token.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 import 'package:smartcommerce/utils/shared_prefs.dart';
 import 'package:smartcommerce/widgets/custom_dialog.dart';
 
 class AuthController extends GetxController {
-  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
+  RestClient client = RestClient(
+      Dio(BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
   Rx<UserProfileModel> userProfileModel = UserProfileModel().obs;
   RxList<Review> reviews = <Review>[].obs;
   RxString apiToken;
@@ -24,6 +27,12 @@ class AuthController extends GetxController {
   RxBool userDataLoading = RxBool(false);
   RxBool wishListLoading = RxBool(false);
   RxList<int> wishListProcessList = RxList([]);
+
+  updateClient() {
+    logOut(false);
+    client = RestClient(Dio(
+        BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
+  }
 
   void saveToken(String token) {
     apiToken = token.obs;
@@ -35,14 +44,15 @@ class AuthController extends GetxController {
     if (data != null) {
       apiToken = data.obs;
     }
+    print(data);
   }
 
   void navigate() {
-    if (apiToken == null) {
-      Get.toNamed(Registration.routeName);
-    } else {
-      Get.toNamed(MainPage.routeName);
-    }
+    // if (apiToken == null) {
+    //   Get.toNamed(Registration.routeName);
+    // } else {
+    Get.toNamed(MainPage.routeName);
+    // }
   }
 
 /*--------------------------------------------------------------------------------------*/
@@ -50,29 +60,61 @@ class AuthController extends GetxController {
 /*--------------------------------------------------------------------------------------*/
 
   Future<void> register(registerModel) async {
-    try {
-      AuthResponseModel response = await client.postRegister(
-          registerModel.toJson(), Constants.basicAuth);
-      if (response != null) {
-        saveToken(response.apiToken);
-        Get.toNamed(MainPage.routeName);
-        print(response.apiToken);
-        getUserProfile();
-      } else {
-        throw Exception();
-      }
-    } catch (e) {
-      throw e;
+    AuthResponseModel response =
+        await client.postRegister(registerModel.toJson(), Constants.basicAuth);
+    if (response != null) {
+      saveToken(response.apiToken);
+      Get.toNamed(MainPage.routeName);
+      print(response.apiToken);
+      getUserProfile();
     }
+  }
+/*-------------------------------------------------------------------------------------*/
+/*----------------------------  FCM Function  -----------------------------*/
+/*-------------------------------------------------------------------------------------*/
+
+  updateToken(String token) async {
+    if (apiToken != null) {
+      String oldToken = await FCMStorage.getFCM();
+      if (oldToken != token) {
+        HttpResponse response = await client.updateToken(token, apiToken.value);
+        if (response != null && response.data["message"] == "saved_succeffly") {
+          FCMStorage.storeFCM(token);
+        }
+      }
+    }
+  }
+
+/*-------------------------------------------------------------------------------------*/
+/*----------------------------  Register Social Function  -----------------------------*/
+/*-------------------------------------------------------------------------------------*/
+
+  loginSocialData(
+      String firstName, String lastName, String email, String gender) async {
+    bool ret = false;
+    AuthResponseModel newUser =
+        await client.socialLogin(firstName, lastName, email, gender);
+    if (newUser != null && newUser.apiToken != null && newUser.apiToken != "") {
+      saveToken(newUser.apiToken);
+      Get.toNamed(MainPage.routeName);
+      print(newUser.apiToken);
+      getUserProfile();
+      ret = true;
+    }
+    return ret;
   }
 
 /*--------------------------------------------------------------------------------------*/
 /*----------------------------------  Logout Function  ---------------------------------*/
 /*--------------------------------------------------------------------------------------*/
 
-  logOut() {
+  logOut(bool reload) {
+    updateToken("");
     SharedPrefsHelper.removeToken();
-    Get.offAllNamed(Registration.routeName);
+    if (reload) {
+      Get.offAllNamed(Registration.routeName);
+    }
+    FCMStorage.removeFCM();
   }
 
 /*--------------------------------------------------------------------------------------*/
@@ -161,23 +203,31 @@ class AuthController extends GetxController {
   }
 
   void lookUpFav(int id) async {
-    if (wishListLoading.value != true) {
-      if (userProfileModel.value.wishlist
-          .where((element) => element.id == id)
-          .isNotEmpty) {
-        await removeFromFav(id);
-      } else {
-        await addToFav(id);
+    if (apiToken != null) {
+      if (wishListLoading.value != true) {
+        if (userProfileModel.value.wishList
+            .where((element) => element.id == id)
+            .isNotEmpty) {
+          await removeFromFav(id);
+        } else {
+          await addToFav(id);
+        }
       }
+    } else {
+      showAuthAlertDialog();
     }
   }
 
   bool inFav(int id) {
     bool ret = false;
-    if (userProfileModel.value.wishlist
-        .where((element) => element.id == id)
-        .isNotEmpty) {
-      ret = true;
+    if (apiToken != null) {
+      if (userProfileModel.value.wishList != null) {
+        if (userProfileModel.value.wishList
+            .where((element) => element.id == id)
+            .isNotEmpty) {
+          ret = true;
+        }
+      }
     }
     return ret;
   }

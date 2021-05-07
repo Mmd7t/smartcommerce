@@ -23,24 +23,28 @@ class ProductData {
   dynamic taxClassId;
   Price formattedPrice;
   Price sellingPrice;
-  dynamic specialPrice;
+  Price specialPrice;
   int wishlist;
   List<DatumTranslation> translations;
 
-  factory ProductData.fromJson(Map<String, dynamic> json) => ProductData(
-        id: json["id"],
-        name: json["name"],
-        shortDescription: json["short_description"],
-        baseImage: json["base_image"],
-        brandId: json["brand_id"],
-        taxClassId: json["tax_class_id"],
-        formattedPrice: Price.fromJson(json["formatted_price"]),
-        sellingPrice: Price.fromJson(json["selling_price"]),
-        specialPrice: json["special_price"],
-        wishlist: json["wishlist"],
-        translations: List<DatumTranslation>.from(
-            json["translations"].map((x) => DatumTranslation.fromJson(x))),
-      );
+  factory ProductData.fromJson(Map<String, dynamic> json) {
+    print(json["special_price"]);
+
+    return ProductData(
+      id: json["id"],
+      name: json["name"],
+      shortDescription: json["short_description"],
+      baseImage: json["base_image"],
+      brandId: json["brand_id"],
+      taxClassId: json["tax_class_id"],
+      formattedPrice: Price.fromJson(json["formatted_price"] ?? {}),
+      sellingPrice: Price.fromJson(json["selling_price"] ?? {}),
+      specialPrice: Price.fromJson(json["special_price"] ?? {}),
+      wishlist: json["wishlist"],
+      translations: List<DatumTranslation>.from(
+          json["translations"].map((x) => DatumTranslation.fromJson(x))),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -51,7 +55,7 @@ class ProductData {
         "tax_class_id": taxClassId,
         "formatted_price": formattedPrice.toJson(),
         "selling_price": sellingPrice.toJson(),
-        "special_price": specialPrice,
+        "special_price": specialPrice.toJson(),
         "wishlist": wishlist,
         "translations": List<dynamic>.from(translations.map((x) => x.toJson())),
       };

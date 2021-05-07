@@ -7,11 +7,17 @@ import 'package:smartcommerce/utils/pref/search_history.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 
 class SearchController extends GetxController with SearchHistory {
-  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
+  RestClient client = RestClient(
+      Dio(BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
   RxList<String> searchHistory = <String>[].obs;
 
   RxBool loadingBrandProducts = RxBool(false);
   Rx<SearchData> searchData = SearchData().obs;
+
+  updateClient() {
+    client = RestClient(Dio(
+        BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
+  }
 
   searchForString(String query) async {
     addToSearchHistory(query);

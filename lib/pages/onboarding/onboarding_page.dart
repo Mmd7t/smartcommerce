@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/address_provider.dart';
@@ -8,10 +9,12 @@ import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
 import 'package:smartcommerce/controllers/flashsale_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
+import 'package:smartcommerce/controllers/notification_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/controllers/search_controller.dart';
 import 'package:smartcommerce/controllers/static_pages_controller.dart';
 import 'package:smartcommerce/utils/constants.dart';
+import 'package:smartcommerce/utils/helper/language_set_helper.dart';
 
 class OnBoardingPage extends StatefulWidget {
   static const String routeName = 'onBoardingPage';
@@ -35,7 +38,10 @@ class _OnBoardingPageState extends State<OnBoardingPage>
   }
 
   getData() async {
+    await Get.put(AppController(), permanent: true).getUrl();
+    await LanguageHelper.uploadLanguage();
     Get.put(AuthController(), permanent: true).getUserProfile();
+    Get.put(NotificationController(), permanent: true);
     Get.put(CartController(), permanent: true).initDB();
     CategoryController category =
         Get.put(CategoryController(), permanent: true);
@@ -51,7 +57,6 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     Get.put(FlashSaleController(), permanent: true).getFlashSaleProducts();
     Get.put(ProductsController(), permanent: true);
     Get.put(SearchController(), permanent: true).loadSearchHistory();
-    Get.put(AppController(), permanent: true);
   }
 
   @override

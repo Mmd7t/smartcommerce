@@ -1,4 +1,4 @@
-package com.example.smartcommerce
+package com.egtaz.smart.commerce
 
 import io.flutter.embedding.android.FlutterActivity
 

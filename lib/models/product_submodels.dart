@@ -12,11 +12,11 @@ class Price {
   InCurrentCurrency inCurrentCurrency;
 
   factory Price.fromJson(Map<String, dynamic> json) => Price(
-        amount: json["amount"],
-        formatted: json["formatted"],
-        currency: json["currency"],
+        amount: json["amount"] ?? "0.0",
+        formatted: json["formatted"] ?? "0.0",
+        currency: json["currency"] ?? "",
         inCurrentCurrency:
-            InCurrentCurrency.fromJson(json["inCurrentCurrency"]),
+            InCurrentCurrency.fromJson(json["inCurrentCurrency"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,9 +40,9 @@ class InCurrentCurrency {
 
   factory InCurrentCurrency.fromJson(Map<String, dynamic> json) =>
       InCurrentCurrency(
-        amount: json["amount"].toDouble(),
-        formatted: json["formatted"],
-        currency: json["currency"],
+        amount: json["amount"] != null ? json["amount"].toDouble() ?? 0.0 : 0.0,
+        formatted: json["formatted"] != null ? json["formatted"] ?? "" : "",
+        currency: json["currency"] != null ? json["currency"] ?? "" : "",
       );
 
   Map<String, dynamic> toJson() => {

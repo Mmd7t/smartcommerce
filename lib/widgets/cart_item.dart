@@ -39,9 +39,6 @@ class _CartItemState extends State<CartItem> {
               margin: EdgeInsets.only(top: 10.0),
               height: _height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
               child: Dismissible(
                 key: ValueKey(widget.cartId),
                 background: Container(
@@ -68,7 +65,7 @@ class _CartItemState extends State<CartItem> {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     if (cart.getCart(widget.cartId).checking == true)
-                      linearProgress(),
+                      linearProgress(color: Get.theme.primaryColor),
                     Expanded(
                       child: Row(
                         children: [
@@ -127,12 +124,11 @@ class _CartItemState extends State<CartItem> {
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 5),
-                                  Helper.getPrice(
-                                    double.parse(cart
+                                  Text(
+                                    cart
                                         .getCart(widget.cartId)
                                         .sellingPrice
-                                        .amount),
-                                    context,
+                                        .formatted,
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle1

@@ -41,18 +41,22 @@ class Helper {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: Text("no".tr),
+            child: Text(
+              "no".tr,
+              style: TextStyle(color: Get.theme.primaryColor),
+            ),
             style: TextButton.styleFrom(
-              textStyle:
-                  TextStyle(color: Color(appController.primaryColor.value)),
+              textStyle: TextStyle(color: Get.theme.primaryColor),
             ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            child: Text("yes".tr),
+            child: Text(
+              "yes".tr,
+              style: TextStyle(color: Get.theme.primaryColor),
+            ),
             style: TextButton.styleFrom(
-              textStyle:
-                  TextStyle(color: Color(appController.primaryColor.value)),
+              textStyle: TextStyle(color: Get.theme.primaryColor),
             ),
           ),
         ],

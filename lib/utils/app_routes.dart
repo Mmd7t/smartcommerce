@@ -2,8 +2,10 @@ import 'package:get/get.dart';
 import 'package:smartcommerce/pages/addresses/new_shipping_address.dart';
 import 'package:smartcommerce/pages/addresses/user_address.dart';
 import 'package:smartcommerce/pages/cart/cart_screen.dart';
+import 'package:smartcommerce/pages/cart/checkout_screen.dart';
 import 'package:smartcommerce/pages/favorite/favorite_page.dart';
 import 'package:smartcommerce/pages/main_page.dart';
+import 'package:smartcommerce/pages/notification/notifications.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
 import 'package:smartcommerce/pages/orders/orders_page.dart';
 import 'package:smartcommerce/pages/product_details/product_details_page.dart';
@@ -22,6 +24,14 @@ class AppPages {
     GetPage(
       name: OnBoardingPage.routeName,
       page: () => OnBoardingPage(),
+    ),
+    GetPage(
+      name: Notifications.routeName,
+      page: () => Notifications(),
+    ),
+    GetPage(
+      name: CheckoutScreen.routeName,
+      page: () => CheckoutScreen(),
     ),
     GetPage(
       name: MainPage.routeName,

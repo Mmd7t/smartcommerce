@@ -1,14 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/translations/translations_keys.dart';
+import 'package:smartcommerce/utils/helper/language_set_helper.dart';
 
 enum ProductsType { brand, featured, category, recently }
 
 class Constants {
-  static const String baseUrl = 'https://market.smartcommerce.me/ar/api/';
-  static const String imageURL =
-      'https://market.smartcommerce.me//storage/media/';
+  static String get baseUrl =>
+      '${Get.put(AppController()).endUrl.value}/${LanguageHelper.decodeLanguage()}/api/';
+  static String get imageURL =>
+      '${Get.put(AppController()).endUrl.value}/storage/media/';
   static const String apiKey = 'apiKey';
   static const String username = 'smartcommerce';
   static const String password = 'smart2020';
@@ -20,6 +24,13 @@ class Constants {
     'Content-Type': 'application/json',
     'authorization': basicAuth,
   };
+
+  static List<String> baseUrls = [
+    "https://market.smartcommerce.me",
+    "https://ex.smartcommerce.me",
+    "https://ex2.smartcommerce.me",
+    "https://pharmacy.smartcommerce.me",
+  ];
 
 /*-----------------------------------------------------------------------------------------------------*/
 /*----------------------------------------  Show Error Dialog  ----------------------------------------*/

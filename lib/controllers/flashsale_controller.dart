@@ -5,9 +5,15 @@ import 'package:smartcommerce/utils/constants.dart';
 import 'package:smartcommerce/utils/retrofit.dart';
 
 class FlashSaleController extends GetxController {
-  final client = RestClient(Dio(BaseOptions(headers: Constants.headers)));
+  RestClient client = RestClient(
+      Dio(BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
   Rx<FlashSaleProductsModel> flashSaleProductsModel;
   RxBool flashSaleLoading = RxBool(false);
+
+  updateClient() {
+    client = RestClient(Dio(
+        BaseOptions(headers: Constants.headers, baseUrl: Constants.baseUrl)));
+  }
 
   getFlashSaleProducts() async {
     flashSaleLoading.value = true;
