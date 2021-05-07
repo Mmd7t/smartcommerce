@@ -279,6 +279,8 @@ class Messages extends Translations {
           'rate this product': 'قيم هذا المنتج',
           'type your comment': 'اكتب تعليقك',
           'Review Added Successfully': 'تم اضافة تقييمك بنجاح',
+          'exist': 'متوفر',
+          'not exist': 'غير متوفر',
         }
       };
 }

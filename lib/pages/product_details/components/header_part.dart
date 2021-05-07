@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
+import 'package:smartcommerce/widgets/check_existance.dart';
 import 'package:smartcommerce/widgets/global_image.dart';
 import 'package:smartcommerce/widgets/indicators.dart';
 
@@ -75,17 +76,14 @@ class _HeaderPartState extends State<HeaderPart> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      '${controller.productDetails.value.reviewsCount}',
+                      (controller.productDetails.value.reviewsCount == null)
+                          ? '0'
+                          : '${controller.productDetails.value.reviewsCount}',
                     ),
-                    IconButton(
-                      splashColor: Color(appController.accentColor.value),
-                      splashRadius: 25,
-                      icon: Icon(
-                        Icons.star,
-                        size: 30,
-                        color: Color(appController.primaryColor.value),
-                      ),
-                      onPressed: () {},
+                    Icon(
+                      Icons.star,
+                      size: 30,
+                      color: Color(appController.primaryColor.value),
                     ),
                   ],
                 ),
@@ -94,19 +92,33 @@ class _HeaderPartState extends State<HeaderPart> {
           ),
         ),
         const SizedBox(height: 10),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Color(appController.accentColor.value)),
-          ),
-          child: Text(
-            'الماركة : ' + "${controller.productDetails.value.brand.name}",
-            style: Theme.of(context).textTheme.subtitle2.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Color(appController.accentColor.value),
-                ),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border:
+                    Border.all(color: Color(appController.accentColor.value)),
+              ),
+              child: Text(
+                'الماركة : ' + "${controller.productDetails.value.brand.name}",
+                style: Theme.of(context).textTheme.subtitle2.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Color(appController.accentColor.value),
+                    ),
+              ),
+            ),
+            const SizedBox(width: 20),
+            Text(
+              (checkExisting()) ? 'exist'.tr : 'not exist'.tr,
+              style: TextStyle(
+                  color: (checkExisting())
+                      ? Theme.of(context).accentColor
+                      : Colors.red),
+            ),
+          ],
         ),
       ],
     );

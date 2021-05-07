@@ -7,6 +7,7 @@ import 'package:smartcommerce/pages/product_details/components/cross_sales_part.
 import 'package:smartcommerce/pages/product_details/components/related_sales_part.dart';
 import 'package:smartcommerce/pages/product_details/components/upsales_part.dart';
 import 'package:smartcommerce/utils/helper/default_helper.dart';
+import 'package:smartcommerce/widgets/check_existance.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:smartcommerce/widgets/progress.dart';
 
@@ -102,8 +103,10 @@ class ProductDetails extends StatelessWidget {
                                 contoller.productDetails.value.id)) {
                               Helper.showToast("Already In Cart".tr, context);
                             } else {
-                              cartController
-                                  .fromProduct(contoller.productDetails.value);
+                              if (checkExisting()) {
+                                cartController.fromProduct(
+                                    contoller.productDetails.value);
+                              }
                             }
                           },
                           height: 50,
