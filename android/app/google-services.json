@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "707497981022",
-    "project_id": "smart-commerce-5cc5f",
-    "storage_bucket": "smart-commerce-5cc5f.appspot.com"
+    "project_number": "900270196473",
+    "project_id": "market-store-1612870584363",
+    "storage_bucket": "market-store-1612870584363.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:707497981022:android:6c1e8b1098759afecef0cf",
+        "mobilesdk_app_id": "1:900270196473:android:86af79bfc0aa4a995f8428",
         "android_client_info": {
-          "package_name": "com.egtaz.smart.commerce"
+          "package_name": "com.egtaz.marketstore"
         }
       },
       "oauth_client": [
         {
-          "client_id": "707497981022-s3scfnoh5o888e95imr4lpl3m46nl3vt.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.egtaz.smart.commerce",
-            "certificate_hash": "2ffd52a4433fdfb25d52b5ce80f679c6bdce66a3"
-          }
-        },
-        {
-          "client_id": "707497981022-2qpqokutkk6htioenjjga0l5hh7igo65.apps.googleusercontent.com",
+          "client_id": "900270196473-es0r2d5t9s2bigj1v4flb6sa8rnmcr4a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCGJwuKiedL5a2FqljAnrUsntJycpADT78"
+          "current_key": "AIzaSyBvehS1T9ibEIPygweh80xUJRKUMC0CxS4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "707497981022-2qpqokutkk6htioenjjga0l5hh7igo65.apps.googleusercontent.com",
+              "client_id": "900270196473-es0r2d5t9s2bigj1v4flb6sa8rnmcr4a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -44,35 +36,43 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:707497981022:android:d6523c67c93dd09bcef0cf",
+        "mobilesdk_app_id": "1:900270196473:android:e3585c1e43153d145f8428",
         "android_client_info": {
-          "package_name": "com.egtaz.smartcommerce"
+          "package_name": "com.egtaz.smart.commerce.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "707497981022-g12skco13898afnp6h8g22bqnleku5kd.apps.googleusercontent.com",
+          "client_id": "900270196473-73ccsoj99qv12fa4ciscruv806lgaiq3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.egtaz.smartcommerce",
+            "package_name": "com.egtaz.smart.commerce.app",
+            "certificate_hash": "df59fd83dafa6a9124d0ab281cf8b24b60ffcae4"
+          }
+        },
+        {
+          "client_id": "900270196473-92f0sjsbpkpgsp2312fqf8p13kv0ohsm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.egtaz.smart.commerce.app",
             "certificate_hash": "2ffd52a4433fdfb25d52b5ce80f679c6bdce66a3"
           }
         },
         {
-          "client_id": "707497981022-2qpqokutkk6htioenjjga0l5hh7igo65.apps.googleusercontent.com",
+          "client_id": "900270196473-es0r2d5t9s2bigj1v4flb6sa8rnmcr4a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCGJwuKiedL5a2FqljAnrUsntJycpADT78"
+          "current_key": "AIzaSyBvehS1T9ibEIPygweh80xUJRKUMC0CxS4"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "707497981022-2qpqokutkk6htioenjjga0l5hh7igo65.apps.googleusercontent.com",
+              "client_id": "900270196473-es0r2d5t9s2bigj1v4flb6sa8rnmcr4a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

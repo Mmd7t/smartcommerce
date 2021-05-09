@@ -4,10 +4,13 @@ import 'package:smartcommerce/utils/db/notification_db.dart';
 import 'package:smartcommerce/utils/pref/notification_count.dart';
 
 class NotificationController extends GetxController {
-  NotificationDB db = NotificationDB();
   RxList<NotificationModule> notifications = RxList<NotificationModule>();
+  RxBool loading = RxBool(false);
 
   addNotification(msg) async {
+    NotificationDB db = NotificationDB();
+    await db.init();
+
     NotificationModule notification = NotificationModule.fromJson(
         msg, await NotificationCountStorage.getNotificationCount());
     db.addNotification(notification);
@@ -16,11 +19,21 @@ class NotificationController extends GetxController {
   }
 
   Future<void> getUserNotification() async {
+    NotificationDB db = NotificationDB();
+    await db.init();
+
+    loading.value = true;
+    if (!(db.db.isOpen)) {
+      await db.init();
+    }
     List<NotificationModule> ret = [];
     ret = await db.getNotifications();
     ret.sort((a, b) => b.time.compareTo(a.time));
+
+    notifications.clear();
     notifications.addAll(ret);
     notifications.sort((a, b) => b.time.compareTo(a.time));
+    loading.value = false;
   }
 
   int getUnreadCount() {
@@ -30,6 +43,9 @@ class NotificationController extends GetxController {
   }
 
   readAll() async {
+    NotificationDB db = NotificationDB();
+    await db.init();
+
     if (notifications.isNotEmpty) {
       for (int index = 0; index < notifications.length; index++) {
         notifications[index].read = true;
@@ -40,15 +56,18 @@ class NotificationController extends GetxController {
     }
   }
 
-  void clearAll() {
+  void clearAll() async {
+    NotificationDB db = NotificationDB();
+    await db.init();
+
     notifications.clear();
     db.deleteNotifications();
   }
 
-  @override
-  void onInit() async {
+  initAll() async {
+    NotificationDB db = NotificationDB();
+
     await db.init();
     getUserNotification();
-    super.onInit();
   }
 }

@@ -35,6 +35,18 @@ class NotificationModule {
     print("done parsing");
   }
 
+  NotificationModule.fromBackGround(Map data, int newId) {
+    title = data["title"] ?? "";
+    id = newId;
+    subTitle = data["body"] ?? "";
+    image = "";
+    read = false;
+    time = DateTime.now();
+    status = "";
+    order = "";
+    print("done parsing");
+  }
+
   Map<String, dynamic> toMap(NotificationModule notificationModule) {
     String newTime = notificationModule.time.toIso8601String();
     Map<String, dynamic> ret = {

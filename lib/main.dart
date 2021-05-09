@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/pages/onboarding/onboarding_page.dart';
 import 'package:smartcommerce/utils/app_routes.dart';
 import 'package:smartcommerce/utils/db/notification_db.dart';
+import 'package:smartcommerce/utils/helper/notification.dart';
 import 'package:smartcommerce/utils/pref/notification_count.dart';
 import 'package:smartcommerce/utils/theme.dart';
 
@@ -19,8 +19,11 @@ import 'translations/translations.dart';
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   NotificationDB db = NotificationDB();
   await db.init();
-  db.addNotification(NotificationModule.fromJson(
-      message, await NotificationCountStorage.getNotificationCount()));
+  print(message.toMap());
+  showNotification(message);
+
+  db.addNotification(NotificationModule.fromBackGround(
+      message.data, await NotificationCountStorage.getNotificationCount()));
   db.close();
 }
 
@@ -35,16 +38,16 @@ void main() async {
   ));
   await Firebase.initializeApp();
   FCMConfig().init(onBackgroundMessage: _firebaseMessagingBackgroundHandler);
-  // runApp(
-  //   MyApp(),
-  // );
-  await SentryFlutter.init(
-    (options) {
-      options.dsn =
-          'https://7e68570c32974100b9a506dc0a8e1808@o188831.ingest.sentry.io/5753297';
-    },
-    appRunner: () => runApp(MyApp()),
+  runApp(
+    MyApp(),
   );
+  // await SentryFlutter.init(
+  //   (options) {
+  //     options.dsn =
+  //         'https://7e68570c32974100b9a506dc0a8e1808@o188831.ingest.sentry.io/5753297';
+  //   },
+  //   appRunner: () => runApp(MyApp()),
+  // );
 }
 
 class MyApp extends StatelessWidget {

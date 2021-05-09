@@ -339,20 +339,19 @@ class CartController extends GetxController {
           .toString());
     }
 
-    data["products_ids[]"] = ids;
-    data["products_price[]"] = prices;
-    data["products_qty[]"] = quantitys;
-    data["products_total[]"] = totals;
+    data["products_ids"] = ids;
+    data["products_price"] = prices;
+    data["products_qty"] = quantitys;
+    data["products_total"] = totals;
     data["api_token"] = Get.put(AuthController()).apiToken.value;
     data["mobile_token"] = await FirebaseMessaging.instance.getToken();
 
     HttpResponse response = await client.orderConfirmation(data);
     if (response != null) {
-      if (response.data.containsKey("success")) {
+      if (response.data["message"] == "saved succeffly") {
         ret = true;
       }
     }
-
     sendingOrder.value = false;
 
     return ret;

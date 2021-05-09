@@ -104,7 +104,7 @@ class SocialHelper {
       final facebookLogin = FacebookLogin();
       await facebookLogin.logOut();
 
-      facebookLogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
+      facebookLogin.loginBehavior = FacebookLoginBehavior.nativeWithFallback;
       FacebookLoginResult result = await facebookLogin.logIn(['email']);
       print(result.status);
       print(result.errorMessage);
@@ -117,7 +117,7 @@ class SocialHelper {
           bool success = await Get.put(AuthController()).loginSocialData(
               profile["name"].toString(), "", profile["email"].toString(), "");
 
-          if (success != null) {
+          if (success == null) {
             Helper.showSnackBar("facebookSignInError".tr, "tryAgainLater".tr);
           } else {
             ret = true;

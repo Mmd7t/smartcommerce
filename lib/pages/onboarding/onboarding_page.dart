@@ -9,7 +9,6 @@ import 'package:smartcommerce/controllers/cart_controller.dart';
 import 'package:smartcommerce/controllers/category_controller.dart';
 import 'package:smartcommerce/controllers/flashsale_controller.dart';
 import 'package:smartcommerce/controllers/home_controller.dart';
-import 'package:smartcommerce/controllers/notification_controller.dart';
 import 'package:smartcommerce/controllers/products_controller.dart';
 import 'package:smartcommerce/controllers/search_controller.dart';
 import 'package:smartcommerce/controllers/static_pages_controller.dart';
@@ -41,7 +40,6 @@ class _OnBoardingPageState extends State<OnBoardingPage>
     await Get.put(AppController(), permanent: true).getUrl();
     await LanguageHelper.uploadLanguage();
     Get.put(AuthController(), permanent: true).getUserProfile();
-    Get.put(NotificationController(), permanent: true);
     Get.put(CartController(), permanent: true).initDB();
     CategoryController category =
         Get.put(CategoryController(), permanent: true);

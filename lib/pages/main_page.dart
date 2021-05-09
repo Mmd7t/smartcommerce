@@ -1,9 +1,11 @@
 import 'package:fcm_config/fcm_config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:smartcommerce/controllers/app_controller.dart';
 import 'package:smartcommerce/controllers/auth_controller.dart';
 import 'package:smartcommerce/controllers/notification_controller.dart';
+import 'package:smartcommerce/utils/helper/notification.dart';
 import 'package:smartcommerce/widgets/drawer.dart';
 import 'package:smartcommerce/widgets/global_appbar.dart';
 import 'package:smartcommerce/widgets/rounded_bottom_sheet.dart';
@@ -24,6 +26,9 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+  var android = AndroidInitializationSettings("@mipmap/ic_launcher");
+  var ios = IOSInitializationSettings();
+  FlutterLocalNotificationsPlugin local = FlutterLocalNotificationsPlugin();
 
   final AppController appController = Get.find<AppController>();
   final List<Widget> pages = [
@@ -45,12 +50,17 @@ class _MainPageState extends State<MainPage> {
 
     Get.put(NotificationController()).getUserNotification();
 
+    var platform = InitializationSettings(android: android, iOS: ios);
+    local.initialize(platform);
+
     firebaseMessaging.setAutoInitEnabled(true);
     firebaseMessaging.setForegroundNotificationPresentationOptions(
         alert: true, badge: true, sound: true);
     FirebaseMessaging.onMessage.listen((message) {
       saveMessage(message);
+      showNotification(message);
     });
+
     firebaseMessaging.requestPermission(
         sound: true,
         badge: true,

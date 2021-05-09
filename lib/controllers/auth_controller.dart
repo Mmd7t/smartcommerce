@@ -109,7 +109,7 @@ class AuthController extends GetxController {
 /*--------------------------------------------------------------------------------------*/
 
   logOut(bool reload) {
-    updateToken("");
+    updateToken("dd");
     SharedPrefsHelper.removeToken();
     if (reload) {
       Get.offAllNamed(Registration.routeName);

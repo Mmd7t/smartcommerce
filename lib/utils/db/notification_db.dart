@@ -44,10 +44,8 @@ class NotificationDB {
   }
 
   addNotification(NotificationModule notification) async {
-    if (!db.isOpen) {
-      return await db.insert("Notification", notification.toMap(notification));
-    }
-  }
+       return await db.insert("Notification", notification.toMap(notification));
+   }
 
   updateSelectedNotification(NotificationModule notification) async {
     return await db.update(
