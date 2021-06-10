@@ -40,8 +40,12 @@ class CartController extends GetxController {
   }
 
   Future<Coupon> verifyCoupon(String code) async {
-    Coupon coupon = await client.getCouponData(code);
-
+    Coupon coupon;
+    try {
+      coupon = await client.getCouponData(code);
+    } catch (e) {
+      print(e);
+    }
     return coupon;
   }
 
