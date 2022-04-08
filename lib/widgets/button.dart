@@ -51,7 +51,7 @@ class _RegisterButtonState extends State<RegisterButton> {
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
-                            .display1
+                            .headline4
                             .copyWith(color: Colors.white, fontSize: 15),
                       ),
                     ),
@@ -106,7 +106,7 @@ class _AppIconButtonState extends State<AppIconButton> {
             textAlign: TextAlign.center,
             style: Theme.of(context)
                 .textTheme
-                .display1
+                .headline4
                 .copyWith(color: Colors.white),
           ),
           style: ButtonStyle(
@@ -175,7 +175,7 @@ class _OutlinedButtonAppState extends State<OutlinedButtonApp> {
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .textTheme
-                              .display1
+                              .headline4
                               .copyWith(color: widget.color),
                         ),
                       ),
@@ -210,7 +210,7 @@ class LanguageButton extends StatelessWidget {
           child: Text(
             text,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.display1.copyWith(color: color),
+            style: Theme.of(context).textTheme.headline4.copyWith(color: color),
             maxLines: 1,
           ),
         ),
@@ -255,7 +255,7 @@ class _AppAddButtonState extends State<AppAddButton> {
                     widget.text,
                     style: Theme.of(context)
                         .textTheme
-                        .body2
+                        .bodyText1
                         .copyWith(color: Colors.white),
                   ),
           ),

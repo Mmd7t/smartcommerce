@@ -21,7 +21,7 @@ class UserAddressDataWidget extends StatelessWidget {
                 "addAddress".tr,
                 style: Theme.of(context)
                     .textTheme
-                    .body1
+                    .bodyText2
                     .copyWith(color: Theme.of(context).errorColor),
               ),
               trailing: Icon(Icons.arrow_forward_ios_outlined),
@@ -47,7 +47,7 @@ class UserAddressDataWidget extends StatelessWidget {
                   ),
                   Text(
                     '${address.selectedAddress.phoneNumber}',
-                    style: Theme.of(context).textTheme.body1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: Theme.of(context).textTheme.caption.color),
                   ),
                 ],
@@ -58,12 +58,12 @@ class UserAddressDataWidget extends StatelessWidget {
                 children: [
                   Text(
                     '${address.selectedAddress.city}',
-                    style: Theme.of(context).textTheme.body1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: Theme.of(context).textTheme.caption.color),
                   ),
                   Text(
                     '${address.selectedAddress.addressLine}  ${address.selectedAddress.zipCode}',
-                    style: Theme.of(context).textTheme.body1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: Theme.of(context).textTheme.caption.color),
                   ),
                 ],

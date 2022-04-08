@@ -28,7 +28,7 @@ class NotificationCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       notification.title,
-                      style: Theme.of(context).textTheme.subhead,
+                      style: Theme.of(context).textTheme.subtitle1,
                     ),
                     customTimeAgo(
                         dateTime: notification.time, context: context),

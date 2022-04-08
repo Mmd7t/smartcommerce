@@ -21,7 +21,7 @@ shippingBagDetailsMBS(
                 children: [
                   Text(
                     "shippingBag".tr,
-                    style: Theme.of(context).textTheme.body1.copyWith(
+                    style: Theme.of(context).textTheme.bodyText2.copyWith(
                         color: Theme.of(context).textTheme.caption.color),
                   ),
                   Spacer(),

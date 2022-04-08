@@ -53,7 +53,7 @@ class _ApplyCouponState extends State<ApplyCoupon> {
                         "coupon Title".tr +
                             " " +
                             widget.coupon.name[Get.locale.languageCode],
-                        style: Theme.of(context).textTheme.title.copyWith(
+                        style: Theme.of(context).textTheme.headline6.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                             foreground: Paint()
@@ -91,7 +91,7 @@ class _ApplyCouponState extends State<ApplyCoupon> {
                         "discount".tr +
                             " " +
                             widget.coupon.valueAmount.toString(),
-                        style: Theme.of(context).textTheme.title.copyWith(
+                        style: Theme.of(context).textTheme.headline6.copyWith(
                             fontWeight: FontWeight.bold,
                             fontSize: 14,
                             foreground: Paint()

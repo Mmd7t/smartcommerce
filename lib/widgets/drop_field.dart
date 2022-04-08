@@ -31,7 +31,7 @@ class DropDownFormField extends FormField<dynamic> {
       : super(
           onSaved: onSaved,
           validator: validator,
-          autovalidate: autoValidate,
+          autovalidateMode: AutovalidateMode.always,
           initialValue: value == '' ? null : value,
           builder: (FormFieldState<dynamic> state) {
             return Container(
@@ -42,7 +42,7 @@ class DropDownFormField extends FormField<dynamic> {
                     titleText,
                     style: Theme.of(context)
                         .textTheme
-                        .body2
+                        .bodyText1
                         .copyWith(color: Theme.of(context).primaryColor),
                   ),
                   SizedBox(

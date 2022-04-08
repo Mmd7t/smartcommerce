@@ -10,7 +10,7 @@ class Helper {
       child: Text("${price.toStringAsFixed(1)} $priceTag",
           style: style != null
               ? style
-              : Theme.of(context).textTheme.title.copyWith(fontSize: 18)),
+              : Theme.of(context).textTheme.headline6.copyWith(fontSize: 18)),
     );
   }
 

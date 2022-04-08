@@ -21,7 +21,7 @@ class EmptyNotifications extends StatelessWidget {
               Text("noNotifications".tr,
                   style: Theme.of(context)
                       .textTheme
-                      .display3
+                      .headline2
                       .copyWith(color: Get.theme.primaryColor),
                   textAlign: TextAlign.center),
             ],
